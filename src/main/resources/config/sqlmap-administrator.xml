@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="AdministratorpageDAO">
+
+	<select id="listOfMember" resultType="member">
+		SELECT * FROM MEMBER ORDER BY MEM_REGDATE DESC
+	</select>
+
+	<select id="countMember" resultType="int">
+		SELECT COUNT(*) FROM MEMBER
+	</select>
+
+	<delete id="deleteMember" parameterType="HashMap">
+		DELETE FROM MEMBER WHERE
+		MEM_NUM=#{MEM_NUM} AND (SELECT ADM_PASS FROM
+		ADMINISTRATOR WHERE
+		ADM_EMAIL=#{ADM_EMAIL})=#{ADM_PASS}
+	</delete>
+
+	<delete id="deleteCommentByAdm" parameterType="HashMap">
+		DELETE FROM APPRAISAL
+		WHERE APPRAISAL_NUM=#{APPRAISAL_NUM} AND (SELECT ADM_PASS FROM
+		ADMINISTRATOR WHERE
+		ADM_EMAIL=#{ADM_EMAIL})=#{ADM_PASS}
+	</delete>
+
+	<select id="searchMember" parameterType="member"
+		resultType="member">
+		<if test="option.equals('mem_num')">SELECT * FROM MEMBER WHERE MEM_NUM LIKE
+			'%'||#{keyword}||'%' ORDER BY MEM_REGDATE DESC</if>
+		<if test="option.equals('mem_name')">SELECT * FROM MEMBER WHERE MEM_NAME LIKE
+			'%'||#{keyword}||'%' ORDER BY MEM_REGDATE DESC</if>
+		<if test="option.equals('mem_email')">SELECT * FROM MEMBER WHERE MEM_EMAIL LIKE
+			'%'||#{keyword}||'%' ORDER BY MEM_REGDATE DESC</if>
+		<if test="option==null or option.equals(' ')">1=1</if>
+	</select>
+
+	<select id="listOfAdmin" resultType="admin">
+		SELECT * FROM ADMINISTRATOR
+		ORDER
+		BY ADM_REGDATE DESC
+	</select>
+
+	<select id="countAdmin" resultType="int">
+		SELECT COUNT(*) FROM
+		ADMINISTRATOR
+	</select>
+
+	<select id="searchAdmin" parameterType="admin"
+		resultType="admin">
+		<if test="admOption.equals('adm_num')">SELECT * FROM ADMINISTRATOR WHERE ADM_NUM LIKE
+			'%'||#{admKeyword}||'%' ORDER BY ADM_REGDATE DESC</if>
+		<if test="admOption.equals('adm_name')">SELECT * FROM ADMINISTRATOR WHERE ADM_NAME LIKE
+			'%'||#{admKeyword}||'%' ORDER BY ADM_REGDATE DESC</if>
+		<if test="admOption.equals('adm_email')">SELECT * FROM ADMINISTRATOR WHERE ADM_EMAIL LIKE
+			'%'||#{admKeyword}||'%' ORDER BY ADM_REGDATE DESC</if>
+		<if test="admOption==null or admOption.equals(' ')">1=1</if>
+	</select>
+
+	<select id="listOfAppraisal" resultType="loa">
+		SELECT a.APPRAISAL_NUM,m.MEM_ID,
+		a.STAR,a.BOOK_COMMENT,b.ISBN FROM MEMBER m,APPRAISAL a,BOOKSHELF b
+		where m.MEM_NUM=b.MEM_NUM
+		and b.BOOK_STATUS_NUM=a.BOOK_STATUS_NUM
+	</select>
+
+	<select id="countStar" resultType="int">
+		SELECT COUNT(*) FROM APPRAISAL
+		WHERE STAR IS NOT NULL
+	</select>
+
+	<select id="countComment" resultType="int">
+		SELECT COUNT(*) FROM
+		APPRAISAL WHERE BOOK_COMMENT IS NOT NULL
+	</select>
+
+	<select id="searchComments" parameterType="loa" resultType="loa">
+		<if test="coOption.equals('mem_id')">SELECT
+			APPRAISAL.APPRAISAL_NUM,MEMBER.MEM_ID,APPRAISAL.STAR,APPRAISAL.BOOK_COMMENT,BOOKSHELF.ISBN
+			FROM BOOKSHELF
+			INNER JOIN APPRAISAL ON BOOKSHELF.BOOK_STATUS_NUM =
+			APPRAISAL.BOOK_STATUS_NUM
+			INNER JOIN MEMBER ON BOOKSHELF.MEM_NUM =
+			MEMBER.MEM_NUM WHERE
+			MEMBER.MEM_ID LIKE '%'||#{coKeyword}||'%'</if>
+		<if test="coOption.equals('comment')">SELECT
+			APPRAISAL.APPRAISAL_NUM,MEMBER.MEM_ID,APPRAISAL.STAR,APPRAISAL.BOOK_COMMENT,BOOKSHELF.ISBN
+			FROM BOOKSHELF
+			INNER JOIN APPRAISAL ON BOOKSHELF.BOOK_STATUS_NUM =
+			APPRAISAL.BOOK_STATUS_NUM
+			INNER JOIN MEMBER ON BOOKSHELF.MEM_NUM =
+			MEMBER.MEM_NUM WHERE
+			APPRAISAL.BOOK_COMMENT LIKE
+			'%'||#{coKeyword}||'%'</if>
+		<if test="coOption==null or coOption.equals(' ')">1=1</if>
+	</select>
+</mapper>

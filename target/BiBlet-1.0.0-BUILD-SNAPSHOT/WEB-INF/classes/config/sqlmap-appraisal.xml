@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="AppraisalDAO">
+	
+	<insert id="insertBookShelf" parameterType="bookShelf">
+	INSERT INTO bookshelf(book_status_num, book_status, mem_num, isbn) VALUES(bookshelf_SEQ.nextval, #{book_status}, #{mem_num}, #{isbn})
+	</insert>
+	
+	<select id="selectBookShelf" parameterType="bookShelf" resultType="bookShelf">
+	SELECT * FROM bookshelf WHERE isbn=#{isbn} AND mem_num=#{mem_num} AND bookshelf.book_status = 2
+	</select>
+	
+	<insert id="writeComment" parameterType="insertComment">
+	INSERT INTO appraisal(appraisal_num, star, book_comment, start_date, end_date, co_prv, book_status_num)
+	 VALUES(appraisal_SEQ.nextval, #{star}, #{book_comment}, #{start_date}, #{end_date}, #{co_prv}, #{book_status_num})
+	</insert>
+	
+	
+	<select id="findAllComment" parameterType="String" resultType="allComment">
+<!--     MEMBER,APPRAISAL 조인     -->
+	SELECT 
+	 appraisal.appraisal_num,
+ 	 appraisal.star,
+ 	 appraisal.book_comment,
+ 	 appraisal.start_date,
+ 	 appraisal.end_date,
+ 	 appraisal.book_status_num,
+ 	 member.mem_id,
+ 	 member.mem_pic,
+ 	 member.mem_pass
+	FROM bookshelf
+	INNER JOIN appraisal ON bookshelf.book_status_num = appraisal.book_status_num
+	INNER JOIN member ON bookshelf.mem_num = member.mem_num
+	WHERE bookshelf.isbn=#{isbn} AND appraisal.co_prv='공개'
+	</select>
+	
+	
+	<select id="commentCount" parameterType="String" resultType="Integer">
+	SELECT 
+	 COUNT(appraisal.book_comment)
+    FROM bookshelf
+    INNER JOIN appraisal ON bookshelf.book_status_num = appraisal.book_status_num
+    WHERE bookshelf.isbn=#{isbn} AND appraisal.co_prv='공개'
+	</select>
+	
+	
+	<delete id="deleteComment" parameterType="deleteComment">
+	DELETE FROM bookshelf WHERE book_status_num=
+	(SELECT book_status_num FROM appraisal WHERE appraisal_num=#{appraisal_num}) 
+	</delete>
+	
+	<update id="updateComment" parameterType="updateComment">
+	UPDATE appraisal SET
+	star=#{star}, book_comment=#{book_comment}, start_date=#{start_date}, end_date=#{end_date}, co_prv=#{co_prv}
+	WHERE appraisal_num=#{appraisal_num} AND book_status_num=#{book_status_num}
+	</update>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

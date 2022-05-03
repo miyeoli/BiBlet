@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+  http://www.springframework.org/schema/beans/spring-beans.xsd
+  http://www.springframework.org/schema/context
+  http://www.springframework.org/schema/context/spring-context.xsd
+  http://www.springframework.org/schema/aop
+  http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+  http://www.springframework.org/schema/tx
+  http://www.springframework.org/schema/tx/spring-tx.xsd
+  http://www.springframework.org/schema/mvc
+  http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd">
+
+	<tx:annotation-driven
+		transaction-manager="transactionManager" />
+
+	<mvc:annotation-driven />
+	<!-- 컨트롤러 어노테이션을 사용하여 컨트롤러를 이용하기 위한 설정 -->
+
+	<mvc:default-servlet-handler />
+	<!-- dispatcherServlet의 매핑경로를 '/' 로 설정시 웹 소스를 처리하기 위한 설정 =>web.xml -->
+
+	<bean id="dataSource"
+		class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="oracle.jdbc.OracleDriver"></property>
+		<property name="jdbcUrl"
+			value="jdbc:oracle:thin:@itthis.kr:1521:xe"></property>
+		<property name="user" value="urimkim"></property>
+		<property name="password" value="1234"></property>
+		<property name="maxPoolSize" value="100"></property>
+		<property name="maxIdleTime" value="600"></property>
+		<property name="idleConnectionTestPeriod" value="300"></property>
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation"
+			value="classpath:config/mybatis-config.xml"></property>
+		<property name="mapperLocations">
+			<list>
+				<value>classpath:config/sqlmap-appraisal.xml</value>
+				<value>classpath:config/sqlmap-main.xml</value>
+				<value>classpath:config/sqlmap-mypage.xml</value>
+				<value>classpath:config/sqlmap-administrator.xml</value>
+				<value>classpath:config/sqlmap-login.xml</value>
+				<value>classpath:config/sqlmap-regist.xml</value>
+				
+			</list>
+		</property>
+	</bean>
+
+	<bean id="sqlSessionTemplate"
+		class="org.mybatis.spring.SqlSessionTemplate"
+		destroy-method="clearCache">
+		<constructor-arg name="sqlSessionFactory"
+			ref="sqlSessionFactory"></constructor-arg>
+	</bean>
+	
+	<!-- 메일보내기 -->
+	<bean id="emailSendService"
+		class="a.b.c.service.MailSendService">
+	</bean>
+	
+	<bean id="mailSender"
+		class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="dbflarla496695@gmail.com" />
+		<property name="password" value="DBdbflarla?!" />
+
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- label.properties를 이용하는 MessageSource Bean을 만든다 -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>message.message</value>
+			</list>
+		</property>
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+</beans>

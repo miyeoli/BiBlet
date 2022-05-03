@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="RegisterDAO">
+
+	<insert id="memRegister" parameterType="member">
+		INSERT INTO MEMBER
+		(mem_num,mem_name,mem_id,mem_pass,mem_regdate,mem_email)
+		VALUES
+		(MEMBER_SEQ.nextval,#{mem_name},#{mem_id},#{mem_pass},sysdate,#{mem_email})
+	</insert>
+
+	<insert id="admRegist" parameterType="admin">
+		INSERT INTO ADMINISTRATOR
+		(adm_num,adm_name,adm_id,adm_pass,adm_regdate,adm_email,securitycode)
+		VALUES
+		(ADMINISTRATOR_SEQ.nextval,'abc',#{adm_id},#{adm_pass},sysdate,#{adm_email},#{securitycode})
+	</insert>
+
+	<update id="updateKey" parameterType="HashMap">
+		UPDATE MEMBER SET
+		authkey=#{authkey} WHERE mem_email=#{mem_email}
+	</update>
+
+	<update id="updateStatus" parameterType="member">
+		UPDATE MEMBER SET
+		authstatus='1' WHERE authkey=#{authkey} and mem_email=#{mem_email}
+	</update>
+
+	<update id="updateAdmKey" parameterType="HashMap">
+		UPDATE ADMINISTRATOR SET
+		adm_authkey=#{adm_authkey} WHERE adm_email=#{adm_email}
+	</update>
+
+	<update id="updateAdmStatus" parameterType="admin">
+		UPDATE ADMINISTRATOR SET
+		adm_authstatus='1' WHERE adm_authkey=#{adm_authkey} and adm_email=#{adm_email}
+	</update>
+
+	<select id="memEmailChk" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM MEMBER WHERE mem_email=#{mem_email}
+	</select>
+
+	<select id="memIdChk" parameterType="String" resultType="int">
+		SELECT
+		COUNT(*) FROM MEMBER WHERE mem_id=#{mem_id}
+	</select>
+	
+	<select id="admEmailChk" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM ADMINISTRATOR WHERE adm_email=#{adm_email}
+	</select>
+
+	<select id="admIdChk" parameterType="String" resultType="int">
+		SELECT
+		COUNT(*) FROM ADMINISTRATOR WHERE adm_id=#{adm_id}
+	</select>
+</mapper>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MypageDAO">
+	
+	<select id="memberInfo" parameterType="Long" resultType="member">
+	SELECT * FROM member WHERE mem_num=#{mem_num}
+	</select>
+	
+	<update id="updateMemInfo" parameterType="member">
+	UPDATE member SET mem_name=#{mem_name}, mem_id=#{mem_id}, mem_pass=#{mem_pass}, mem_email=#{mem_email} WHERE mem_num=#{mem_num}
+	</update>
+	
+	<delete id="deleteMemInfo" parameterType="Long">
+	delete member WHERE mem_num=#{mem_num}
+	</delete>
+	
+	
+	<select id="selectMemComment" parameterType="Long" resultType="allComment">
+<!--     MEMBER,APPRAISAL 조인     -->
+	SELECT 
+	 appraisal.appraisal_num,
+ 	 appraisal.star,
+ 	 appraisal.book_comment,
+ 	 appraisal.start_date,
+ 	 appraisal.end_date,
+ 	 appraisal.book_status_num,
+ 	 member.mem_id,
+ 	 member.mem_pic
+	FROM bookshelf
+	INNER JOIN appraisal ON bookshelf.book_status_num = appraisal.book_status_num
+	INNER JOIN member ON bookshelf.mem_num = member.mem_num
+	WHERE member.mem_num=#{mem_num}
+	</select>
+	
+	<select id="memCommentCount" parameterType="Long" resultType="Integer">
+	SELECT 
+	 COUNT(appraisal.book_comment)
+    FROM bookshelf
+    INNER JOIN appraisal ON bookshelf.book_status_num = appraisal.book_status_num
+    WHERE mem_num=#{mem_num}
+	</select>
+	
+	<select id="memLikeCount" parameterType="Long" resultType="Integer">
+	SELECT COUNT(*) FROM bookshelf WHERE book_status=0 AND mem_num=#{mem_num}
+	</select>
+	
+	<select id="likeIsbn" parameterType="Long" resultType="String">
+	SELECT isbn FROM bookshelf WHERE book_status=0 AND mem_num=#{mem_num}
+	</select>
+	
+	<select id="memLeadingCount" parameterType="Long" resultType="Integer">
+	SELECT COUNT(*) FROM bookshelf WHERE book_status=1 AND mem_num=#{mem_num}
+	</select>
+	
+	<select id="leadingIsbn" parameterType="Long" resultType="String">
+	SELECT isbn FROM bookshelf WHERE book_status=1 AND mem_num=#{mem_num}
+	</select>
+	
+	<select id="completeIsbn" parameterType="Long" resultType="complete">
+	SELECT 
+     bookshelf.isbn,
+ 	 appraisal.appraisal_num
+	FROM bookshelf
+	INNER JOIN appraisal ON appraisal.book_status_num = bookshelf.book_status_num
+	INNER JOIN member ON bookshelf.mem_num = member.mem_num
+    WHERE bookshelf.book_status=2 AND member.mem_num=#{mem_num}
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

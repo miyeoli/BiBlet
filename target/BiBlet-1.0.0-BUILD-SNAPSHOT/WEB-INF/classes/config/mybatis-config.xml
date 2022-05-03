@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<!-- mybatis 작동 규칙 정의 -->
+	<settings>
+		<setting name="cacheEnabled" value="false"/>
+		<setting name="useGeneratedKeys" value="false"/>
+<!-- 	<setting name="mapUnderscoreToCamelCase" value="true"/> -->
+	</settings>
+	
+<!-- 	자주 사용하는 VO 정보 - alias : 별칭  -->
+	<typeAliases>
+		<typeAlias alias="member" type="a.b.c.model.MemberVO"/>
+		<typeAlias alias="insertComment" type="a.b.c.model.AppraisalVO"/>
+		<typeAlias alias="bookShelf" type="a.b.c.model.BookShelfVO"/>
+		<typeAlias alias="allComment" type="a.b.c.model.AllCommentCmd"/>
+		<typeAlias alias="updateComment" type="a.b.c.model.UpdateCmd"/>
+		<typeAlias alias="deleteComment" type="a.b.c.model.DeleteCmd"/>
+		<typeAlias alias="complete" type="a.b.c.model.CompleteCmd"/>
+		<typeAlias alias="loa" type="a.b.c.model.CommandListAppr"/>
+		<typeAlias alias="admin" type="a.b.c.model.AdministratorVO"/>
+	</typeAliases>
+</configuration>
