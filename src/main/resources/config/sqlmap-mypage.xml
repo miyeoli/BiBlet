@@ -9,9 +9,9 @@
 	</select>
 	
 	<update id="updateMemInfo" parameterType="member">
-	UPDATE member SET mem_name=#{mem_name}, mem_id=#{mem_id}, mem_pass=#{mem_pass}, mem_email=#{mem_email} WHERE mem_num=#{mem_num}
+	UPDATE member SET mem_pic=#{mem_pic}, mem_storedpic=#{mem_storedpic}, mem_name=#{mem_name}, mem_id=#{mem_id}, mem_pass=#{mem_pass}, mem_email=#{mem_email} WHERE mem_num=#{mem_num}
 	</update>
-	
+
 	<delete id="deleteMemInfo" parameterType="Long">
 	delete member WHERE mem_num=#{mem_num}
 	</delete>

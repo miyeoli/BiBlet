@@ -2,6 +2,10 @@ package a.b.c.repository;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import a.b.c.model.AllCommentCmd;
 import a.b.c.model.CompleteCmd;
 import a.b.c.model.MemberVO;

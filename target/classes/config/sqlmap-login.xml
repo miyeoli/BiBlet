@@ -14,4 +14,9 @@
   		SELECT * FROM ADMINISTRATOR WHERE adm_id=#{adm_id}
  	</select>
  	
+ 	<!-- 아이디 찾기 -->
+ 	<select id="findById" parameterType="String" resultType="String">
+  		SELECT mem_id FROM member WHERE mem_email=#{mem_email}
+ 	</select>
+ 	
 </mapper>

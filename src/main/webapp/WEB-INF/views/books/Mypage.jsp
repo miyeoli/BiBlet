@@ -17,10 +17,11 @@
 
 	<table border="1">
 		<tr>
-<!-- 			<td rowspan="6"> -->
-			<td>${myInfo.mem_pic}</td>
-<%-- 				<img src='<c:url value="/resources"/>'+"/upload/images/profile.png" width="100" height="150"/> --%>
-			
+			<td>프로필</td>
+			<td>
+			${!empty profile}
+			<div id="defaultProfile"><img src="<c:url value='/resources/image/profile.png'/>" width="220" height="170"/></div>
+			</td>
 		</tr>	
 		<tr>
 			<td>이름</td>
@@ -54,8 +55,12 @@
 
 <script>
 	
-	
-	
+	$(document).ready(function(){
+		<c:if test="${!empty profile}">
+			 $("#defaultProfile").hide();
+		</c:if>
+	});
+		
 	function infoUpdate(mem_num){
 		// 확인 팝업 창
 		if(confirm("수정하시겠습니까?")){

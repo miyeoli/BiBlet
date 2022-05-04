@@ -81,4 +81,13 @@ public class LoginServiceImpl implements LoginService {
 
 		return admin;
 	}
+
+	/**
+	 * 아이디 찾기
+	 */
+	@Override
+	public String findById(String mem_email) throws Exception {
+		return loginDAO.findById(mem_email);
+
+	}
 }

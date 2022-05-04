@@ -25,4 +25,10 @@ public class LoginDAOImpl implements LoginDAO {
 	public AdministratorVO selectByAdminId(String adm_id) {
 		return sqlSessionTemplate.selectOne("selectByAdminId", adm_id);
 	}
+
+	// 아이디 찾기
+	@Override
+	public String findById(String mem_email) {
+		return sqlSessionTemplate.selectOne("findById", mem_email);
+	}
 }

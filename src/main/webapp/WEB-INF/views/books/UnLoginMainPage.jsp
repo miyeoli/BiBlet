@@ -20,12 +20,17 @@
 		<div class="login_button">
 			<button id="login" onClick="location.href = '/member/login'">로그인</button>
 		</div>
+		
+		<div>
+		<button id="findId" onClick="location.href = '/member/findId'">아이디 찾기</button>
+		</div>
+		
 		<div>
 			<button id="adminlogin" onClick="location.href = '/admin/login'">관리자 로그인</button>
 		</div>
 		<span>
-			<button id="joinForm" onClick="location.href = '/member/signup'">회원가입</button>
-			<button id="joinForm" onClick="location.href = '/admin/signup'">관리자 회원가입</button>
+			<button id="signup" onClick="location.href = '/member/signup'">회원가입</button>
+			<button id="signup" onClick="location.href = '/admin/signup'">관리자 회원가입</button>
 		</span>
 		
 		

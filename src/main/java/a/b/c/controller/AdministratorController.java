@@ -64,7 +64,6 @@ public class AdministratorController {
 	}
 
 
-	//@ResponseBody 
 	@PostMapping("/search")
 	public String searchInfo(@ModelAttribute("member") MemberVO member, Model model) throws Exception {
 
@@ -87,7 +86,7 @@ public class AdministratorController {
 		int starcount = admPageService.countStar();
 		model.addAttribute("starcount", starcount);
 
-		return "administratorPage";
+		return "admin/admin_supervise";
 	}
 
 	@ResponseBody

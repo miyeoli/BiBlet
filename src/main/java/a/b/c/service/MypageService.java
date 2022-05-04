@@ -1,6 +1,11 @@
 package a.b.c.service;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import a.b.c.model.AllCommentCmd;
 import a.b.c.model.CompleteCmd;
@@ -10,7 +15,7 @@ public interface MypageService {
 	
 	public MemberVO memberInfo(Long num);	//회원 정보 조회
 	
-	void updateMemInfo(MemberVO newInfo);	//회원 정보 수정
+	MemberVO updateMemInfo(MemberVO newInfo, MultipartFile multipartFile, HttpServletRequest request) throws IllegalStateException, IOException;	//회원 정보 수정
 	void deleteMemInfo(Long mem_num);	//회원 탈퇴
 	
 	/**

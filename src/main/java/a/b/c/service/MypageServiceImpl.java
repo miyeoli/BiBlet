@@ -1,8 +1,14 @@
 package a.b.c.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import a.b.c.model.AllCommentCmd;
 import a.b.c.model.CompleteCmd;
@@ -24,8 +30,33 @@ public class MypageServiceImpl implements MypageService {
 	
 	//회원 정보 수정
 	@Override
-	public void updateMemInfo(MemberVO newInfo) {
+	public MemberVO updateMemInfo(MemberVO newInfo, MultipartFile multipartFile, HttpServletRequest request) throws IllegalStateException, IOException {
+		
+		//사용자가 선택한 프로필 이름 추출
+		String orgimagename = multipartFile.getOriginalFilename();
+		
+		//사용자가 선택한 프로픨 확장자 추출
+		String orgimagenameExtension = orgimagename.substring(orgimagename.lastIndexOf("."));
+		
+		//프로젝트 내 폴더에 사진 파일을 저장할 때 uuid값에 orgimagenameExtension(확장자)를 붙혀 저장 (= sjf743ifhrht32 + .png)
+		String storedimagename = UUID.randomUUID().toString().replaceAll("-", "") + orgimagenameExtension;
+		
+		//파일이 저장될 경로(서버 측)
+		String savePath = "/Users/kim-yurim/Desktop/workspace/spring/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/BiBlet/resources/image/";		
+				
+		//파일이 저장될 경로 + 최종 파일명
+		String uploadFile = savePath + storedimagename;
+		
+		//업로드요청으로 전달받은 파일을 위에서 설정한 특정 경로에 특정 파일명으로 저장
+		File file = new File(uploadFile);
+		
+		multipartFile.transferTo(file);
+		
+		newInfo.setMem_pic(orgimagename);
+		newInfo.setMem_storedpic(storedimagename);
+		
 		mypageDAO.updateMemInfo(newInfo);
+		return newInfo;
 	}
 
 	//회원 탈퇴

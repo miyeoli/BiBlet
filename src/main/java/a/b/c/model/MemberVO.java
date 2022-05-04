@@ -34,7 +34,7 @@ public class MemberVO {
 	@Email(message="올바른 이메일 형식이 아닙니다.")
 	private String mem_email;//200->한글 66자,영어200자
 
-	private String mem_pic;//null값이어도 됨
+	private String mem_pic;	//orgimgname
 
 	private String authkey;//null값이어도 됨
 
@@ -45,4 +45,8 @@ public class MemberVO {
 	private String option;
 
 	private boolean rememberId;
+	
+	private String mem_storedpic;	//폴더에 저장되는 image이름(ex:dkfiwfi)
+	
+	
 }

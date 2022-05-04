@@ -1,40 +1,37 @@
 package a.b.c.controller.auth;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import a.b.c.model.MemberVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import a.b.c.exception.AuthstatusException;
 import a.b.c.exception.IdPasswordNotMatchingException;
-import a.b.c.model.CommandAdminLogin;
 import a.b.c.model.CommandLogin;
+import a.b.c.model.MemberVO;
 import a.b.c.service.LoginService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/member")
 public class MemberLoginController {
-	
+
 	private final LoginService loginService;
 
 	/**
 	 * 사용자 로그인 폼
 	 */
 	@GetMapping("/login")
-	public String loginForm (CommandLogin login, HttpSession session,
+	public String loginForm(CommandLogin login, HttpSession session,
 			@CookieValue(value = "REMEMBER", required = false) Cookie rememberCookie) throws Exception {
 
 		/**
@@ -64,8 +61,8 @@ public class MemberLoginController {
 	}
 
 	@PostMapping("/login")
-	public String login (@Valid CommandLogin loginMember, Model model, HttpSession session,
-						 HttpServletResponse response, Errors errors) throws Exception {
+	public String login(@Valid CommandLogin loginMember, Model model, HttpSession session, HttpServletResponse response,
+			Errors errors) throws Exception {
 		/**
 		 * 에러시 반환
 		 */
@@ -113,8 +110,31 @@ public class MemberLoginController {
 		}
 	}
 
+	/**
+	 * 아이디 찾기(회원)
+	 */
+	@GetMapping("/findId")
+	public String findId() {
+		return "findId";
+	}
+
+	@PostMapping("/findId")
+	public String findid(MemberVO member, Model model, String mem_email) throws Exception {
+		System.out.println("mem_email : "+ mem_email);
+		
+		String findedId = loginService.findById(mem_email);
+		
+        if(findedId == null) {
+            return "auth/email_error";
+        }
+        
+        model.addAttribute("findedId", findedId);
+		return "findIdComplete";
+		
+	}
+
 	@GetMapping("/logout")
-	public String logout (HttpSession session) {
+	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/Main";
 	}

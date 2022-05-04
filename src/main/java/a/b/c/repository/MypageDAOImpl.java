@@ -2,8 +2,11 @@ package a.b.c.repository;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
 import a.b.c.model.AllCommentCmd;
 import a.b.c.model.CompleteCmd;
@@ -25,6 +28,7 @@ public class MypageDAOImpl implements MypageDAO {
 	//회원 정보 수정
 	@Override
 	public void updateMemInfo(MemberVO newInfo) {
+//		sqlSessionTemplate.insert("updateMemInfo", multipartFile);
 		sqlSessionTemplate.update("updateMemInfo", newInfo);
 	}
 	

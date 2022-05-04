@@ -1,7 +1,9 @@
 package a.b.c.controller;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -9,9 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import a.b.c.model.AllCommentCmd;
 import a.b.c.model.CommandLogin;
@@ -123,18 +127,26 @@ public class MypageController {
 	/**
 	 * 회원 정보 수정
 	 */
-	@ResponseBody
 	@PostMapping("/infoUpdate")
-	public void infoUpdate(@RequestBody MemInfoUpdateCmd memInfoUpdateCmd) {
+	public String infoUpdate(@ModelAttribute("memInfoCmd") MemInfoUpdateCmd memInfoUpdateCmd,
+			HttpServletRequest request, Model model) throws IllegalStateException, IOException {
+		
 		MemberVO newInfo = new MemberVO();
-
+		
 		newInfo.setMem_name(memInfoUpdateCmd.getMem_name());
 		newInfo.setMem_id(memInfoUpdateCmd.getMem_id());
 		newInfo.setMem_pass(memInfoUpdateCmd.getMem_pass());
 		newInfo.setMem_email(memInfoUpdateCmd.getMem_email());
 		newInfo.setMem_num(memInfoUpdateCmd.getMem_num());
+		newInfo.setMem_pic(memInfoUpdateCmd.getMem_pic());
+		newInfo.setMem_storedpic(memInfoUpdateCmd.getMem_storedpic());
+		
+		MultipartFile multipartFile = memInfoUpdateCmd.getFile();
 
-		mypageService.updateMemInfo(newInfo);
+		MemberVO member = mypageService.updateMemInfo(newInfo, multipartFile, request);
+		model.addAttribute("profile", member);
+		
+		return "redirect:/Mypage";
 	}
 
 	/**
