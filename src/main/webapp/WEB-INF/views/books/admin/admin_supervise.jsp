@@ -45,7 +45,9 @@ dd.hidden {
 
 [${sessionScope.adm_id}]님 안녕하세요 
 
-<span><a href="logout">로그아웃</a></span>
+		<span>
+			<button id="logout" onClick="location.href = '/member/logout'">로그아웃</button>
+		</span>
 
 	<dl>
 		<dt>가입 회원 현황</dt>

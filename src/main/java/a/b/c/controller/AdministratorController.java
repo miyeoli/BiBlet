@@ -63,17 +63,6 @@ public class AdministratorController {
 		return "admin/admin_supervise";
 	}
 
-//	@RequestMapping(value = "/adminPageAdm", method = RequestMethod.POST)
-//	public String adminPageAdm(Model model) {
-//		// 관리자정보탭
-//		List<AdministratorVO> adminList = admPageService.listOfAdmin();
-//		model.addAttribute("adminList", adminList);
-//		int admcount = admPageService.countAdmin();
-//		model.addAttribute("admcount", admcount);
-//
-//		// return "/administratorPage";
-//		return "/administratorPage";
-//	}
 
 	//@ResponseBody 
 	@PostMapping("/search")
@@ -83,17 +72,6 @@ public class AdministratorController {
 			member.setOption("mem_num");
 			member.setKeyword(null);
 		}
-		// System.out.println(member.toString());
-		// System.out.println(admin.toString());
-//		if ("".equals(admin.getAdmOption()) || admin.getAdmOption() == null) {
-//			admin.setAdmOption("adm_num");
-//			admin.setAdmKeyword(null);
-//		}
-		// System.out.println(admin.toString());
-//		if("".equals(appr.getCoOption())||appr.getCoOption()==null){
-//			appr.setCoOption("mem_id");
-//			appr.setCoKeyword(null);
-//		}
 		
 		//회원검색
 		List<MemberVO> searchList = admPageService.searchMember(member);
@@ -108,22 +86,7 @@ public class AdministratorController {
 		
 		int starcount = admPageService.countStar();
 		model.addAttribute("starcount", starcount);
-		
-//		//코멘트 검색
-//		List<CommandListAppr> searchApprList=admPageService.searchComments(appr);
-//		model.addAttribute("searchApprList", searchApprList);
-//		
-//		int commentcount=admPageService.countComment();
-//		model.addAttribute("commentcount", commentcount);
-//		
-		//관리자 검색
-//		List<AdministratorVO> searchAdmList = admPageService.searchAdmin(admin);
-//		model.addAttribute("searchAdmList", searchAdmList);
-//
-//		int admcount = admPageService.countAdmin();
-//		model.addAttribute("admcount", admcount);
 
-		// return "administratorPage";
 		return "administratorPage";
 	}
 
@@ -152,7 +115,7 @@ public class AdministratorController {
 			return jo.toString();
 		}else {
 		List<CommandListAppr> searchApprList=admPageService.searchComments(appr);
-		//System.out.println("2:"+appr.getCoKeyword());
+		
 		JSONObject jo=new JSONObject();
 		
 		JSONArray ja=new JSONArray();
@@ -168,9 +131,7 @@ public class AdministratorController {
 		
 
 		return jo.toString();
-//		int commentcount=admPageService.countComment();
-//		model.addAttribute("commentcount", commentcount);
-//		
+		
 		}
 		
 	}
@@ -178,7 +139,7 @@ public class AdministratorController {
 	@ResponseBody
 	@PostMapping(value = "/admInfoPage", produces = "application/json; charset=UTF-8")
 	public String searchComment(@RequestBody AdministratorVO admin) {
-		//System.out.println("0:"+admin.getAdmKeyword());
+		
 		if ("".equals(admin.getAdmOption()) || admin.getAdmOption() == null) {
 			admin.setAdmOption("adm_num");
 			admin.setAdmKeyword(null);
@@ -217,24 +178,12 @@ public class AdministratorController {
 				ja.put(jso);
 			}
 			jo.put("item",ja);
-			return jo.toString();
-//		int commentcount=admPageService.countComment();
-//		model.addAttribute("commentcount", commentcount);
-//		
+			return jo.toString();		
 		}
 		
 	}
-//	@RequestMapping(value = "/searchAdm", method = RequestMethod.POST)
-//	public String searchAdminInfo(@ModelAttribute("admin") AdministratorVO admin, Model model1) {
-//		List<AdministratorVO> searchAdmList = admPageService.searchAdmin(admin);
-//		model1.addAttribute("searchAdmList", searchAdmList);
-//
-//		int admcount = admPageService.countAdmin();
-//		model1.addAttribute("admcount", admcount);
-//
-//		//return "administratorPage";
-//		return "administratorPage";
-//	}
+
+
 
 	@GetMapping("/adminPage/deleteMember/{mem_num}")
 	public String delete(@PathVariable int mem_num, Model model) {
@@ -262,7 +211,7 @@ public class AdministratorController {
 		map.put("ADM_EMAIL", admin.getAdm_email());
 		map.put("ADM_PASS", admin.getAdm_pass());
 
-		// System.out.println(map);
+		
 		rowCount = admPageService.delete(map);
 
 		if (rowCount == 0) {
@@ -289,7 +238,7 @@ public class AdministratorController {
 		map.put("ADM_EMAIL", admin.getAdm_email());
 		map.put("ADM_PASS", admin.getAdm_pass());
 
-		// System.out.println(map);
+		
 		rowCount = admPageService.deleteComment(map);
 
 		if (rowCount == 0) {
@@ -300,25 +249,4 @@ public class AdministratorController {
 			return "redirect:/adminPage";
 		}
 	}
-//	@RequestMapping(value = "/adminPageStar", method = RequestMethod.POST)
-//	public String listOfStar(Model model) {
-//		List<CommandListAppr> apprList = admPageService.listOfAppraisal();
-//		model.addAttribute("apprList", apprList);
-//		
-//		int starcount = admPageService.countStar();
-//		model.addAttribute("starcount", starcount);
-//
-//		return "/administratorPage";
-//	}
-
-//	@RequestMapping(value = "/adminPageComments", method = RequestMethod.POST)
-//	public String listOfComments(Model model) {
-//		List<CommandListAppr> commentList = admPageService.listOfAppraisal();
-//		model.addAttribute("commentList", commentList);
-//		
-//		int commentcount = admPageService.countComment();
-//		model.addAttribute("commentcount", commentcount);
-//
-//		return "/administratorPage";
-//	}
 }

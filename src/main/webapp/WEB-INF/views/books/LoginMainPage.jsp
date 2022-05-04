@@ -114,7 +114,7 @@
 			        	console.log(msg);
 			        	for (var i = 0; i < 10; i++){
 			                $("#searchBook").append("<img src='" + msg.documents[i].thumbnail + "'/><br>");		//표지
-			                $("#searchBook").append("<h2><a href='/read/"+ msg.documents[i].isbn.slice(0, 10)+"?query="+$("#query").val()+ "'>" + msg.documents[i].title + "</a></h2>");	//제목
+			                $("#searchBook").append("<h2><a href='/read/"+ msg.documents[i].isbn+"?query="+$("#query").val()+ "'>" + msg.documents[i].title + "</a></h2>");	//제목
 			                $("#searchBook").append("<strong>저자:</strong> " + msg.documents[i].authors + "<br>");		//저자	
 			                $("#searchBook").append("<strong>출판사:</strong> " + msg.documents[i].publisher + "<br>");		//출판사
 			                $("#searchBook").append("<strong>줄거리:</strong> " + msg.documents[i].contents + "...<br>");		//줄거리

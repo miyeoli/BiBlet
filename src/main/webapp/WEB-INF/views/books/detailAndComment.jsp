@@ -70,7 +70,7 @@
 				<option value=1>보는 중</option>
 				<option value=2>독서 완료</option>
 			</select>
-		<input type="button" value="등록" id="insertStatus" onclick="insertStatus()">
+			<button id='insertStatus' onclick="insertStatus()">등록</button>
 		</p>
 
 		별점 :
@@ -441,7 +441,11 @@
       				
       			}else{
       				submitFlag = false;
-//       				$("#insertStatus").show();
+      				$("#insertStatus").show();
+      				
+      				 $("#insertStatus").click(function () {	      					 
+	      				insertStatus();
+      				 })
       			}
       			console.log("flag : " + submitFlag);
       		}

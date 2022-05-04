@@ -92,7 +92,8 @@ public class AppraisalController {
 		}
 
 		authInfo = (MemberVO) session.getAttribute("authInfo");
-
+		System.out.println("authInfo.getMem_num() : "+authInfo.getMem_num());
+		
 		/**
 		 * Long mem_num으로 변환
 		 */
@@ -102,9 +103,7 @@ public class AppraisalController {
 		 * 세션 테이블에 다시 저장
 		 */
 		session.setAttribute("authInfo", authInfo);		
-		
 
-		insertCmd.setIsbn(insertCmd.getIsbn().substring(0, 10));
 		
 		String query = insertCmd.getQuery();
 		String redirectquery = query.substring(query.lastIndexOf(",")+1);
@@ -112,6 +111,8 @@ public class AppraisalController {
 		bookShelf.setBook_status(insertCmd.getOption());
 		bookShelf.setMem_num(mem_num);
 		bookShelf.setIsbn(insertCmd.getIsbn());
+		System.out.println("안자른 isbn : "+insertCmd.getIsbn());
+		
 		bookShelf = appraisalService.insertBookShelf(bookShelf);
 		
 		appraisal.setStar(insertCmd.getStar());
@@ -122,6 +123,9 @@ public class AppraisalController {
 		appraisal.setBook_status_num(bookShelf.getBook_status_num());
 
 		appraisalService.writeComment(appraisal);
+		
+		String sliceIsbn = (insertCmd.getIsbn().substring(0, 10));
+		System.out.println("자른 isbn : "+sliceIsbn);
 		
 		return "redirect:/read/" + insertCmd.getIsbn() + "?query=" + redirectquery;
 	}
