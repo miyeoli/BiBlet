@@ -56,8 +56,7 @@
 		
 	</table>
 	<input type="button" value="회원정보 수정" onClick="infoUpdate(${myInfo.mem_num})">		
-	
-<%-- 		<input type="button" value="회원정보 수정" onClick="infoUpdate(${myInfo.mem_num})">		 --%>
+ 	<input type="button" value="회원정보 수정" onClick="infoUpdate(${myInfo.mem_num})">
 	
 </c:if>
 
@@ -119,9 +118,9 @@
 					dataType: "json",
 					contentType: 'application/json',
 					success: function(data) {
-						window.location.href = "MyPage";
+						window.location.href = "/MyPage";
 					}, error: function(data){
-						window.location.href = "MyPage";
+						window.location.href = "/MyPage";
 					}
 				});
 			}

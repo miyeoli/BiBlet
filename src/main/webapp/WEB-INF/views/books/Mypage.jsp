@@ -53,6 +53,9 @@
 
 
 <script>
+	
+	
+	
 	function infoUpdate(mem_num){
 		// 확인 팝업 창
 		if(confirm("수정하시겠습니까?")){

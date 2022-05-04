@@ -76,9 +76,9 @@
 				dataType: "json",
 				contentType: 'application/json',
 				success: function(data) {
-					window.location.href = "Main";	
+					window.location.href = "/Main";	
 				}, error: function(data){
- 					window.location.href = "Main";	
+ 					window.location.href = "/Main";	
 				}
 			});
 		}

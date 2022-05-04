@@ -3,9 +3,14 @@ package a.b.c.controller;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.SystemPropertyUtils;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import a.b.c.model.AppraisalVO;
 import a.b.c.model.BookShelfVO;
+import a.b.c.model.CommandLogin;
 import a.b.c.model.DeleteCmd;
 import a.b.c.model.InsertCmd;
 import a.b.c.model.MemberVO;
@@ -35,8 +41,10 @@ public class AppraisalController {
 	 * 도서 상세보기 - 해당 도서의 대한 모든 평가 추출
 	 */
 	@GetMapping("/read/{isbn}")
-	public String bookDetailAndComment(@RequestParam(required = false) String query, @PathVariable String isbn,
-			Model model) {
+	public String bookDetailAndComment(CommandLogin loginMember, Model model,
+			HttpSession session, HttpServletResponse response, Errors errors, 
+			@RequestParam(required = false) String query, 
+			@PathVariable String isbn) {
 
 		// 해당 도서의 대한 평가 개수
 		int commentCount = appraisalService.commentCount(isbn);
@@ -55,12 +63,46 @@ public class AppraisalController {
 	 * 평가 등록
 	 */
 	@PostMapping("/read/{isbn}")
-	private String writeComment(@ModelAttribute("insertCmd") InsertCmd insertCmd) throws UnsupportedEncodingException {
+	private String writeComment(@ModelAttribute("insertCmd") InsertCmd insertCmd,
+			CommandLogin loginMember, Model model,
+			HttpSession session, HttpServletResponse response, Errors errors) throws UnsupportedEncodingException {
+		
 		AppraisalVO appraisal = new AppraisalVO();
 		BookShelfVO bookShelf = new BookShelfVO();
 		String encodedParam = URLEncoder.encode(insertCmd.getQuery(), "UTF-8");
 
-		Long mem_num = (long) 6; // 테스트용 회원 번호(현재 테이블에 6번회원까지 있음)
+		
+		/**
+		 * 에러시 반환
+		 */
+		if (errors.hasErrors()) {
+			return "detailAndComment";
+		}
+
+		/**
+		 * session에서 데이터를 꺼내 MemberVO객체에 저장
+		 */
+		MemberVO authInfo = null;
+		if (session != null) {
+			session.getAttribute("authInfo");
+		}
+
+		if (authInfo != null) {
+			return "redirect:/MainLogin";
+		}
+
+		authInfo = (MemberVO) session.getAttribute("authInfo");
+
+		/**
+		 * Long mem_num으로 변환
+		 */
+		Long mem_num = authInfo.getMem_num();
+
+		/**
+		 * 세션 테이블에 다시 저장
+		 */
+		session.setAttribute("authInfo", authInfo);		
+		
 
 		insertCmd.setIsbn(insertCmd.getIsbn().substring(0, 10));
 		
@@ -134,16 +176,46 @@ public class AppraisalController {
 
 	/**
 	 * 독서 상태 등록
+	 * @return 
 	 */
 	@ResponseBody
 	@PostMapping("/insertStatus")
-	public void insertStatus(@RequestBody InsertCmd insertCmd) {
+	public String insertStatus(@RequestBody InsertCmd insertCmd,
+			CommandLogin loginMember, Model model,
+			HttpSession session, HttpServletResponse response, Errors errors) {
+		
 		BookShelfVO bookShelf = new BookShelfVO();
 
-		// 테스트 하기 전마다 회원 등록 후 평가작성을 하지 않은 새로운 회원번호로 진행해야함
-		MemberVO member = new MemberVO();
-		Long mem_num = (long) 6; // 테스트용 회원 번호(현재 테이블에 6번회원까지 있음)
-		member.setMem_num(mem_num);
+		/**
+		 * 에러시 반환
+		 */
+		if (errors.hasErrors()) {
+			return "detailAndComment";
+		}
+
+		/**
+		 * session에서 데이터를 꺼내 MemberVO객체에 저장
+		 */
+		MemberVO authInfo = null;
+		if (session != null) {
+			session.getAttribute("authInfo");
+		}
+
+		if (authInfo != null) {
+			return "redirect:/MainLogin";
+		}
+
+		authInfo = (MemberVO) session.getAttribute("authInfo");
+
+		/**
+		 * Long mem_num으로 변환
+		 */
+		Long mem_num = authInfo.getMem_num();
+		System.out.println(mem_num);
+		/**
+		 * 세션 테이블에 다시 저장
+		 */
+		session.setAttribute("authInfo", authInfo);		
 
 		insertCmd.setIsbn(insertCmd.getIsbn().substring(0, 10));
 
@@ -151,5 +223,7 @@ public class AppraisalController {
 		bookShelf.setMem_num(mem_num);
 		bookShelf.setIsbn(insertCmd.getIsbn());
 		bookShelf = appraisalService.insertBookShelf(bookShelf);
+		
+		return null;
 	}
 }

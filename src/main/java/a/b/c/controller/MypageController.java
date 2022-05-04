@@ -2,12 +2,12 @@ package a.b.c.controller;
 
 import java.util.List;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,24 +36,44 @@ public class MypageController {
 	 * 회원 정보 조회
 	 */
 	@GetMapping("/MyPage")
-	public String memberInfo(HttpSession session, HttpServletResponse response, Model model) {
+	public String memberInfo(CommandLogin loginMember, Model model,
+			HttpSession session, HttpServletResponse response, Errors errors) {
 
-		if (session != null) {
-			Object authInfo = session.getAttribute("authInfo");
-			
-			if (authInfo != null) {
-				return "/LoginMainPage";
-			}
-
-			CommandLogin memInfo = (CommandLogin)authInfo;
-			Long mem_num = memInfo.getMem_num();
-			System.out.println("mem_num"+mem_num);
-			
-			MemberVO member = mypageService.memberInfo(mem_num);
-			
-			model.addAttribute("myInfo", member);
+		/**
+		 * 에러시 반환
+		 */
+		if (errors.hasErrors()) {
+			return "Mypage";
 		}
-		
+
+		/**
+		 * session에서 데이터를 꺼내 MemberVO객체에 저장
+		 */
+		MemberVO authInfo = null;
+		if (session != null) {
+			session.getAttribute("authInfo");
+		}
+
+		if (authInfo != null) {
+			return "redirect:/MainLogin";
+		}
+
+		authInfo = (MemberVO) session.getAttribute("authInfo");
+
+		/**
+		 * Long mem_num으로 변환
+		 */
+		Long mem_num = authInfo.getMem_num();
+
+		/**
+		 * 세션 테이블에 다시 저장
+		 */
+		session.setAttribute("authInfo", authInfo);
+
+		MemberVO member = mypageService.memberInfo(mem_num);
+
+		model.addAttribute("myInfo", member);
+
 		return "/Mypage";
 	}
 
@@ -61,9 +81,40 @@ public class MypageController {
 	 * 회원 정보 수정 폼
 	 */
 	@GetMapping("/edit")
-	public String infoUpdateForm(Model model) {
-		Long mem_num = (long) 6;
+	public String infoUpdateForm(CommandLogin loginMember, Model model,
+			HttpSession session, HttpServletResponse response, Errors errors) {
+		
+		/**
+		 * 에러시 반환
+		 */
+		if (errors.hasErrors()) {
+			return "Mypage";
+		}
 
+		/**
+		 * session에서 데이터를 꺼내 MemberVO객체에 저장
+		 */
+		MemberVO authInfo = null;
+		if (session != null) {
+			session.getAttribute("authInfo");
+		}
+
+		if (authInfo != null) {
+			return "redirect:/MainLogin";
+		}
+
+		authInfo = (MemberVO) session.getAttribute("authInfo");
+
+		/**
+		 * Long mem_num으로 변환
+		 */
+		Long mem_num = authInfo.getMem_num();
+
+		/**
+		 * 세션 테이블에 다시 저장
+		 */
+		session.setAttribute("authInfo", authInfo);
+		
 		MemberVO member = mypageService.memberInfo(mem_num);
 		model.addAttribute("myInfo", member);
 		return "/infoUpdate";
@@ -90,8 +141,39 @@ public class MypageController {
 	 * 탈퇴 폼
 	 */
 	@GetMapping("/delete")
-	public String infoDeleteForm(Model model) {
-		Long mem_num = (long) 6;
+	public String infoDeleteForm(CommandLogin loginMember, Model model,
+			HttpSession session, HttpServletResponse response, Errors errors) {
+
+		/**
+		 * 에러시 반환
+		 */
+		if (errors.hasErrors()) {
+			return "Mypage";
+		}
+
+		/**
+		 * session에서 데이터를 꺼내 MemberVO객체에 저장
+		 */
+		MemberVO authInfo = null;
+		if (session != null) {
+			session.getAttribute("authInfo");
+		}
+
+		if (authInfo != null) {
+			return "redirect:/MainLogin";
+		}
+
+		authInfo = (MemberVO) session.getAttribute("authInfo");
+
+		/**
+		 * Long mem_num으로 변환
+		 */
+		Long mem_num = authInfo.getMem_num();
+
+		/**
+		 * 세션 테이블에 다시 저장
+		 */
+		session.setAttribute("authInfo", authInfo);
 
 		MemberVO member = mypageService.memberInfo(mem_num);
 		model.addAttribute("myInfo", member);
@@ -121,33 +203,59 @@ public class MypageController {
 		}
 	}
 
-	// 보관함
+	/**
+	 * 보관함
+	 */
 	@GetMapping("/bookShelf")
-	public String BookShelf(Model model) {
-		// 테스트 하기 전마다 회원 등록 후 평가작성을 하지 않은 새로운 회원번호로 진행해야 함
-		Long mem_num = (long) 6; // 테스트용 회원 번호
-		MemberVO member = new MemberVO();
+	public String BookShelf(CommandLogin loginMember, Model model,
+			HttpSession session, HttpServletResponse response, Errors errors) {
+		
+		/**
+		 * 에러시 반환
+		 */
+		if (errors.hasErrors()) {
+			return "UnLoginMainPage";
+		}
 
-		member.setMem_num(mem_num);
+		/**
+		 * session에서 데이터를 꺼내 MemberVO객체에 저장
+		 */
+		MemberVO authInfo = null;
+		if (session != null) {
+			session.getAttribute("authInfo");
+		}
+
+		if (authInfo != null) {
+			return "redirect:/MainLogin";
+		}
+
+		authInfo = (MemberVO) session.getAttribute("authInfo");
+
+		/**
+		 * Long mem_num으로 변환
+		 */
+		Long mem_num = authInfo.getMem_num();
+
+		/**
+		 * 세션 테이블에 다시 저장
+		 */
+		session.setAttribute("authInfo", authInfo);
+		
 
 		// 한 회원의 '찜' 도서 개수
-		int memLikeCount = mypageService.memLikeCount(member.getMem_num());
+		int memLikeCount = mypageService.memLikeCount(mem_num);
 		// 한 회원의 '찜' 도서 isbn 검색
 		List<String> likeIsbn = mypageService.likeIsbn(mem_num);
-		
 
 		// 한 회원의 '보는 중' 도서 개수
-		int memLeadingCount = mypageService.memLeadingCount(member.getMem_num());
+		int memLeadingCount = mypageService.memLeadingCount(mem_num);
 		// 한 회원의 '보는 중' 도서 isbn 검색
 		List<String> leadingIsbn = mypageService.leadingIsbn(mem_num);
-		
 
 		// 한 회원의 '독서 완료' 도서개수
-		int memCommentCount = mypageService.memCommentCount(member.getMem_num());
+		int memCommentCount = mypageService.memCommentCount(mem_num);
 		// 한 회원의 '독서 완료' 도서 isbn,평가번호 검색
 		List<CompleteCmd> completeIsbn = mypageService.completeIsbn(mem_num);
-			System.out.println(completeIsbn.get(0));
-			System.out.println(completeIsbn.get(1));
 
 		// 한 회원이 작성한 모든 평가 불러오기
 		List<AllCommentCmd> memComment = mypageService.selectMemComment(mem_num);

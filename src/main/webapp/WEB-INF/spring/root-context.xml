@@ -68,28 +68,6 @@
 			ref="sqlSessionFactory"></constructor-arg>
 	</bean>
 	
-	<!-- 메일보내기 -->
-	<bean id="emailSendService"
-		class="a.b.c.service.MailSendService">
-	</bean>
-	
-	<bean id="mailSender"
-		class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="smtp.gmail.com" />
-		<property name="port" value="587" />
-		<property name="username" value="dbflarla496695@gmail.com" />
-		<property name="password" value="DBdbflarla?!" />
-
-		<property name="javaMailProperties">
-			<props>
-				<prop key="mail.transport.protocol">smtp</prop>
-				<prop key="mail.smtp.auth">true</prop>
-				<prop key="mail.smtp.starttls.enable">true</prop>
-				<prop key="mail.debug">true</prop>
-			</props>
-		</property>
-	</bean>
-	
 	<!-- label.properties를 이용하는 MessageSource Bean을 만든다 -->
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">

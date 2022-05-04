@@ -41,6 +41,7 @@ public class MainDAOImpl implements MainDAO {
 	// 로그인한 회원의 id 불러오기
 	@Override
 	public String myID(Long mem_num) {
+		System.out.println("mem_num"+ mem_num);
 		return sqlSessionTemplate.selectOne("myID", mem_num);
 	}
 

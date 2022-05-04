@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import a.b.c.controller.AdminLoginValidator;
 import a.b.c.model.MemberVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

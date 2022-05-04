@@ -9,7 +9,6 @@ import a.b.c.model.MemberVO;
 public interface MypageDAO {
 	
 	public MemberVO memberInfo(Long num);	//회원 정보 조회
-//	public MemberVO memberLogout(MemberVO vo);	//로그아웃
 	
 	void updateMemInfo(MemberVO newInfo);	//회원 정보 수정
 	void deleteMemInfo(Long mem_num);	// 회원 탈퇴

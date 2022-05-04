@@ -70,7 +70,7 @@
 				<option value=1>보는 중</option>
 				<option value=2>독서 완료</option>
 			</select>
-		<input type="button" value="등록" onclick="insertStatus()">
+		<input type="button" value="등록" id="insertStatus" onclick="insertStatus()">
 		</p>
 
 		별점 :
@@ -222,6 +222,8 @@
 				dataType: "json",
 				contentType: 'application/json',
 				success: function(data) {
+					location.reload(); 
+				}, error: function(){
 					location.reload(); 
 				}
 			});
@@ -435,8 +437,11 @@
       			let selectValue = select.options[document.getElementById("option").selectedIndex].value;
       			if(selectValue == 2){
       				submitFlag = true;
+      				$("#insertStatus").hide();
+      				
       			}else{
       				submitFlag = false;
+//       				$("#insertStatus").show();
       			}
       			console.log("flag : " + submitFlag);
       		}
@@ -444,9 +449,9 @@
       		let bookSubmit = function(){
       			let msg = document.getElementById("msg");
       			if(!submitFlag){
-      				
       				msg.innerHTML = "독서 완료 시에만 평가 작성이 가능합니다.";
       			}
+      				
       			return submitFlag;
       		}
 			
