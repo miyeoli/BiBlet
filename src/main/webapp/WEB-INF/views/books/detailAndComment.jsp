@@ -47,33 +47,53 @@
 			</div>
 			<div class="col-6">
 				<div style="margin-top: 150px;" id="bookTitle" ></div>	
+				<form:form method="post" commandName="insertCmd" onsubmit="return bookSubmit()">
 				
-				<div style="float: right; padding-top: 30px;">
-					<div style="padding-left: 5px;">독서 상태</div>
-					 <select style="width:120px; height:36px;" id="option" name="option" onChange="bookStatus()" >
-						<option value="none">=== 선택 ===</option>
-						<option value=0>찜</option>
-						<option value=1>보는 중</option>
-						<option value=2>독서 완료</option>
-					</select>
-					<button class="btn btn-secondary my-2 my-sm-0" id='insertStatus' onclick="insertStatus()">등록</button>
-					<div class="text-muted" >* 독서 완료 시에만 평가 작성이 가능합니다.</div>
-				</div>
-				
-				<div style="padding-left: 70px; margin-top: 30px;" >평가하기</div>
+					<div style="float: right; padding-top: 30px;">
+						<div style="padding-left: 5px;">독서 상태</div>
+						 <select style="width:120px; height:36px;" id="option" name="option" onChange="bookStatus()" >
+							<option value="none">=== 선택 ===</option>
+							<option value=0>찜</option>
+							<option value=1>보는 중</option>
+							<option value=2>독서 완료</option>
+						</select>
+						<button class="btn btn-secondary my-2 my-sm-0" id='insertStatus' onclick="insertStatus()">등록</button>
+						<div class="text-muted" >* 독서 완료 시에만 평가 작성이 가능합니다.</div>
+					</div>
 					
-				<div class="star-rating">
-					<input type="radio" id="5-star" name="star" value=5 /> 
-					<label for="5-star" class="star">&#9733;</label> 
-					<input type="radio" id="4-star" name="star" value=4 /> 
-					<label for="4-star" class="star">&#9733;</label> 
-					<input type="radio" id="3-star" name="star" value=3 /> 
-					<label for="3-star" class="star">&#9733;</label>
-					<input type="radio" id="2-star" name="star" value=2 /> 
-					<label for="2-star" class="star">&#9733;</label> 
-					<input type="radio" id="1-star" name="star" value=1 /> 
-					<label for="1-star" class="star">&#9733;</label>
-				</div>
+					<div style="padding-left: 70px; margin-top: 30px;" >평가하기</div>
+						
+					<div class="star-rating">
+						<input type="radio" id="5-star" name="star" value=5 /> 
+						<label for="5-star" class="star">&#9733;</label> 
+						<input type="radio" id="4-star" name="star" value=4 /> 
+						<label for="4-star" class="star">&#9733;</label> 
+						<input type="radio" id="3-star" name="star" value=3 /> 
+						<label for="3-star" class="star">&#9733;</label>
+						<input type="radio" id="2-star" name="star" value=2 /> 
+						<label for="2-star" class="star">&#9733;</label> 
+						<input type="radio" id="1-star" name="star" value=1 /> 
+						<label for="1-star" class="star">&#9733;</label>
+					</div>
+					
+					
+					<h5>코멘트</h5>
+					<textarea class="form-control" rows="3" id="book_comment" name="book_comment"
+					placeholder="이 작품의 대한 생각을 자유롭게 표현해주세요."></textarea>
+				
+			
+			
+					구독 시작 날짜 : <input type="date" id="start_date" name="start_date" /> 
+					구독 완료 날짜 : <input type="date" id="end_date" name="end_date" /> 
+					공개 : <input type="checkbox" id="co_prv" name="co_prv" value="공개" onclick='checkOnlyOne(this)'/> 
+					비공개 : <input type="checkbox" id="co_prv" name="co_prv" value="비공개" onclick='checkOnlyOne(this)'/>
+					<input type="hidden" name="isbn" id="isbn" value="${isbn}" /> 
+					<input type="hidden" name="query" id="query" value="${query}" />
+					<input type="submit" value="등록" id="writeComment" /> 
+					<span id="msg"></span>
+				
+				</form:form>
+				
 			</div>
 		</div>
 	</div>
@@ -92,28 +112,6 @@
 		<div style="margin-top: 100px;" class="col"></div>
 	</div>
 </div>
-
-
-
-	<form:form method="post" commandName="insertCmd" onsubmit="return bookSubmit()">
-	<br>		
-
-		
-		<h5>코멘트</h5>
-		<textarea class="form-control" rows="3" id="book_comment" name="book_comment"
-		placeholder="이 작품의 대한 생각을 자유롭게 표현해주세요."></textarea>
-	
-
-
-		구독 시작 날짜 : <input type="date" id="start_date" name="start_date" /> 
-		구독 완료 날짜 : <input type="date" id="end_date" name="end_date" /> 
-		공개 : <input type="checkbox" id="co_prv" name="co_prv" value="공개" onclick='checkOnlyOne(this)'/> 
-		비공개 : <input type="checkbox" id="co_prv" name="co_prv" value="비공개" onclick='checkOnlyOne(this)'/>
-		<input type="hidden" name="isbn" id="isbn" value="${isbn}" /> 
-		<input type="hidden" name="query" id="query" value="${query}" />
-		<input type="submit" value="등록" id="writeComment" /> 
-		<span id="msg"></span>
-	</form:form>
 
 
 	<p>
@@ -415,10 +413,12 @@
 	  		
 //     		 # 상세페이지 실행하자마자 도서 데이터 요청
              var pageNum = 1;
+	       	 var isbn_query = "${isbn}";
+	       	 console.log(isbn_query);
             	$.ajax({	//카카오 검색요청 / [요청]
                     method: "GET",
                     url: "https://dapi.kakao.com/v3/search/book",
-                    data: { query: $("#query").val(), page: pageNum},
+                    data: { query: isbn_query, page: pageNum},
                     headers: {Authorization: "KakaoAK 6f9ab74953bbcacc4423564a74af264e"} 
                 })
                

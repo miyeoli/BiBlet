@@ -38,6 +38,8 @@
 	
 	<div id="searchBook"></div>
 	
+	<div id="main_add_info">
+	
 	<c:if test="${!empty myID}">
 		<p>	
 			${myID}님 안녕하세요 <br>
@@ -54,44 +56,44 @@
 	
 	<br>
 	
-	<h2>최근 코멘트</h2>
-
-	<table border=1>
-		<c:if test="${!empty latestList}">
-				<tr>
-					<th>제목</th>
-					<th>회원</th>
-					<th>별점</th>
-					<th>평가</th>
-				</tr>
-			<c:forEach var="list" items="${latestList}">
-				<tr>
-					<td id="bookName${list.book_comment}"></td>
-					<td>
-						<c:if test="${list.star==1 }">★☆☆☆☆</c:if> 
-						<c:if test="${list.star==2 }">★★☆☆☆</c:if> 
-						<c:if test="${list.star==3 }">★★★☆☆</c:if> 
-						<c:if test="${list.star==4 }">★★★★☆</c:if> 
-						<c:if test="${list.star==5 }">★★★★★</c:if>	
-					</td>
-					<td>${list.book_comment}</td>
-					<td>${list.mem_id}</td>
-				</tr>
-			</c:forEach>
+		<h2>최근 코멘트</h2>
+	
+		<table border=1>
+			<c:if test="${!empty latestList}">
+					<tr>
+						<th>제목</th>
+						<th>회원</th>
+						<th>별점</th>
+						<th>평가</th>
+					</tr>
+				<c:forEach var="list" items="${latestList}">
+					<tr>
+						<td id="bookName${list.book_comment}"></td>
+						<td>
+							<c:if test="${list.star==1 }">★☆☆☆☆</c:if> 
+							<c:if test="${list.star==2 }">★★☆☆☆</c:if> 
+							<c:if test="${list.star==3 }">★★★☆☆</c:if> 
+							<c:if test="${list.star==4 }">★★★★☆</c:if> 
+							<c:if test="${list.star==5 }">★★★★★</c:if>	
+						</td>
+						<td>${list.book_comment}</td>
+						<td>${list.mem_id}</td>
+					</tr>
+				</c:forEach>
+			</c:if>
+		</table>
+		
+		<br>
+	
+		<h2>인기 도서</h2>
+		<div id="popularList"></div>
+		<br>
+		
+		<c:if test="${!empty allCommentCount}">
+		<h2>지금 까지 총  ${allCommentCount}개의 평가가 쌓였어요!</h2>
 		</c:if>
-	</table>
+	</div>
 	
-	<br>
-
-	<h2>인기 도서</h2>
-	<div id="popularList"></div>
-	
-	
-	<br>
-	
-	<c:if test="${!empty allCommentCount}">
-	<h2>지금 까지 총  ${allCommentCount}개의 평가가 쌓였어요!</h2>
-	</c:if>
 	
 <script>
 
@@ -112,9 +114,10 @@
 			       
 			        .done(function (msg) {	//검색 결과 담기 / [응답]
 			        	console.log(msg);
+			        	$('#main_add_info').empty();
 			        	for (var i = 0; i < 10; i++){
 			                $("#searchBook").append("<img src='" + msg.documents[i].thumbnail + "'/><br>");		//표지
-			                $("#searchBook").append("<h2><a href='/read/"+ msg.documents[i].isbn+"?query="+$("#query").val()+ "'>" + msg.documents[i].title + "</a></h2>");	//제목
+			                $("#searchBook").append("<h2><a href='/read/"+ msg.documents[i].isbn.slice(-13)+"?query="+$("#query").val()+ "'>" + msg.documents[i].title + "</a></h2>");	//제목
 			                $("#searchBook").append("<strong>저자:</strong> " + msg.documents[i].authors + "<br>");		//저자	
 			                $("#searchBook").append("<strong>출판사:</strong> " + msg.documents[i].publisher + "<br>");		//출판사
 			                $("#searchBook").append("<strong>줄거리:</strong> " + msg.documents[i].contents + "...<br>");		//줄거리

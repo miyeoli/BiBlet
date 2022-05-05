@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import a.b.c.model.AllCommentCmd;
 import a.b.c.model.CompleteCmd;
+import a.b.c.model.MemInfoUpdateCmd;
 import a.b.c.model.MemberVO;
 import a.b.c.repository.MypageDAO;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +31,8 @@ public class MypageServiceImpl implements MypageService {
 	
 	//회원 정보 수정
 	@Override
-	public void updateMemInfo(MemberVO newInfo, MultipartFile multipartFile, HttpServletRequest request) throws IllegalStateException, IOException {
+	public void updateMemInfo(MemInfoUpdateCmd memInfoUpdateCmd, MultipartFile multipartFile, HttpServletRequest request) throws IllegalStateException, IOException {
+		MemberVO newInfo = new MemberVO();
 		
 		//사용자가 선택한 프로필 이름 추출
 		String orgimagename = multipartFile.getOriginalFilename();
@@ -42,7 +44,7 @@ public class MypageServiceImpl implements MypageService {
 		String storedimagename = UUID.randomUUID().toString().replaceAll("-", "") + orgimagenameExtension;
 		
 		//파일이 저장될 경로(서버 측)
-		String savePath = "/Users/kim-yurim/Desktop/workspace/spring/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/BiBlet/resources/image/";		
+		String savePath = "/Users/kim-yurim/Desktop/workspace/sts(main)/BiBlet/src/main/webapp/resources/image/";		
 				
 		//파일이 저장될 경로 + 최종 파일명
 		String uploadFile = savePath + storedimagename;
@@ -52,6 +54,11 @@ public class MypageServiceImpl implements MypageService {
 		
 		multipartFile.transferTo(file);
 		
+		newInfo.setMem_id(memInfoUpdateCmd.getMem_id());
+		newInfo.setMem_pass(memInfoUpdateCmd.getMem_passU());
+		newInfo.setMem_email(memInfoUpdateCmd.getMem_email());
+		newInfo.setMem_num(memInfoUpdateCmd.getMem_num());
+		newInfo.setMem_name(memInfoUpdateCmd.getMem_name());
 		newInfo.setMem_pic(orgimagename);
 		newInfo.setMem_storedpic(storedimagename);
 		

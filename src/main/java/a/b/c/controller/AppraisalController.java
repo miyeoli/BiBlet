@@ -53,6 +53,7 @@ public class AppraisalController {
 		List<AllCommentCmd> commentsByMembers = appraisalService.findAllComment(isbn);
 							
 		model.addAttribute("query", query);	//query.split(",")[0]
+		model.addAttribute("isbn", isbn);
 		model.addAttribute("commentCount", commentCount);
 		model.addAttribute("commentsByMembers", commentsByMembers);
 

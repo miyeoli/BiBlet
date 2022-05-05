@@ -12,6 +12,7 @@
 </head>
 <body>
 <h2>회원정보관리-회원정보</h2>
+
 <c:if test="${!empty myInfo}">
 
 
@@ -19,8 +20,8 @@
 		<tr>
 			<td>프로필</td>
 			<td>
-			${!empty profile}
-			<img id="defaultProfile" src="<c:url value='/resources/image/profile.png'/>" width="220" height="170"/>
+				<div id="memProfile"></div><img id="memProfile" src="<c:url value='/resources/image/${myInfo.mem_storedpic}'/>" width="220" height="170"/>
+				<div id="defaultProfile"></div><img id="defaultProfile" src="<c:url value='/resources/image/profile.png'/>" width="220" height="170"/>
 			</td>
 		</tr>	
 		<tr>
@@ -56,12 +57,11 @@
 <script>
 	
 	$(document).ready(function(){
-		 $("#defaultProfile").hide();
-		<c:if test="${!empty profile}">
-			$("#defaultProfile").show();
+		<c:if test="${!empty myInfo.mem_storedpic}">
+			hideProfile();
 		</c:if>
 	});
-		
+	
 	function infoUpdate(mem_num){
 		// 확인 팝업 창
 		if(confirm("수정하시겠습니까?")){

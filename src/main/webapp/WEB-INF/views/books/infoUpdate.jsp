@@ -19,7 +19,7 @@
 	<c:if test="${!empty myInfo}">
 
 
-	<form:form method="post" CommandName="memInfoCmd" enctype="multipart/form-data">
+	<form:form method="post" action="/infoUpdate" CommandName="memInfoCmd" enctype="multipart/form-data">
 		<table border="1">
 			<tr>
 				<td>프로필</td>
@@ -54,12 +54,15 @@
 			</tr>
 			
 		</table>
+		<input type="hidden" name="mem_num" id="mem_num" value="${myInfo.mem_num}"/>
 		<input type="submit" value="회원정보 수정">	
 	</form:form>	
 	
 </c:if>
 
 <script>
+
+
 // 		# 비밀번호 확인
 		function passCheckBtn(mem_num){
 				
@@ -94,7 +97,7 @@
 			function passUpdateForm(mem_num){
 				 $("#u"+mem_num).html(
 						 
-					'새로운 비밀번호 입력 : <input type="password" id="mem_passU" name="mem_pasU" />'
+					'새로운 비밀번호 입력 : <input type="password" id="mem_passU" name="mem_passU" />'
 				);		
 			}
 		

@@ -131,20 +131,14 @@ public class MypageController {
 	public String infoUpdate(@ModelAttribute("memInfoCmd") MemInfoUpdateCmd memInfoUpdateCmd,
 			HttpServletRequest request, Model model) throws IllegalStateException, IOException {
 		
-		MemberVO newInfo = new MemberVO();
-		
 		MultipartFile multipartFile = memInfoUpdateCmd.getFile();
+	
+		mypageService.updateMemInfo(memInfoUpdateCmd, multipartFile, request);
 		
-		newInfo.setMem_name(memInfoUpdateCmd.getMem_name());
-		newInfo.setMem_id(memInfoUpdateCmd.getMem_id());
-		newInfo.setMem_pass(memInfoUpdateCmd.getMem_passU());	//변경된 비밀번호
-		newInfo.setMem_email(memInfoUpdateCmd.getMem_email());
-		newInfo.setMem_num(memInfoUpdateCmd.getMem_num());
-
-		mypageService.updateMemInfo(newInfo, multipartFile, request);
-		
-//		MemberVO member = 업데이트 반환 없음 하고 다시 정보 불러 
-//		model.addAttribute("profile", member);
+		System.out.println("memInfoUpdateCmd.getMem_num() : "+memInfoUpdateCmd.getMem_num());
+		MemberVO profile = mypageService.memberInfo(memInfoUpdateCmd.getMem_num());
+		System.out.println("profile.getMem_storedpic() : "+ profile.getMem_storedpic());
+		model.addAttribute("profile", profile);
 		
 		return "redirect:/Mypage";
 	}

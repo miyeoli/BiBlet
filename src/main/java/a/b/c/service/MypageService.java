@@ -9,13 +9,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import a.b.c.model.AllCommentCmd;
 import a.b.c.model.CompleteCmd;
+import a.b.c.model.MemInfoUpdateCmd;
 import a.b.c.model.MemberVO;
 
 public interface MypageService {
 	
 	public MemberVO memberInfo(Long num);	//회원 정보 조회
 	
-	void updateMemInfo(MemberVO newInfo, MultipartFile multipartFile, HttpServletRequest request) throws IllegalStateException, IOException;	//회원 정보 수정
+	void updateMemInfo(MemInfoUpdateCmd memInfoUpdateCmd, MultipartFile multipartFile, HttpServletRequest request) throws IllegalStateException, IOException;	//회원 정보 수정
 	void deleteMemInfo(Long mem_num);	//회원 탈퇴
 	
 	/**
