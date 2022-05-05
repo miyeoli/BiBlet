@@ -18,8 +18,9 @@ public class MemInfoUpdateCmd {
 	private String mem_id;
 	private String mem_name;
 	private String mem_email;
-	
 	private String mem_storedpic;	//폴더에 저장되는 image이름(ex:dkfiwfi)
+	
+	private String mem_passU;
 	private MultipartFile file;
 }
 

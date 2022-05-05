@@ -20,7 +20,7 @@
 			<td>프로필</td>
 			<td>
 			${!empty profile}
-			<div id="defaultProfile"><img src="<c:url value='/resources/image/profile.png'/>" width="220" height="170"/></div>
+			<img id="defaultProfile" src="<c:url value='/resources/image/profile.png'/>" width="220" height="170"/>
 			</td>
 		</tr>	
 		<tr>
@@ -56,8 +56,9 @@
 <script>
 	
 	$(document).ready(function(){
+		 $("#defaultProfile").hide();
 		<c:if test="${!empty profile}">
-			 $("#defaultProfile").hide();
+			$("#defaultProfile").show();
 		</c:if>
 	});
 		

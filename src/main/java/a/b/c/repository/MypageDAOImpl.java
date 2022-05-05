@@ -28,7 +28,7 @@ public class MypageDAOImpl implements MypageDAO {
 	//회원 정보 수정
 	@Override
 	public void updateMemInfo(MemberVO newInfo) {
-//		sqlSessionTemplate.insert("updateMemInfo", multipartFile);
+//			sqlSessionTemplate.delete("updateMemInfo");
 		sqlSessionTemplate.update("updateMemInfo", newInfo);
 	}
 	

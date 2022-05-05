@@ -19,11 +19,11 @@
 	<c:if test="${!empty myInfo}">
 
 
-	<form:form id="fileForm" method="post" CommandName="memInfoCmd" enctype="multipart/form-data">
+	<form:form method="post" CommandName="memInfoCmd" enctype="multipart/form-data">
 		<table border="1">
 			<tr>
 				<td>프로필</td>
-				<td><input type="file" name="mem_pic" id="mem_pic"></td>	
+				<td><input type="file" name="file" id="file"></td>	
 			</tr>	
 			<tr>
 				<td>이름</td>
@@ -54,8 +54,8 @@
 			</tr>
 			
 		</table>
+		<input type="submit" value="회원정보 수정">	
 	</form:form>	
-	<input type="button" value="회원정보 수정" onClick="infoUpdate(${myInfo.mem_num})">	
 	
 </c:if>
 
@@ -94,46 +94,10 @@
 			function passUpdateForm(mem_num){
 				 $("#u"+mem_num).html(
 						 
-					'새로운 비밀번호 입력 : <input type="password" id="mem_passU" name="mem_pass" />'
+					'새로운 비밀번호 입력 : <input type="password" id="mem_passU" name="mem_pasU" />'
 				);		
 			}
-			
-// 			# 회원 정보 수정
-			function infoUpdate(mem_num){
-				
-			   const form = $('#fileForm')[0];
-			   const formData = new FormData(form);
-				
-// 				let mem_name = $("#mem_name").val();
-// 				let mem_id = $("#mem_id").val();
-// 				let mem_pass = $("#mem_passU").val();
-// 				let mem_email = $("#mem_email").val();
-// 				let mem_pic = $("#mem_pic").val();
-				
-// 			   if(form.files.length === 0){
-// 				    alert("프로필을 선택해주세요");
-// 				    return;
-// 				  }
-
-			   
 		
-				
-				$.ajax({
-					url: '<c:url value="/infoUpdate"/>',
-					type: 'POST',
-					data : formData,
-					dataType: "json",
-					async: false,
-					contentType : false,
-				    processData : false,
-					success: function(data) {
-						window.location.href = "/MyPage";
-					}, error: function(data){
-// 						window.location.href = "/MyPage";
-					}
-				});
-				  
-			}
 </script>
  
 </body>

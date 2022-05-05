@@ -15,7 +15,7 @@ public interface MypageService {
 	
 	public MemberVO memberInfo(Long num);	//회원 정보 조회
 	
-	MemberVO updateMemInfo(MemberVO newInfo, MultipartFile multipartFile, HttpServletRequest request) throws IllegalStateException, IOException;	//회원 정보 수정
+	void updateMemInfo(MemberVO newInfo, MultipartFile multipartFile, HttpServletRequest request) throws IllegalStateException, IOException;	//회원 정보 수정
 	void deleteMemInfo(Long mem_num);	//회원 탈퇴
 	
 	/**

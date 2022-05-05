@@ -133,18 +133,18 @@ public class MypageController {
 		
 		MemberVO newInfo = new MemberVO();
 		
+		MultipartFile multipartFile = memInfoUpdateCmd.getFile();
+		
 		newInfo.setMem_name(memInfoUpdateCmd.getMem_name());
 		newInfo.setMem_id(memInfoUpdateCmd.getMem_id());
-		newInfo.setMem_pass(memInfoUpdateCmd.getMem_pass());
+		newInfo.setMem_pass(memInfoUpdateCmd.getMem_passU());	//변경된 비밀번호
 		newInfo.setMem_email(memInfoUpdateCmd.getMem_email());
 		newInfo.setMem_num(memInfoUpdateCmd.getMem_num());
-		newInfo.setMem_pic(memInfoUpdateCmd.getMem_pic());
-		newInfo.setMem_storedpic(memInfoUpdateCmd.getMem_storedpic());
-		
-		MultipartFile multipartFile = memInfoUpdateCmd.getFile();
 
-		MemberVO member = mypageService.updateMemInfo(newInfo, multipartFile, request);
-		model.addAttribute("profile", member);
+		mypageService.updateMemInfo(newInfo, multipartFile, request);
+		
+//		MemberVO member = 업데이트 반환 없음 하고 다시 정보 불러 
+//		model.addAttribute("profile", member);
 		
 		return "redirect:/Mypage";
 	}

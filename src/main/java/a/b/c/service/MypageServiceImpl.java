@@ -30,7 +30,7 @@ public class MypageServiceImpl implements MypageService {
 	
 	//회원 정보 수정
 	@Override
-	public MemberVO updateMemInfo(MemberVO newInfo, MultipartFile multipartFile, HttpServletRequest request) throws IllegalStateException, IOException {
+	public void updateMemInfo(MemberVO newInfo, MultipartFile multipartFile, HttpServletRequest request) throws IllegalStateException, IOException {
 		
 		//사용자가 선택한 프로필 이름 추출
 		String orgimagename = multipartFile.getOriginalFilename();
@@ -56,7 +56,6 @@ public class MypageServiceImpl implements MypageService {
 		newInfo.setMem_storedpic(storedimagename);
 		
 		mypageDAO.updateMemInfo(newInfo);
-		return newInfo;
 	}
 
 	//회원 탈퇴
