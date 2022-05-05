@@ -121,7 +121,7 @@
 			                $("#searchBook").append("<strong>저자:</strong> " + msg.documents[i].authors + "<br>");		//저자	
 			                $("#searchBook").append("<strong>출판사:</strong> " + msg.documents[i].publisher + "<br>");		//출판사
 			                $("#searchBook").append("<strong>줄거리:</strong> " + msg.documents[i].contents + "...<br>");		//줄거리
-			            	$("#searchBook").append("<strong>일련번호:</strong>" + msg.documents[i].isbn + "<br>");	//일련번호
+			            	$("#searchBook").append("<strong>ISBN:</strong>" + msg.documents[i].isbn + "<br>");	//일련번호
 			            }
 			        });
 			    

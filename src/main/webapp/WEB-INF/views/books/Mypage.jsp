@@ -20,8 +20,8 @@
 		<tr>
 			<td>프로필</td>
 			<td>
-				<div id="memProfile"></div><img id="memProfile" src="<c:url value='/resources/image/${myInfo.mem_storedpic}'/>" width="220" height="170"/>
-				<div id="defaultProfile"></div><img id="defaultProfile" src="<c:url value='/resources/image/profile.png'/>" width="220" height="170"/>
+				<img id="memProfile" src="<c:url value='/resources/image/${myInfo.mem_storedpic}'/>" width="220" height="170"/>
+				<img id="defaultProfile" src="<c:url value='/resources/image/profile.png'/>" width="220" height="170"/>
 			</td>
 		</tr>	
 		<tr>
@@ -58,7 +58,7 @@
 	
 	$(document).ready(function(){
 		<c:if test="${!empty myInfo.mem_storedpic}">
-			hideProfile();
+			$("#defaultProfile").hide();
 		</c:if>
 	});
 	
