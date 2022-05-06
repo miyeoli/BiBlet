@@ -135,30 +135,36 @@
 						</c:if>
 					</div>
 					<div class="card-body">
-					   <table class="table table-hover" style="margin-left: 10px; width: 95%;">
+					   <table class="table table-hover" style="width: 100%;">
 					   	<thead>
 						    <tr>
-						      <th scope="col">ID</th>
-						      <th scope="col">코멘트</th>
-						      <th scope="col">평가</th>
-						      <th scope="col">독서 시작 날짜</th>
-						      <th scope="col">독서 완료 날짜</th>
-						      <th scope="col">수정/삭제</th>
+						      <th scope="col"><div style="padding-left:70px;">ID</div></th>
+						      <th scope="col"><div style="padding-left:70px;">코멘트</div></th>
+						      <th scope="col"><div style="padding-left:50px;">평가</div></th>
+						      <th scope="col"><div style="padding-left:50px;">독서 시작 날짜</div></th>
+						      <th scope="col"><div style="padding-left:40px;">독서 완료 날짜</div></th>
+						      <th scope="col"><div style="padding-left:40px;">수정/삭제</div></th>
 						    </tr>
 						 </thead>
 						 <tbody>
 						 	<c:if test="${!empty commentsByMembers}">
 								 <c:forEach var="commentsByMember" items="${commentsByMembers}">
 								 	<tr class="table-light">
-								      <th scope="row">${commentsByMember.mem_id}</th>
-								      <td>${commentsByMember.book_comment}</td>
-								      <td>${commentsByMember.star}</td>
-								      <td>${commentsByMember.start_date}</td>
-								      <td>${commentsByMember.end_date}</td>
+								      <th scope="row">
+								     	<div style="padding-left:60px;"> ${commentsByMember.mem_id}</div>
+								      </th>
+								      	<td><div style="padding-left:60px;">${commentsByMember.book_comment}</div></td>
+									    <td><div style="padding-left:60px;">${commentsByMember.star}</div></td>
+									    <td><div style="padding-left:50px;">${commentsByMember.start_date}</div></td>
+									    <td><div style="padding-left:40px;">${commentsByMember.end_date}</div></td>
 								      <td>
 									    <input class="btn btn-secondary my-2 my-sm-0" type="button" value="삭제" onclick='deleteBtn(${commentsByMember.appraisal_num})' />
 										<input class="btn btn-secondary my-2 my-sm-0" type='button' value='수정' onclick='updateBtn(${commentsByMember.appraisal_num})' />
-								      </td>
+										<div style="float: right; ">
+									     	 <div id="pd${commentsByMember.appraisal_num}"></div>
+										 	 <div id="pu${commentsByMember.appraisal_num}"></div>
+									    </div>									   
+									   </td>
 								    </tr>
 								  
 									<input type="hidden" name="isbn" id="isbn" value="${isbn}" />
@@ -168,8 +174,7 @@
 									<input type="hidden" name="book_status_num" id="book_status_num" value="${commentsByMember.book_status_num}" />
 									<input type="hidden" name="book_comment" id="book_comment" value="${commentsByMember.book_comment}" />
 									
-									<div id="pd${commentsByMember.appraisal_num}"></div>
-									<div id="pu${commentsByMember.appraisal_num}"></div>
+									
 						
 									<div id="u${commentsByMember.appraisal_num}"></div>
 									
@@ -218,10 +223,10 @@
 // 		# 평가 삭제를 위한 비밀번호 입력 폼 
 		function deleteBtn(appraisal_num) {
 			$("#pd"+appraisal_num).html(
-			'비밀번호 입력 : '+
-			'<input type="password" name="passCheck" id="passCheck" />'+
-			'<input type="button" value="확인" onClick="passCheckAndDelete('+
-					appraisal_num+')"/>');
+			'<div style="float: left; margin-right:10px; margin-top:5px;">비밀번호 입력 : </div>'+
+			'<input style="float: left; width:100px; height:36px;" class="form-control" type="password" name="passCheck" id="passCheck" />'+
+			'<input style="float: left;" class="btn btn-secondary my-2 my-sm-0" type="button" value="확인" onClick="passCheckAndDelete('+ appraisal_num+')"/>'
+			);
 		}
 		
 //		비밀번호 확인 및 평가 삭제	
@@ -293,11 +298,11 @@
 //			# 평가 수정을 위한 비밀번호 입력 폼 
 			function updateBtn(appraisal_num) {
 				$("#pu"+appraisal_num).html(
-						'비밀번호 입력 : '+
-						'<input type="password" name="passCheck" id="passCheck" />'+
-						'<input type="button" value="확인" onClick="passCheckAndUpdate('+
-								appraisal_num+')"/>');
-			}		  
+					'<div style="float: left; margin-right:10px; margin-top:5px;">비밀번호 입력 : </div>'+
+					'<input style="float: left; width:100px; height:36px;" class="form-control" type="password" name="passCheck" id="passCheck" />'+
+					'<input style="float: left;" class="btn btn-secondary my-2 my-sm-0" type="button" value="확인" onClick="passCheckAndUpdate('+appraisal_num+')"/>'
+					);
+				}		  
 	
 		
 //			비밀번호 확인 및 평가 수정 폼 보여주기
