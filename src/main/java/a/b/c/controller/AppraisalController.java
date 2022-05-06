@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.SystemPropertyUtils;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import a.b.c.model.AllCommentCmd;
 import a.b.c.model.AppraisalVO;
 import a.b.c.model.BookShelfVO;
 import a.b.c.model.CommandLogin;
@@ -27,7 +27,6 @@ import a.b.c.model.InsertCmd;
 import a.b.c.model.MemberVO;
 import a.b.c.model.PassCheckCmd;
 import a.b.c.model.UpdateCmd;
-import a.b.c.model.AllCommentCmd;
 import a.b.c.service.AppraisalService;
 import lombok.RequiredArgsConstructor;
 
@@ -63,7 +62,6 @@ public class AppraisalController {
 	/**
 	 * 평가 등록
 	 */
-	@SuppressWarnings("unused")
 	@PostMapping("/read/{isbn}")
 	private String writeComment(@ModelAttribute("insertCmd") InsertCmd insertCmd,
 			CommandLogin loginMember, Model model,
@@ -90,7 +88,7 @@ public class AppraisalController {
 		}
 
 		if (authInfo != null) {
-			return "redirect:/MainLogin";
+			return "redirect:/Main";
 		}
 
 		authInfo = (MemberVO) session.getAttribute("authInfo");
@@ -113,7 +111,6 @@ public class AppraisalController {
 		bookShelf.setBook_status(insertCmd.getOption());
 		bookShelf.setMem_num(mem_num);
 		bookShelf.setIsbn(insertCmd.getIsbn());
-		System.out.println("안자른 isbn : "+insertCmd.getIsbn());
 		
 		bookShelf = appraisalService.insertBookShelf(bookShelf);
 		
@@ -128,7 +125,7 @@ public class AppraisalController {
 		
 	
 		
-		return "redirect:/read/" + insertCmd.getIsbn() + "?query=" + redirectquery;
+		return "redirect:/read/" + insertCmd.getIsbn();
 	}
 
 	/**

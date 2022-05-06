@@ -14,18 +14,23 @@
 	<form:form method="POST" commandName="commandLogin">
 		<form:errors />
 		<p>
-			<label> <spring:message code="mem_id" /> <form:input
-					path="mem_id" /> <form:errors path="mem_id" />
+			<label> 
+			<spring:message code="mem_id" /> 
+			<form:input path="mem_id" /> 
+			<form:errors path="mem_id" />
 			</label>
 		</p>
 		<p>
-			<label> <spring:message code="mem_pass" /> <form:input
-					type="password" path="mem_pass" /> <form:errors path="mem_pass" />
+			<label> 
+			<spring:message code="mem_pass" /> 
+			<form:input type="password" path="mem_pass" />
+			<form:errors path="mem_pass" />
 			</label>
 		</p>
 		<p>
-			<label> <spring:message code="rememberId" /> <form:checkbox
-					path="rememberId" />
+			<label> 
+			<spring:message code="rememberId" />
+			 <form:checkbox path="rememberId" />
 			</label>
 		</p>
 

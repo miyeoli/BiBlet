@@ -102,11 +102,6 @@
 						<div  style="float: left; margin-top: 20px; margin-left: 200px;">
 							<input type="hidden" name="isbn" id="isbn" value="${isbn}" />
 							<input type="hidden" name="query" id="query" value="${query}" />
-							<input type="hidden" name="appraisal_num" id="appraisal_num" value="${commentsByMember.appraisal_num}" />
-							<input type="hidden" name="mem_pass" id="mem_pass" value="${commentsByMember.mem_pass}" />
-							<input type="hidden" name="book_status_num" id="book_status_num" value="${commentsByMember.book_status_num}" />
-							<input type="hidden" name="book_comment" id="book_comment" value="${commentsByMember.book_comment}" />
-							<input type="hidden" name="mem_num" id="mem_num" value="${commentsByMember.mem_num}" />
 								
 							<input class="btn btn-secondary my-2 my-sm-0" type="submit" value="코멘트 등록하기" id="writeComment" /> 
 						</div>
@@ -167,12 +162,20 @@
 										    <td><div style="padding-left:50px;">${commentsByMember.start_date}</div></td>
 										    <td><div style="padding-left:40px;">${commentsByMember.end_date}</div></td>
 									      <td>
+									      	<input type="hidden" name="appraisal_num" id="appraisal_num" value="${commentsByMember.appraisal_num}" />
+											<input type="hidden" name="mem_pass" id="mem_pass" value="${commentsByMember.mem_pass}" />
+											<input type="hidden" name="book_status_num" id="book_status_num" value="${commentsByMember.book_status_num}" />
+											<input type="hidden" name="book_comment" id="book_comment" value="${commentsByMember.book_comment}" />
+											<input type="hidden" name="mem_num" id="mem_num" value="${commentsByMember.mem_num}" />
+							
 										    <input class="btn btn-secondary my-2 my-sm-0" type="button" value="삭제" onclick='deleteBtn(${commentsByMember.appraisal_num})' />
 											<input class="btn btn-secondary my-2 my-sm-0" type='button' value='수정' onclick='updateBtn(${commentsByMember.appraisal_num})' />
+											
 											<div style="float: right; ">
-										     	 <div id="pd${commentsByMember.appraisal_num}"></div>
-											 	 <div id="pu${commentsByMember.appraisal_num}"></div>
-										    </div>									   
+										     	<div id="pd${commentsByMember.appraisal_num}"></div>
+											 	<div id="pu${commentsByMember.appraisal_num}"></div>
+										    </div>	
+										    								   
 										   </td>
 									    </tr>
 							

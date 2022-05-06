@@ -8,100 +8,22 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>MainPage 비로그인</title>
+<title>MainPage 로그인</title>
 </head>
 <body>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script> 
 
-	<!-- 로그인 -->
-	<div id="main_add_info">
-		<c:if test="${!empty myBookInfo}">
-				<div class="mypage_button">
-				<button id="mypage" onClick="location.href = '/MyPage'">마이페이지</button>
-			</div>
-			<span>
-				<button id="logout" onClick="location.href = '/member/logout'">로그아웃</button>
-			</span>
-			
-			<p>	
-				${myBookInfo.mem_id}님 안녕하세요 <br>
-				<c:if test="${!empty myCommentCount}">
-					지금까지 ${myCommentCount}개의 평가를 작성하였어요!
-				</c:if>
-			</p>		
-		
-			${myBookInfo.mem_id}이 찜한 도서
-			<div id="myLike"></div>
-		
-		</c:if>
-	</div>	
-	
-	
-	
-	
-	<!-- 비로그인 -->
-	<div class="login_button">
-		<button id="login" onClick="location.href = '/member/login'">로그인</button>
-	</div>
-	
-	<div>
-	<button id="findId" onClick="location.href = '/member/findId'">아이디 찾기</button>
-	</div>
-	
-	<div>
-		<button id="adminlogin" onClick="location.href = '/admin/login'">관리자 로그인</button>
-	</div>
-	<span>
-		<button id="signup" onClick="location.href = '/member/signup'">회원가입</button>
-		<button id="signup" onClick="location.href = '/admin/signup'">관리자 회원가입</button>
-	</span>
-		
-	<h2>최근 코멘트</h2>
-	
-		<table border=1>
-			<c:if test="${!empty latestList}">
-					<tr>
-						<th>제목</th>
-						<th>회원</th>
-						<th>별점</th>
-						<th>평가</th>
-					</tr>
-				<c:forEach var="list" items="${latestList}">
-					<tr>
-						<td id="bookName${list.book_comment}"></td>
-						<td>
-							<c:if test="${list.star==1 }">★☆☆☆☆</c:if> 
-							<c:if test="${list.star==2 }">★★☆☆☆</c:if> 
-							<c:if test="${list.star==3 }">★★★☆☆</c:if> 
-							<c:if test="${list.star==4 }">★★★★☆</c:if> 
-							<c:if test="${list.star==5 }">★★★★★</c:if>	
-						</td>
-						<td>${list.book_comment}</td>
-						<td>${list.mem_id}</td>
-					</tr>
-				</c:forEach>
-			</c:if>
-		</table>
-		
-		<br>
-	
-		<h2>인기 도서</h2>
-		<div id="popularList"></div>
-		<br>
-		
-		<c:if test="${!empty allCommentCount}">
-		<h2>지금 까지 총  ${allCommentCount}개의 평가가 쌓였어요!</h2>
-		</c:if>
-
-	<!-- 도서 검색 -->
-	
-	
 
 
+		<div class="mypage_button">
+			<button id="mypage" onClick="location.href = '/MyPage'">마이페이지</button>
+		</div>
+		<span>
+			<button id="logout" onClick="location.href = '/member/logout'">로그아웃</button>
+		</span>
 
-
-
-
+	
+	
 		<p>
 			검색 키워드 입력 : <select name="keyword">
 				<option value="title">제목</option>
@@ -112,13 +34,33 @@
 			<button id="search">검색</button>
 			
 		</p>
-
 	
 	<div id="searchBook"></div>
 	
 	<div id="main_add_info">
+	
+	
+	
+	
+	
+	<c:if test="${!empty myID}">
+		<p>	
+			${myID}님 안녕하세요 <br>
+			<c:if test="${!empty myCommentCount}">
+				지금까지 ${myCommentCount}개의 평가를 작성하였어요!
+			</c:if>
+		</p>		
+	
+		${myID}이 찜한 도서
+	</c:if>
+	
+	<div id="myLike"></div>
+	
+	
+	<br>
+	
 		<h2>최근 코멘트</h2>
-
+	
 		<table border=1>
 			<c:if test="${!empty latestList}">
 					<tr>
@@ -148,8 +90,6 @@
 	
 		<h2>인기 도서</h2>
 		<div id="popularList"></div>
-		
-		
 		<br>
 		
 		<c:if test="${!empty allCommentCount}">
@@ -201,7 +141,7 @@
 			// 로그인한 회원의 도서 정보
 			<c:if test="${!empty myBookInfo}">
 				<c:forEach var="myBookInfo" items="${myBookInfo}">
-					myBookInfo("${myBookInfo.isbn}")
+					myBookInfo("${myBookInfo}")
 				</c:forEach>
 			</c:if>
 			

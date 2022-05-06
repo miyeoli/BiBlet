@@ -1,6 +1,7 @@
 package a.b.c.controller.auth;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -31,7 +32,7 @@ public class MemberLoginController {
 	 * 사용자 로그인 폼
 	 */
 	@GetMapping("/login")
-	public String loginForm(CommandLogin login, HttpSession session,
+	public String loginForm(CommandLogin login, HttpSession session, HttpServletRequest request,
 			@CookieValue(value = "REMEMBER", required = false) Cookie rememberCookie) throws Exception {
 
 		/**
@@ -43,7 +44,7 @@ public class MemberLoginController {
 		}
 
 		/**
-		 * 로그인 정보가 없으면 main으로 리다이렉트
+		 * 로그인 정보가 없으면 UnLoginMain으로 
 		 */
 		if (authInfo != null) {
 			return "redirect:/Main";
@@ -61,23 +62,24 @@ public class MemberLoginController {
 	}
 
 	@PostMapping("/login")
-	public String login(@Valid CommandLogin loginMember, Model model, HttpSession session, HttpServletResponse response,
-			Errors errors) throws Exception {
-		/**
-		 * 에러시 반환
-		 */
-		if (errors.hasErrors()) {
-			return "auth/login";
-		}
+	public String login(@Valid CommandLogin loginMember, Errors errors, Model model, HttpSession session, HttpServletResponse response) throws Exception {
+		
+	    /**
+	       * 에러시 반환
+	       */
+	      if (errors.hasErrors()) {
+	         return "auth/login";
+	      }
 
-		MemberVO authInfo = null;
-		if (session != null) {
-			session.getAttribute("authInfo");
-		}
+	      MemberVO authInfo = null;
+	      if (session != null) {
+	         session.getAttribute("authInfo");
+	      }
 
-		if (authInfo != null) {
-			return "redirect:/Main";
-		}
+	      if (authInfo != null) {
+	         return "redirect:/Main";
+	      }
+
 
 		try {
 			/**
@@ -89,7 +91,7 @@ public class MemberLoginController {
 			 * 로그인 인증된 객체 세션 테이블에 저장
 			 */
 			session.setAttribute("authInfo", authInfo);
-
+			
 			/**
 			 * 아이디 기억하기를 클릭했다면 쿠키에 아이디 저장
 			 */
@@ -98,9 +100,18 @@ public class MemberLoginController {
 				rememberCookie.setPath("/");
 				rememberCookie.setMaxAge(60 * 60 * 24 * 7);
 				response.addCookie(rememberCookie);
+			}else {
+				Cookie rememberCookie = new Cookie("REMEMBER", loginMember.getMem_id());
+		         rememberCookie.setPath("/");
+		         if(loginMember.isRememberId()) {
+		         rememberCookie.setMaxAge(60*60*24*7);
+		         } else {
+		         rememberCookie.setMaxAge(0);
+		         }
+		         response.addCookie(rememberCookie);
 			}
 
-			return "redirect:/MainLogin";
+			return "redirect:/LoginMain";
 
 		} catch (IdPasswordNotMatchingException e) {
 			errors.rejectValue("mem_pass", "IdPasswordNotMatching");

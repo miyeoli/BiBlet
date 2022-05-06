@@ -8,23 +8,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>MainPage 로그인</title>
+<title>MainPage 비로그인</title>
 </head>
 <body>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script> 
 
-	<!-- 로그인 시 홈 페이지 -->
-	<c:if test="${ authInfo != null}">
-		<!-- 로그인 -->
-		<div class="mypage_button">
-			<button id="mypage" onClick="location.href = '/MyPage'">마이페이지</button>
-		</div>
-		<span>
-			<button id="logout" onClick="location.href = '/member/logout'">로그아웃</button>
-		</span>
-	</c:if>
-	
-	
 		<p>
 			검색 키워드 입력 : <select name="keyword">
 				<option value="title">제목</option>
@@ -35,32 +23,29 @@
 			<button id="search">검색</button>
 			
 		</p>
+
 	
 	<div id="searchBook"></div>
+
 	
-	<div id="main_add_info">
+	<!-- 비로그인 -->
+	<div class="login_button">
+		<button id="login" onClick="location.href = '/member/login'">로그인</button>
+	</div>
 	
+	<div>
+	<button id="findId" onClick="location.href = '/member/findId'">아이디 찾기</button>
+	</div>
 	
-	
-	
-	
-	<c:if test="${!empty myID}">
-		<p>	
-			${myID}님 안녕하세요 <br>
-			<c:if test="${!empty myCommentCount}">
-				지금까지 ${myCommentCount}개의 평가를 작성하였어요!
-			</c:if>
-		</p>		
-	
-		${myID}이 찜한 도서
-	</c:if>
-	
-	<div id="myLike"></div>
-	
-	
-	<br>
-	
-		<h2>최근 코멘트</h2>
+	<div>
+		<button id="adminlogin" onClick="location.href = '/admin/login'">관리자 로그인</button>
+	</div>
+	<span>
+		<button id="signup" onClick="location.href = '/member/signup'">회원가입</button>
+		<button id="signup" onClick="location.href = '/admin/signup'">관리자 회원가입</button>
+	</span>
+		
+	<h2>최근 코멘트</h2>
 	
 		<table border=1>
 			<c:if test="${!empty latestList}">
@@ -70,18 +55,18 @@
 						<th>별점</th>
 						<th>평가</th>
 					</tr>
-				<c:forEach var="list" items="${latestList}">
+				<c:forEach var="latestList" items="${latestList}">
 					<tr>
-						<td id="bookName${list.book_comment}"></td>
+						<td id="bookName${latestList.book_comment}"></td>
 						<td>
-							<c:if test="${list.star==1 }">★☆☆☆☆</c:if> 
-							<c:if test="${list.star==2 }">★★☆☆☆</c:if> 
-							<c:if test="${list.star==3 }">★★★☆☆</c:if> 
-							<c:if test="${list.star==4 }">★★★★☆</c:if> 
-							<c:if test="${list.star==5 }">★★★★★</c:if>	
+							<c:if test="${latestList.star==1 }">★☆☆☆☆</c:if> 
+							<c:if test="${latestList.star==2 }">★★☆☆☆</c:if> 
+							<c:if test="${latestList.star==3 }">★★★☆☆</c:if> 
+							<c:if test="${latestList.star==4 }">★★★★☆</c:if> 
+							<c:if test="${latestList.star==5 }">★★★★★</c:if>	
 						</td>
-						<td>${list.book_comment}</td>
-						<td>${list.mem_id}</td>
+						<td>${latestList.book_comment}</td>
+						<td>${latestList.mem_id}</td>
 					</tr>
 				</c:forEach>
 			</c:if>
@@ -96,7 +81,8 @@
 		<c:if test="${!empty allCommentCount}">
 		<h2>지금 까지 총  ${allCommentCount}개의 평가가 쌓였어요!</h2>
 		</c:if>
-	</div>
+
+
 	
 	
 <script>
@@ -135,21 +121,14 @@
 			// 인기 도서 불러오기
 			<c:if test="${!empty popularList}">
 				<c:forEach var="popularList" items="${popularList}">
-					popularList("${popularList}")
+					popularList(${popularList})
 				</c:forEach>
 			</c:if>	
-			
-			// 로그인한 회원의 도서 정보
-			<c:if test="${!empty myBookInfo}">
-				<c:forEach var="myBookInfo" items="${myBookInfo}">
-					myBookInfo("${myBookInfo.isbn}")
-				</c:forEach>
-			</c:if>
 			
 			// 최근평가 isbn for문으로 담기
 			<c:if test="${!empty latestList}">
 				<c:forEach var="latestList" items="${latestList}">
-					latestList("${latestList.isbn}", "${latestList.book_comment}")
+					latestList(${latestList.isbn}, ${latestList.book_comment})
 				</c:forEach>
 			</c:if>
 			
@@ -162,7 +141,7 @@
 		        method: "GET",
 		        traditional: true,
 		        async: false,	//앞의 요청의 대한 응답이 올 때 까지 기다리기(false: 순서대로, true: 코드 중에 실행)
-		        url: "https://dapi.kakao.com/v3/search/book?target=isbn",
+		        url: "https://dapi.kakao.com/v3/search/book",
 		        data: { query: isbn},
 		        headers: {Authorization: "KakaoAK 6f9ab74953bbcacc4423564a74af264e"} 
 		    })
@@ -174,28 +153,9 @@
 		}
 		
 		
-		//'찜' 도서 목록 불러오기
-		function myBookInfo(isbn){
-				
-			$.ajax({	//카카오 검색요청 / [요청]
-		        method: "GET",
-		        traditional: true,
-		        async: false,	//앞의 요청의 대한 응답이 올 때 까지 기다리기(false: 순서대로, true: 코드 중에 실행)
-		        url: "https://dapi.kakao.com/v3/search/book?target=isbn",
-		        data: { query: isbn},
-		        headers: {Authorization: "KakaoAK 6f9ab74953bbcacc4423564a74af264e"} 
-		    })
-		   
-		    .done(function (msg) {	//검색 결과 담기 / [응답]
-		    	console.log(msg);
-		            $("#myLike").append("<img src='" + msg.documents[0].thumbnail + "'/>");	//표지
-		            $("#myLike").append(msg.documents[0].title);	//제목
-		    });   
-		}
 		
 //		최근 평가 도서 불러오기(1개)
 		 function latestList(isbn, book_comment){
-				
 			$.ajax({	//카카오 검색요청 / [요청]
 		        method: "GET",
 		        traditional: true,
@@ -206,7 +166,7 @@
 		    })
 		   
 		    .done(function (msg) {	//검색 결과 담기 / [응답]
-		    	console.log(msg);
+		    	console.log("최근"+msg);
 		            $("#bookName" + book_comment).append(msg.documents[0].title);	//표지
 		    });   
 		}

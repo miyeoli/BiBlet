@@ -20,4 +20,5 @@ public class AllCommentCmd {
 	private Long book_status_num;	//상태번호
 	private String mem_pass;	//회원비밀번호
 	private String isbn;
+	private Long mem_num;
 }
