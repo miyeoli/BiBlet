@@ -25,17 +25,19 @@
 	<mvc:default-servlet-handler />
 	<!-- dispatcherServlet의 매핑경로를 '/' 로 설정시 웹 소스를 처리하기 위한 설정 =>web.xml -->
 
-	<bean id="dataSource"
-		class="com.mchange.v2.c3p0.ComboPooledDataSource"
-		destroy-method="close">
-		<property name="driverClass" value="oracle.jdbc.OracleDriver"></property>
+	<bean id="dataSource" 
+	class="com.mchange.v2.c3p0.ComboPooledDataSource"
+	destroy-method="close">
+		<property name="driverClass"
+			value="oracle.jdbc.OracleDriver"/>
 		<property name="jdbcUrl"
-			value="jdbc:oracle:thin:@itthis.kr:1521:xe"></property>
-		<property name="user" value="urimkim"></property>
-		<property name="password" value="1234"></property>
-		<property name="maxPoolSize" value="100"></property>
-		<property name="maxIdleTime" value="600"></property>
-		<property name="idleConnectionTestPeriod" value="300"></property>
+			value="jdbc:oracle:thin:@localhost:1521:xe"/>
+		<property name="user" value="tester"/>
+		<property name="password" value="1234"/>
+		<property name="maxPoolSize" value="100"/>
+		<property name="maxIdleTime" value="600"/>
+		<property name="idleConnectionTestPeriod"
+					value="300"/>
 	</bean>
 
 	<bean id="transactionManager"
@@ -83,5 +85,23 @@
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="200000000" />
 		<property name="maxInMemorySize" value="200000000" />
+	</bean>
+	
+	<!-- 메일보내기 --> 
+	<bean id="mailSender"
+		class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="bookperi99@gmail.com" />
+		<property name="password" value="비밀번호" />
+
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
 	</bean>
 </beans>

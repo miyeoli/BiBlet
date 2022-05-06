@@ -54,9 +54,8 @@ public class AdminLoginController {
      * 관리자 로그인
      */
     @PostMapping("/login")
-    public String adminLogin (
-            @Valid CommandAdminLogin adminLoginCommand, HttpSession session,
-            HttpServletResponse response, Errors errors) throws Exception {
+    public String adminLogin (HttpSession session, HttpServletResponse response, 
+    		@Valid CommandAdminLogin adminLoginCommand, Errors errors) throws Exception {
 
         if (errors.hasErrors()) {
             return "auth/admin_login";

@@ -12,6 +12,7 @@ import a.b.c.model.MemberVO;
 import a.b.c.repository.RegisterDAO;
 import lombok.RequiredArgsConstructor;
 
+
 @Service
 @RequiredArgsConstructor
 public class RegisterServiceImpl implements RegisterService {

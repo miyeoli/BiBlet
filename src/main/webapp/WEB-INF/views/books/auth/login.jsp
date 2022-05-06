@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -7,36 +7,60 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title><spring:message code="login.title" /></title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/loginPage.css" type="text/css">
+<title>로그인 페이지</title>
 </head>
+<div class="container">
+<div class="row d-flex justify-content-center mt-5">
+<div class="col-12 col-md-8 col-lg-6 col-xl-5">
+<div class="card py-3 px-2">
+	<p class="text-center mb-3 mt-2">로그인</p>
+			<div class="division">
+				<div class="row">
+					<div class="col-3"><div class="line l"></div></div>
+					<div class="col-6"><span>LOGIN</span></div>
+					<div class="col-3"><div class="line r"></div></div>
+				</div>
+			</div>
+				
+			
+			<form:form commandName="commandLogin">
+			<form class="myform">
+					<div class="form-group">
+						<form:input path="mem_id" type="text" class="form-control" placeholder="아이디"/> 
+	   					<form:errors path="mem_id" />
+ 					</div>
+ 					
+					<div class="form-group">
+   					<form:input path="mem_pass" type="password" class="form-control" placeholder="비밀번호" />
+   					<form:errors path="mem_pass" />
+ 					</div>
+ 					
+ 					<div class="row">
+  						<div class="col-md-6 col-12">
+  							<div class="form-group form-check">
+    							<input type="checkbox" class="form-check-input" id="rememberId" name="rememberId">
+    							<label class="form-check-label" for="rememberId">REMMBER ME</label>
+  							</div>
+  						</div>
+  						<div class="col-md-6 col-12 bn" id=findBtn onclick="location.href='findIdForm'">FORGET</div>
+  					</div>
+ 					
 
-<body>
-	<form:form method="POST" commandName="commandLogin">
-		<form:errors />
-		<p>
-			<label> <spring:message code="mem_id" /> <form:input
-					path="mem_id" /> <form:errors path="mem_id" />
-			</label>
-		</p>
-		<p>
-			<label> <spring:message code="mem_pass" /> <form:input
-					type="password" path="mem_pass" /> <form:errors path="mem_pass" />
-			</label>
-		</p>
-		<p>
-			<label> <spring:message code="rememberId" /> <form:checkbox
-					path="rememberId" />
-			</label>
-		</p>
-
-		<input type="submit" value="<spring:message code="login.btn"/>">
-	</form:form>
-
-
- <script type="text/javascript">
- if(${!empty sessionScope.authInfo}){
-	 window.history.forward();
- }
-</script>
+ 					<div class="form-group mt-3">
+ 						<button type="submit" class="btn btn-block btn-primary btn-lg" >
+ 						<small><i class="far fa-user pr-2"></i>LOGIN</small></button>
+ 					</div>
+ 						
+			</form>
+			</form:form>
+		
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
 </body>
 </html>
