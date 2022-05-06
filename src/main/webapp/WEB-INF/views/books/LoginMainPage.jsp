@@ -40,6 +40,10 @@
 	
 	<div id="main_add_info">
 	
+	
+	
+	
+	
 	<c:if test="${!empty myID}">
 		<p>	
 			${myID}님 안녕하세요 <br>

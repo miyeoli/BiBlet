@@ -39,161 +39,160 @@
 </nav>
 
 	<div id="searchBook"></div>
-	
-	<div class="container">
-	 	<div class="row">
-		 	<div style="margin-top: 40px;" class="col-4">
-				<div id="bookThumbnail"></div>
-			</div>
-			<div class="col-6">
-				<div style="margin-top: 40px;" id="bookTitle" ></div>	
-				<form:form method="post" commandName="insertCmd" onsubmit="return bookSubmit()">
+
+<div id="detail">	
+		<div class="container">
+		 	<div class="row">
+			 	<div style="margin-top: 40px;" class="col-4">
+					<div id="bookThumbnail"></div>
+				</div>
+				<div class="col-6">
+					<div style="margin-top: 40px;" id="bookTitle" ></div>	
+					<form:form method="post" commandName="insertCmd" onsubmit="return bookSubmit()">
+					
+						<div style="float: right;">
+							<div style="padding-left: 30px;">독서 상태</div>
+							 <select style="width:120px; height:36px;" id="option" name="option" onChange="bookStatus()" >
+								<option value="none">=== 선택 ===</option>
+								<option value=0>찜</option>
+								<option value=1>보는 중</option>
+								<option value=2>독서 완료</option>
+							</select>
+							<button class="btn btn-secondary my-2 my-sm-0" id='insertStatus' onclick="insertStatus()">등록</button>
+							<div class="text-muted" >* 독서 완료 시에만 평가 작성이 가능합니다.</div>
+						</div>
+						
+						<div style="padding-left: 70px; margin-top: 30px;" >평가하기</div>
+							
+						<div class="star-rating">
+							<input type="radio" id="5-star" name="star" value=5 /> 
+							<label for="5-star" class="star">&#9733;</label> 
+							<input type="radio" id="4-star" name="star" value=4 /> 
+							<label for="4-star" class="star">&#9733;</label> 
+							<input type="radio" id="3-star" name="star" value=3 /> 
+							<label for="3-star" class="star">&#9733;</label>
+							<input type="radio" id="2-star" name="star" value=2 /> 
+							<label for="2-star" class="star">&#9733;</label> 
+							<input type="radio" id="1-star" name="star" value=1 /> 
+							<label for="1-star" class="star">&#9733;</label>
+						</div>
+						
+						<h3 style="margin-top: 20px;">코멘트</h3>
+						<textarea class="form-control" rows="5" id="book_comment" name="book_comment"
+						placeholder="이 작품의 대한 생각을 자유롭게 표현해주세요."></textarea>
 				
-					<div style="float: right;">
-						<div style="padding-left: 30px;">독서 상태</div>
-						 <select style="width:120px; height:36px;" id="option" name="option" onChange="bookStatus()" >
-							<option value="none">=== 선택 ===</option>
-							<option value=0>찜</option>
-							<option value=1>보는 중</option>
-							<option value=2>독서 완료</option>
-						</select>
-						<button class="btn btn-secondary my-2 my-sm-0" id='insertStatus' onclick="insertStatus()">등록</button>
-						<div class="text-muted" >* 독서 완료 시에만 평가 작성이 가능합니다.</div>
-					</div>
-					
-					<div style="padding-left: 70px; margin-top: 30px;" >평가하기</div>
-						
-					<div class="star-rating">
-						<input type="radio" id="5-star" name="star" value=5 /> 
-						<label for="5-star" class="star">&#9733;</label> 
-						<input type="radio" id="4-star" name="star" value=4 /> 
-						<label for="4-star" class="star">&#9733;</label> 
-						<input type="radio" id="3-star" name="star" value=3 /> 
-						<label for="3-star" class="star">&#9733;</label>
-						<input type="radio" id="2-star" name="star" value=2 /> 
-						<label for="2-star" class="star">&#9733;</label> 
-						<input type="radio" id="1-star" name="star" value=1 /> 
-						<label for="1-star" class="star">&#9733;</label>
-					</div>
-					
-					<h3 style="margin-top: 20px;">코멘트</h3>
-					<textarea class="form-control" rows="5" id="book_comment" name="book_comment"
-					placeholder="이 작품의 대한 생각을 자유롭게 표현해주세요."></textarea>
-			
-			
-					<div style="float: left; margin-top: 20px; margin-left: 25px;">독서 시작 날짜 : <input type="date" id="start_date" name="start_date" /></div>
-					<div style="float: left; margin-top: 20px; margin-left: 25px;">독서 완료 날짜 : <input type="date" id="end_date" name="end_date" /></div>
-					
-					<div style="float: left; margin-top: 20px; margin-left: 145px;"> 공개 여부 :</div>
-						
-					<div style="float: left; margin-top: 20px; margin-left: 25px;">
-						공개 <input class="form-check-input" type="checkbox" id="co_prv" name="co_prv" value="공개" onclick='checkOnlyOne(this)'/> 
-					</div>
-						
-					<div style="float: left; margin-top: 20px; margin-left: 25px;">
-					 	비공개<input class="form-check-input" type="checkbox" id="co_prv" name="co_prv" value="비공개" onclick='checkOnlyOne(this)'/>
-					</div>
-					
-						
-					<input type="hidden" name="isbn" id="isbn" value="${isbn}" /> 
-					<input type="hidden" name="query" id="query" value="${query}" />
-					
-					<div  style="float: left; margin-top: 20px; margin-left: 200px;">
-						<input class="btn btn-secondary my-2 my-sm-0" type="submit" value="코멘트 등록하기" id="writeComment" /> 
-					</div>
-					
-					<span id="msg"></span>
-				</form:form>
 				
+						<div style="float: left; margin-top: 20px; margin-left: 25px;">독서 시작 날짜 : <input type="date" id="start_date" name="start_date" /></div>
+						<div style="float: left; margin-top: 20px; margin-left: 25px;">독서 완료 날짜 : <input type="date" id="end_date" name="end_date" /></div>
+						
+						<div style="float: left; margin-top: 20px; margin-left: 145px;"> 공개 여부 :</div>
+							
+						<div style="float: left; margin-top: 20px; margin-left: 25px;">
+							공개 <input class="form-check-input" type="checkbox" id="co_prv" name="co_prv" value="공개" onclick='checkOnlyOne(this)'/> 
+						</div>
+							
+						<div style="float: left; margin-top: 20px; margin-left: 25px;">
+						 	비공개<input class="form-check-input" type="checkbox" id="co_prv" name="co_prv" value="비공개" onclick='checkOnlyOne(this)'/>
+						</div>
+						
+							
+						<input type="hidden" name="isbn" id="isbn" value="${isbn}" /> 
+						<input type="hidden" name="query" id="query" value="${query}" />
+						
+						<div  style="float: left; margin-top: 20px; margin-left: 200px;">
+							<input type="hidden" name="isbn" id="isbn" value="${isbn}" />
+							<input type="hidden" name="query" id="query" value="${query}" />
+							<input type="hidden" name="appraisal_num" id="appraisal_num" value="${commentsByMember.appraisal_num}" />
+							<input type="hidden" name="mem_pass" id="mem_pass" value="${commentsByMember.mem_pass}" />
+							<input type="hidden" name="book_status_num" id="book_status_num" value="${commentsByMember.book_status_num}" />
+							<input type="hidden" name="book_comment" id="book_comment" value="${commentsByMember.book_comment}" />
+							<input type="hidden" name="mem_num" id="mem_num" value="${commentsByMember.mem_num}" />
+								
+							<input class="btn btn-secondary my-2 my-sm-0" type="submit" value="코멘트 등록하기" id="writeComment" /> 
+						</div>
+						
+						<span id="msg"></span>
+					</form:form>
+					
+				</div>
 			</div>
 		</div>
-	</div>
-
-<div class="container">
-	<div class="row">
-		<div style="margin-top: 30px;" class="col"></div>
-			<div style="margin-top: 30px;" class="col-11">
-				<div class="card border-secondary mb-3" style="max-width: 100rem;">
-				  <div class="card-header"><h4>기본 정보</h4></div>
-				 	 <div class="card-body">
-				 	 	<div class="card-text" id="bookInfo"></div>
-					 </div>
-				</div>
-			</div>
-		<div style="margin-top: 100px;" class="col"></div>
-	</div>
-</div>
-
-<div class="container">
-	<div class="row">
-		<div class="col"></div>
-			<div class="col-11">
-				<div class="card text-white bg-secondary mb-3" style="max-width: 100rem;">
-					<div class="card-header">
-				  		<c:if test="${!empty commentCount}">
-								평가 총 개수 : ${commentCount}	
-						</c:if>
-					</div>
-					<div class="card-body">
-					   <table class="table table-hover" style="width: 100%;">
-					   	<thead>
-						    <tr>
-						      <th scope="col"><div style="padding-left:70px;">ID</div></th>
-						      <th scope="col"><div style="padding-left:70px;">코멘트</div></th>
-						      <th scope="col"><div style="padding-left:50px;">평가</div></th>
-						      <th scope="col"><div style="padding-left:50px;">독서 시작 날짜</div></th>
-						      <th scope="col"><div style="padding-left:40px;">독서 완료 날짜</div></th>
-						      <th scope="col"><div style="padding-left:40px;">수정/삭제</div></th>
-						    </tr>
-						 </thead>
-						 <tbody>
-						 	<c:if test="${!empty commentsByMembers}">
-								 <c:forEach var="commentsByMember" items="${commentsByMembers}">
-								 	<tr class="table-light">
-								      <th scope="row">
-								     	<div style="padding-left:60px;"> ${commentsByMember.mem_id}</div>
-								      </th>
-								      	<td><div style="padding-left:60px;">${commentsByMember.book_comment}</div></td>
-									    <td><div style="padding-left:60px;">${commentsByMember.star}</div></td>
-									    <td><div style="padding-left:50px;">${commentsByMember.start_date}</div></td>
-									    <td><div style="padding-left:40px;">${commentsByMember.end_date}</div></td>
-								      <td>
-									    <input class="btn btn-secondary my-2 my-sm-0" type="button" value="삭제" onclick='deleteBtn(${commentsByMember.appraisal_num})' />
-										<input class="btn btn-secondary my-2 my-sm-0" type='button' value='수정' onclick='updateBtn(${commentsByMember.appraisal_num})' />
-										<div style="float: right; ">
-									     	 <div id="pd${commentsByMember.appraisal_num}"></div>
-										 	 <div id="pu${commentsByMember.appraisal_num}"></div>
-									    </div>									   
-									   </td>
-								    </tr>
-								  
-									<input type="hidden" name="isbn" id="isbn" value="${isbn}" />
-									<input type="hidden" name="query" id="query" value="${query}" />
-									<input type="hidden" name="appraisal_num" id="appraisal_num" value="${commentsByMember.appraisal_num}" />
-									<input type="hidden" name="mem_pass" id="mem_pass" value="${commentsByMember.mem_pass}" />
-									<input type="hidden" name="book_status_num" id="book_status_num" value="${commentsByMember.book_status_num}" />
-									<input type="hidden" name="book_comment" id="book_comment" value="${commentsByMember.book_comment}" />
-									
-									
-						
-									<div id="u${commentsByMember.appraisal_num}"></div>
-									
-								  </c:forEach>
-						 	</c:if>
-						 </tbody>
-<%-- 								평가 번호 : ${commentsByMember.appraisal_num}  --%>
-<%-- 								프로필 : ${commentsByMember.mem_pic}  --%>
-<%-- 								비밀번호 : ${commentsByMember.mem_pass} --%>
-<%-- 								book_status_num : ${commentsByMember.book_status_num} --%>
-					   </table>
-					   
-				  	</div>
-				</div>
-			</div>
-		<div style="margin-top: 100px;" class="col"></div>
-	</div>
-</div>
 	
+	<div class="container">
+		<div class="row">
+			<div style="margin-top: 30px;" class="col"></div>
+				<div style="margin-top: 30px;" class="col-11">
+					<div class="card border-secondary mb-3" style="max-width: 100rem;">
+					  <div class="card-header"><h4>기본 정보</h4></div>
+					 	 <div class="card-body">
+					 	 	<div class="card-text" id="bookInfo"></div>
+						 </div>
+					</div>
+				</div>
+			<div style="margin-top: 100px;" class="col"></div>
+		</div>
+	</div>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col"></div>
+				<div class="col-11">
+					<div class="card text-white bg-secondary mb-3" style="max-width: 100rem;">
+						<div class="card-header">
+					  		<c:if test="${!empty commentCount}">
+									평가 총 개수 : ${commentCount}	
+							</c:if>
+						</div>
+						<div class="card-body">
+						   <table class="table table-hover" style="width: 100%;">
+						   	<thead>
+							    <tr>
+							      <th scope="col"><div style="padding-left:70px;">ID</div></th>
+							      <th scope="col"><div style="padding-left:70px;">코멘트</div></th>
+							      <th scope="col"><div style="padding-left:50px;">평가</div></th>
+							      <th scope="col"><div style="padding-left:50px;">독서 시작 날짜</div></th>
+							      <th scope="col"><div style="padding-left:40px;">독서 완료 날짜</div></th>
+							      <th scope="col"><div style="padding-left:40px;">수정/삭제</div></th>
+							    </tr>
+							 </thead>
+							 <tbody>
+							 	<c:if test="${!empty commentsByMembers}">
+									 <c:forEach var="commentsByMember" items="${commentsByMembers}">
+									 	<tr class="table-light">
+									      <th scope="row">
+									     	<div style="padding-left:60px;"> ${commentsByMember.mem_id}</div>
+									      </th>
+									      	<td><div style="padding-left:60px;">${commentsByMember.book_comment}</div></td>
+										    <td><div style="padding-left:60px;">${commentsByMember.star}</div></td>
+										    <td><div style="padding-left:50px;">${commentsByMember.start_date}</div></td>
+										    <td><div style="padding-left:40px;">${commentsByMember.end_date}</div></td>
+									      <td>
+										    <input class="btn btn-secondary my-2 my-sm-0" type="button" value="삭제" onclick='deleteBtn(${commentsByMember.appraisal_num})' />
+											<input class="btn btn-secondary my-2 my-sm-0" type='button' value='수정' onclick='updateBtn(${commentsByMember.appraisal_num})' />
+											<div style="float: right; ">
+										     	 <div id="pd${commentsByMember.appraisal_num}"></div>
+											 	 <div id="pu${commentsByMember.appraisal_num}"></div>
+										    </div>									   
+										   </td>
+									    </tr>
+							
+										<div id="u${commentsByMember.appraisal_num}"></div>
+										
+									  </c:forEach>
+							 	</c:if>
+							 </tbody>
+	<%-- 								평가 번호 : ${commentsByMember.appraisal_num}  --%>
+	<%-- 								프로필 : ${commentsByMember.mem_pic}  --%>
+	<%-- 								비밀번호 : ${commentsByMember.mem_pass} --%>
+	<%-- 								book_status_num : ${commentsByMember.book_status_num} --%>
+						   </table>
+					  	</div>
+					</div>
+				</div>
+			<div style="margin-top: 100px;" class="col"></div>
+		</div>
+	</div>
+</div>
 	<script>
 
 
@@ -452,14 +451,14 @@
 	                }
 	            });
 	       
-	        	$('#searchBook').empty();
+	        	//$('#detail').empty();
 	        }) 
 	       
 	  		
 //     		 # 상세페이지 실행하자마자 도서 데이터 요청
              var pageNum = 1;
 	       	 var isbn_query = "${isbn}";
-	       	 console.log(isbn_query);
+	       	 console.log("isbn_query:"+isbn_query);
             	$.ajax({	//카카오 검색요청 / [요청]
                     method: "GET",
                     url: "https://dapi.kakao.com/v3/search/book",

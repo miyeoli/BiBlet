@@ -63,6 +63,7 @@ public class AppraisalController {
 	/**
 	 * 평가 등록
 	 */
+	@SuppressWarnings("unused")
 	@PostMapping("/read/{isbn}")
 	private String writeComment(@ModelAttribute("insertCmd") InsertCmd insertCmd,
 			CommandLogin loginMember, Model model,
@@ -125,8 +126,7 @@ public class AppraisalController {
 
 		appraisalService.writeComment(appraisal);
 		
-		String sliceIsbn = (insertCmd.getIsbn().substring(0, 10));
-		System.out.println("자른 isbn : "+sliceIsbn);
+	
 		
 		return "redirect:/read/" + insertCmd.getIsbn() + "?query=" + redirectquery;
 	}

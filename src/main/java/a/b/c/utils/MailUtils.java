@@ -49,7 +49,7 @@ public class MailUtils {
         mailSender.setHost("smtp.gmail.com");
         mailSender.setPort(587);
         mailSender.setUsername("dbflarla496695@gmail.com");
-        mailSender.setPassword("DBdbflarla?!");
+        mailSender.setPassword("비밀번호");
         mailSender.setDefaultEncoding("utf-8");
         mailSender.setJavaMailProperties(properties);
     }
