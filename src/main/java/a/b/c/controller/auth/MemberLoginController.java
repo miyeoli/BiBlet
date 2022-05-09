@@ -128,7 +128,7 @@ public class MemberLoginController {
 		String findedId = loginService.findById(mem_email);
 		
         if(findedId == null) {
-            return "auth/email_error";
+            return "auth/errorpage";
         }
         
         model.addAttribute("findedId", findedId);

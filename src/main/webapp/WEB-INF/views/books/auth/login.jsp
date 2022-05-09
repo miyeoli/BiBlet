@@ -15,15 +15,7 @@
 <div class="row d-flex justify-content-center mt-5">
 <div class="col-12 col-md-8 col-lg-6 col-xl-5">
 <div class="card py-3 px-2">
-	<p class="text-center mb-3 mt-2">로그인</p>
-			<div class="division">
-				<div class="row">
-					<div class="col-3"><div class="line l"></div></div>
-					<div class="col-6"><span>LOGIN</span></div>
-					<div class="col-3"><div class="line r"></div></div>
-				</div>
-			</div>
-				
+	<p class="text-center mb-3 mt-2">LOGIN</p>
 			
 			<form:form commandName="commandLogin">
 			<form class="myform">
@@ -44,11 +36,11 @@
     							<label class="form-check-label" for="rememberId">REMMBER ME</label>
   							</div>
   						</div>
-  						<div class="col-md-6 col-12 bn" id=findBtn onclick="location.href='findIdForm'">FORGET</div>
+  						<div class="col-md-6 col-12 bn" id=findBtn onclick="location.href='findId'">FORGET</div>
   					</div>
  					
 
- 					<div class="form-group mt-3">
+ 					<div class="form-group mt-3" style = "text-align:center;">
  						<button type="submit" class="btn btn-block btn-primary btn-lg" >
  						<small><i class="far fa-user pr-2"></i>LOGIN</small></button>
  					</div>
@@ -60,7 +52,5 @@
 </div>
 </div>
 </div>
-</body>
-</html>
 </body>
 </html>
