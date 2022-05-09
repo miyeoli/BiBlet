@@ -30,7 +30,7 @@ public class AdminLoginController {
      */
     @GetMapping("/login")
     public String adminLoginForm (
-            @Valid CommandAdminLogin adminLoginCommand, HttpSession session,
+             CommandAdminLogin adminLoginCommand, HttpSession session,
             @CookieValue(value = "REMEMBER", required = false) Cookie rememberCookie) throws Exception {
 
         AdministratorVO adminAuthInfo = null;
@@ -76,12 +76,15 @@ public class AdminLoginController {
             /**
              * 아이디 기억하기를 클릭했다면 쿠키 생성
              */
-            if (adminLoginCommand.isRememberAdmId()) {
+            
                 Cookie rememberCookie = new Cookie("REMEMBER", adminLoginCommand.getAdm_id());
                 rememberCookie.setPath("/");
+                if (adminLoginCommand.isRememberAdmId()) {
                 rememberCookie.setMaxAge(60 * 60 * 24 * 7);
+                } else {
+    				rememberCookie.setMaxAge(0);
+                }
                 response.addCookie(rememberCookie);
-            }
 
             return "redirect:/adminPage";
 

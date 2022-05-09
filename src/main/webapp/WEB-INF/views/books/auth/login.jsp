@@ -11,14 +11,22 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/loginPage.css" type="text/css">
 <title>로그인 페이지</title>
 </head>
+<body>
 <div class="container">
-<div class="row d-flex justify-content-center mt-5">
-<div class="col-12 col-md-8 col-lg-6 col-xl-5">
-<div class="card py-3 px-2">
-	<p class="text-center mb-3 mt-2">LOGIN</p>
+	<div class="row d-flex justify-content-center mt-5">
+		<div class="col-12 col-md-8 col-lg-6 col-xl-5">
+			<div class="card py-3 px-2">
+	<p class="text-center mb-3 mt-2">일반 회원 로그인</p>
+			<div class="division">
+				<div class="row">
+					<div class="col-3"><div class="line l"></div></div>
+					<div class="col-6"><span>LOGIN</span></div>
+					<div class="col-3"><div class="line r"></div></div>
+				</div>
+			</div>
 			
-			<form:form commandName="commandLogin">
-			<form class="myform">
+			<form:form commandName="commandLogin" class="myform">
+			
 					<div class="form-group">
 						<form:input path="mem_id" type="text" class="form-control" placeholder="아이디"/> 
 	   					<form:errors path="mem_id" />
@@ -40,17 +48,22 @@
   					</div>
  					
 
- 					<div class="form-group mt-3" style = "text-align:center;">
+ 					<div class="form-group mt-3">
  						<button type="submit" class="btn btn-block btn-primary btn-lg" >
- 						<small><i class="far fa-user pr-2"></i>LOGIN</small></button>
+ 						<small><i class="far fa-user pr-2"></i>LOGIN</small>
+ 						</button>
  					</div>
- 						
-			</form>
+ 			
 			</form:form>
 		
-</div>
-</div>
-</div>
-</div>
+	</div>
+	</div>
+	</div>
+	</div>
+ <script type="text/javascript">
+ if(${!empty sessionScope.authInfo}){
+	 window.history.forward();
+ }
+</script>
 </body>
 </html>

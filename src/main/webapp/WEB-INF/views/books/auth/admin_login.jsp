@@ -7,38 +7,59 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title><spring:message code="admin.title"/></title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/loginPage.css" type="text/css">
+<title>숨겨진 관리자 페이지</title>
 </head>
 <body>
-	<h2>관리자로그인</h2>
+<div class="container">
+<div class="row d-flex justify-content-center mt-5">
+<div class="col-12 col-md-8 col-lg-6 col-xl-5">
+<div class="card py-3 px-2">
+		<p class="text-center mb-3 mt-2">관리자 로그인</p>
+			<div class="division">
+				<div class="row">
+					<div class="col-3"><div class="line l"></div></div>
+					<div class="col-6"><span>ADMINLOGIN</span></div>
+					<div class="col-3"><div class="line r"></div></div>
+				</div>
+			</div>
+			
+		<form:form commandName="commandAdminLogin" class="myform">	
 	
-	<form:form commandName="commandAdminLogin">
-		<form:errors />
-		<p>
-			<label> 
-				<spring:message code="adm_id" /> 
-				<form:input path="adm_id" /> 
+			<div class="form-group">
+				<form:input path="adm_id" type="text" class="form-control" placeholder="아이디"/> 
 				<form:errors path="adm_id" />
-			</label>
-		</p>
-		<p>
-			<label> 
-				<spring:message code="adm_pass" /> 
-				<form:input type="password" path="adm_pass" /> 
+			</div>
+ 					
+ 			<div class="form-group">
+				<form:input path="adm_pass" type="password" class="form-control" placeholder="비밀번호" />
 				<form:errors path="adm_pass" />
-			</label>
-		</p>
-		<p>
-			<label> 
-				<spring:message code="rememberAdmId" /> 
-				<form:checkbox path="rememberAdmId" />
-			</label>
-		</p>
-
-		<input type="submit" value="<spring:message code="admin.btn"/>">
-	</form:form>
-
-
+			</div>
+ 					
+			<div class="row">
+				<div class="col-md-6 col-12">
+					<div class="form-group form-check">
+							<input type="checkbox" class="form-check-input" id="rememberId" name="rememberId">
+							<label class="form-check-label" for="rememberId">REMMBER ME</label>
+					</div>
+				</div>
+			</div>
+		
+	
+		<div class="form-group mt-3">
+			<button type="submit" class="btn btn-block btn-primary btn-lg" >
+			<small><i class="far fa-user pr-2"></i>LOGIN</small>
+			</button>
+		</div>
+	
+	</form:form>	
+			
+			
+</div>
+	</div>
+	</div>
+	</div>			
 <script type="text/javascript">
  if(${!empty sessionScope.adminauthInfo}){
 	 window.history.forward();
