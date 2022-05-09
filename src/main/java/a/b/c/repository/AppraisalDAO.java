@@ -5,6 +5,7 @@ import java.util.List;
 import a.b.c.model.AllCommentCmd;
 import a.b.c.model.AppraisalVO;
 import a.b.c.model.BookShelfVO;
+import a.b.c.model.CommentCmd;
 import a.b.c.model.DeleteCmd;
 import a.b.c.model.UpdateCmd;
 
@@ -16,4 +17,6 @@ public interface AppraisalDAO {
 	BookShelfVO selectBookShelf(BookShelfVO bookShelf);	//독서 상태 호출
 	void updateComment(UpdateCmd updateComment);	//평가 수정
 	void deleteComment(DeleteCmd deleteCmd);	//평가 삭제
+	
+	CommentCmd getComment(Long appraisal_num);
 }

@@ -19,24 +19,25 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/Main">BiBlet</a>
+    <a class="navbar-brand" href="/">BiBlet</a>
     <div class="collapse navbar-collapse" id="navbarColor01">
-       <div class="form-group">
-		<select class="form-select" id="exampleSelect1" name="option">
-			<option value="title">제목</option>
-			<option value="author">저자</option>
-			<option value="publisher">출판사</option>
-		</select>
+    	<div class="form-group">
+       		<form action="/search" class="d-flex flex-row">
+				<select class="form-select" style="width: 30%;" id="exampleSelect1" name="option">
+					<option value="title">제목</option>
+					<option value="author">저자</option>
+					<option value="publisher">출판사</option>
+				</select>
+				<input class="form-control me-sm-2 flex-grow-1" type="text" name="query" id="query" value="${query}" placeholder="제목, 저자 또는 출판사 검색">
+				<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+			</form>
 		</div>
-      <form class="d-flex">
-        <input class="form-control me-sm-2"  type="text" name="query" id="query" value="${query}" placeholder="제목, 저자 또는 출판사 검색">
-        <button class="btn btn-secondary my-2 my-sm-0" id="search">Search</button>
-      </form>
     </div>
 	<button class="btn btn-secondary my-2 my-sm-0" id="mypage" onClick="location.href = '/MyPage'">마이페이지</button>
-	<button class="btn btn-secondary my-2 my-sm-0" id="mainpage" onClick="location.href = '/MainLogin'">메인페이지</button>
+	<button class="btn btn-secondary my-2 my-sm-0" id="mainpage" onClick="location.href = '/'">메인페이지</button>
   </div>	
 </nav>
+
 
 	<div id="searchBook"></div>
 
@@ -100,13 +101,10 @@
 						<input type="hidden" name="query" id="query" value="${query}" />
 						
 						<div  style="float: left; margin-top: 20px; margin-left: 200px;">
-							<input type="hidden" name="isbn" id="isbn" value="${isbn}" />
-							<input type="hidden" name="query" id="query" value="${query}" />
-								
 							<input class="btn btn-secondary my-2 my-sm-0" type="submit" value="코멘트 등록하기" id="writeComment" /> 
+							<span id="msg" ></span>
 						</div>
 						
-						<span id="msg"></span>
 					</form:form>
 					
 				</div>
@@ -152,37 +150,31 @@
 							 </thead>
 							 <tbody>
 							 	<c:if test="${!empty commentsByMembers}">
-									 <c:forEach var="commentsByMember" items="${commentsByMembers}">
+									 <c:forEach var="comment" items="${commentsByMembers}">
 									 	<tr class="table-light">
 									      <th scope="row">
-									     	<div style="padding-left:60px;"> ${commentsByMember.mem_id}</div>
+									     	<div style="padding-left:60px;">${comment.mem_id}</div>
 									      </th>
-									      	<td><div style="padding-left:60px;">${commentsByMember.book_comment}</div></td>
-										    <td><div style="padding-left:60px;">${commentsByMember.star}</div></td>
-										    <td><div style="padding-left:50px;">${commentsByMember.start_date}</div></td>
-										    <td><div style="padding-left:40px;">${commentsByMember.end_date}</div></td>
+									      	<td><div id="content${comment.appraisal_num}" style="padding-left:60px;">${comment.book_comment}</div></td>
+										    <td><div id="star${comment.appraisal_num}" style="padding-left:60px;">${comment.star}</div></td>
+										    <td><div id="startDate${comment.appraisal_num}" style="padding-left:50px;">${comment.start_date}</div></td>
+										    <td><div id="endDate${comment.appraisal_num}" style="padding-left:40px;">${comment.end_date}</div></td>
 									      <td>
-									      	<input type="hidden" name="appraisal_num" id="appraisal_num" value="${commentsByMember.appraisal_num}" />
-											<input type="hidden" name="mem_pass" id="mem_pass" value="${commentsByMember.mem_pass}" />
-											<input type="hidden" name="book_status_num" id="book_status_num" value="${commentsByMember.book_status_num}" />
-											<input type="hidden" name="book_comment" id="book_comment" value="${commentsByMember.book_comment}" />
-											<input type="hidden" name="mem_num" id="mem_num" value="${commentsByMember.mem_num}" />
-							
-										    <input class="btn btn-secondary my-2 my-sm-0" type="button" value="삭제" onclick='deleteBtn(${commentsByMember.appraisal_num})' />
-											<input class="btn btn-secondary my-2 my-sm-0" type='button' value='수정' onclick='updateBtn(${commentsByMember.appraisal_num})' />
+										    <input class="btn btn-secondary my-2 my-sm-0" type="button" value="삭제" onclick='deleteBtn(${comment.appraisal_num})' />
+											<input class="btn btn-secondary my-2 my-sm-0" type='button' value='수정' onclick='updateBtn(${comment.appraisal_num})' />
 											
 											<div style="float: right; ">
-										     	<div id="pd${commentsByMember.appraisal_num}"></div>
-											 	<div id="pu${commentsByMember.appraisal_num}"></div>
+										     	<div id="pd${comment.appraisal_num}"></div>
+											 	<div id="pu${comment.appraisal_num}"></div>
 										    </div>	
 										    								   
 										   </td>
 									    </tr>
 							
-										<div id="u${commentsByMember.appraisal_num}"></div>
-										
+										<div id="u${comment.appraisal_num}"></div>
+								
 									  </c:forEach>
-							 	</c:if>
+									 	</c:if>
 							 </tbody>
 	<%-- 								평가 번호 : ${commentsByMember.appraisal_num}  --%>
 	<%-- 								프로필 : ${commentsByMember.mem_pic}  --%>
@@ -196,6 +188,55 @@
 		</div>
 	</div>
 </div>
+	<template id="modifyComment">
+		<div class="alert alert-dismissible alert-secondary">
+			<strong>독서완료</strong>
+		</div>
+		
+		<div style="padding-left: 70px; margin-top: 30px;" >평가하기</div>
+			
+		<div class="star-rating">
+			<input type="radio" id="5-star-m" name="m-star" value=5 /> 
+			<label for="5-star-m" class="star">&#9733;</label> 
+			<input type="radio" id="4-star-m" name="m-star" value=4 /> 
+			<label for="4-star-m" class="star">&#9733;</label> 
+			<input type="radio" id="3-star-m" name="m-star" value=3 /> 
+			<label for="3-star-m" class="star">&#9733;</label>
+			<input type="radio" id="2-star-m" name="m-star" value=2 /> 
+			<label for="2-star-m" class="star">&#9733;</label> 
+			<input type="radio" id="1-star-m" name="m-star" value=1 /> 
+			<label for="1-star-m" class="star">&#9733;</label>
+		</div>
+		
+		<h3 style="margin-top: 20px;">코멘트</h3>
+		<textarea class="form-control" rows="5" id="book_comment-m" name="book_comment-m"
+		placeholder="이 작품의 대한 생각을 자유롭게 표현해주세요.">{content}</textarea>
+	
+	
+		<div style="float: left; margin-top: 20px; margin-left: 25px;">독서 시작 날짜 : <input type="date" id="start_date-m" name="start_date-m" />{startDate}</div>
+		<div style="float: left; margin-top: 20px; margin-left: 25px;">독서 완료 날짜 : <input type="date" id="end_date-m" name="end_date-m" />{endDate}</div>
+		
+		<div style="float: left; margin-top: 20px; margin-left: 145px;"> 공개 여부 :</div>
+			
+		<div style="float: left; margin-top: 20px; margin-left: 25px;">
+			공개 <input class="form-check-input" type="checkbox" id="free" name="co_prv-m" value="공개" onclick='checkOnlyOne(this)'/> 
+		</div>
+			
+		<div style="float: left; margin-top: 20px; margin-left: 25px;">
+		 	비공개<input class="form-check-input" type="checkbox" id="unfree" name="co_prv-m" value="비공개" onclick='checkOnlyOne(this)'/>
+		</div>
+		
+		<div  style="float: left; margin-top: 20px; margin-left: 200px;">
+			<input 
+				class="btn btn-secondary my-2 my-sm-0" 
+				type="button" 
+				value="코멘트 수정하기" 
+				id="updateComment" 
+				onClick="updateComment({appraisal_num})"
+			/> 
+			<span id="msg" ></span>
+		</div>
+	</template>
 	<script>
 
 
@@ -302,129 +343,86 @@
 				$("#pu"+appraisal_num).html(
 					'<div style="float: left; margin-right:10px; margin-top:5px;">비밀번호 입력 : </div>'+
 					'<input style="float: left; width:100px; height:36px;" class="form-control" type="password" name="passCheck" id="passCheck" />'+
-					'<input style="float: left;" class="btn btn-secondary my-2 my-sm-0" type="button" value="확인" onClick="passCheckAndUpdate('+appraisal_num+')"/>'
+					'<input style="float: left;" class="btn btn-secondary my-2 my-sm-0" type="button" value="확인" onClick="passCheckAndUpdate('+ appraisal_num + ')"/>'
 					);
 				}		  
 	
 		
 //			비밀번호 확인 및 평가 수정 폼 보여주기
 			function passCheckAndUpdate(appraisal_num){
-				
-				let isbn = $("#isbn").val();
-				let query = $("#query").val();
-				let passCheck = $("#passCheck").val();
-				let mem_pass = $("#mem_pass").val();
-				console.log(passCheck);
-				
+				var passCheck = $("#passCheck").val();
 				$.ajax({
-					url: '<c:url value="/passCheck"/>',
+					url: '<c:url value="/comment"/>',
 					type: 'POST',
 					data: JSON.stringify({
 						"appraisal_num": appraisal_num,
-						"passCheck": passCheck,
-						"mem_pass": mem_pass,
-						"isbn": isbn,
-						"query": query
+						"passCheck": passCheck
 					}),
 					dataType: "json",
 					contentType: 'application/json',
 					success: function(data) {
 						console.log(data);
- 						if(data == 1){
-						 	alert("비밀번호가 확인되었습니다.");
-						 	
-  						 	updateForm(appraisal_num);
-						 	
- 						 	//비밀번호 입력 폼 사라지기
-  						 	$("#pu"+appraisal_num).html('');
- 						}else if(data == 0){
- 							alert("비밀번호가 일치하지 않습니다.");
-							
- 							//비밀번호 입력 폼 사라지기
- 							$("#pu"+appraisal_num).html('');
- 						}
+					 	alert("비밀번호가 확인되었습니다.");
+					 	
+					 	updateForm(data);
+					 	
+					 	$("#pu"+appraisal_num).html('');
+					},
+					error: function(a, b, c) {
+					 console.log(a);
+					 console.log(b);
+					 console.log(c);
+					 
+					 $("#pu"+appraisal_num).html('');
 					}
 				});
 				
 			}	
 	
 // 			평가 수정 폼 
-			function updateForm(appraisal_num) {
-				let book_status_num = $("#book_status_num").val();
-				let book_comment = $("#book_comment").val();
-			
-				 $("#u"+appraisal_num).html(
-				 
-				 '<p><strong>독서 상태 : 독서 완료 </strong></p>'+
+			function updateForm(commentCmd) {
+	
+				if (commentCmd.co_prv == "공개"){
+				} else {
+				}
+				$("#modifyComment").append("fdjkfjdkfjdkfjdkfjdkfd");
+				var $result = $("#modifyComment").clone().html()
+								.replace("{content}", commentCmd.book_comment)
+								.replace("{startDate}", commentCmd.start_date)
+								.replace("{endDate}", commentCmd.end_date)
+								.replace("{appraisal_num}", commentCmd.appraisal_num)
+								.replace('id="'+ commentCmd.star + '-star-m"', 'id="'+ commentCmd.star + '-star-m" checked');
 				
-
-				'별점 :'+
-				'<div class="star-rating">'+
-					'<input type="radio" id="m-5-star" name="m-star" value=5 />'+ 
-					'<label for="m-5-star" class="star">&#9733;</label>'+
-					'<input type="radio" id="m-4-star" name="m-star" value=4 />'+
-					'<label for="m-4-star" class="star">&#9733;</label>'+ 
-					'<input type="radio" id="m-3-star" name="m-star" value=3 />'+ 
-					'<label for="m-3-star" class="star">&#9733;</label>'+
-					'<input type="radio" id="m-2-star" name="m-star" value=2 />'+ 
-					'<label for="m-2-star" class="star">&#9733;</label>'+ 
-					'<input type="radio" id="m-1-star" name="m-star" value=1 />'+
-					'<label for="m-1-star" class="star">&#9733;</label>'+
-				'</div>'+
-
-				'<p>'+
-					'평가 :'+
-					'<textarea id="book_commentU" name="book_comment"></textarea>'+
-				'</p>'+
-
-
-				'구독 시작 날짜 : <input type="date" id="start_dateU" name="start_date" />'+
-				'구독 완료 날짜 : <input type="date" id="end_dateU" name="end_date" />'+
-				'공개 : <input type="checkbox" id="co_prv" name="co_prv" value="공개" />'+
-				'비공개 : <input type="checkbox" id="co_prv" name="co_prv" value="비공개" />'+
-				
-				'<input type="hidden" name="appraisal_num" id="appraisal_num" value="'+ appraisal_num +'" />'+ 
-				'<input type="hidden" name="book_status_num" id="book_status_num" value="'+ book_status_num +'" />'+ 
-				'<input type="button" value="등록" id="updateComment" onClick="updateComment('+ appraisal_num +')" />'
-					);
+				$("#u" + commentCmd.appraisal_num).append($result);
 			}
 
 
 // 			평가 수정
-			function updateComment(){
-				let isbn = $("#isbn").val();
-				let option = $("#optionU").val();
+			function updateComment(appraisal_num){
 				let star = $("input[name=m-star]").val();
-				let book_comment = $("#book_commentU").val();
-				let start_date = $("#start_dateU").val();
-				let end_date = $("#end_dateU").val();
-				let co_prv = $("#co_prv").val();
-				let query = $("#query").val();
-				let appraisal_num = $("#appraisal_num").val();
-				let book_status_num = $("#book_status_num").val();
+				let book_comment = $("#book_comment-m").val();
+				let start_date = $("#start_date-m").val();
+				let end_date = $("#end_date-m").val();
+				let co_prv = $("input[name=co_prv-m]").val();
 				
 				$.ajax({
 					url: '<c:url value="/edit"/>',
 					type: 'POST',
 					data: JSON.stringify({
-						"isbn": isbn,
-						"option": option,	
 						"star": star,	
 						"book_comment": book_comment,	
 						"start_date": start_date,	
 						"end_date": end_date,	
 						"co_prv": co_prv,
-						"query": query,
-						"appraisal_num": appraisal_num,
-						"book_status_num": book_status_num
+						"appraisal_num": appraisal_num
 					}),
 					dataType: "json",
 					contentType: 'application/json',
 					success: function(data) {
 						$("#u"+appraisal_num).html('');
 						location.reload(); 
-					}, error: function(){
-						location.reload(); 
+					}, error: function(e){
+						console.log(e);
 					}
 				});
 			}
@@ -433,30 +431,6 @@
 	
 // 		 # 도서 검색 버튼 클릭 시 도서 데이터 요청
 	   	 $(document).ready(function () {
-	        var pageNum = 1;
-	       $("#search").click(function () {	//검색 버튼 클릭시 ajax실행
-	        	$.ajax({	//카카오 검색요청 / [요청]
-	                method: "GET",
-	                url: "https://dapi.kakao.com/v3/search/book",
-	                data: { query: $("#query").val(), page: pageNum},
-	                headers: {Authorization: "KakaoAK 6f9ab74953bbcacc4423564a74af264e"} 
-	            })
-	           
-	            .done(function (msg) {	//검색 결과 담기 / [응답]
-	            	console.log(msg);
-	                for (var i = 0; i < 10; i++){
-	                    $("#searchBook").append("<img src='" + msg.documents[i].thumbnail + "'/><br>");		//표지
-	                    $("#searchBook").append("<h2><a href='/read/"+ msg.documents[i].isbn.slice(-13)+"?query="+$("#query").val()+ "'>" + msg.documents[i].title + "</a></h2>");	//제목
-	                    $("#searchBook").append("<strong>저자:</strong> " + msg.documents[i].authors + "<br>");		//저자	
-	                    $("#searchBook").append("<strong>출판사:</strong> " + msg.documents[i].publisher + "<br>");		//출판사
-	                    $("#searchBook").append("<strong>줄거리:</strong> " + msg.documents[i].contents + "...<br>");		//줄거리
-	                	$("#searchBook").append("<strong>ISBN:</strong>" + msg.documents[i].isbn + "<br>");	//일련번호
-	                }
-	            });
-	       
-	        	//$('#detail').empty();
-	        }) 
-	       
 	  		
 //     		 # 상세페이지 실행하자마자 도서 데이터 요청
              var pageNum = 1;
@@ -471,7 +445,7 @@
                
                 .done(function (msg) {	//검색 결과 담기 / [응답]
                 	console.log(msg);
-                        $("#bookThumbnail").append("<img src='" + msg.documents[0].thumbnail + "'/><br>");		//표지
+                        $("#bookThumbnail").append("<img style='width:400px; height:600px;' src='" + msg.documents[0].thumbnail + "'/><br>");		//표지
                         $("#bookTitle").append("<h2>"+ msg.documents[0].title + "</h2>저자 : "+msg.documents[0].authors);	//제목
                         $("#bookInfo").append("<h4 style='display:inline' class='text-primary'>저자:</h4><h5 style='display:inline'> " + msg.documents[0].authors + "</h5><br>");		//저자	
                         $("#bookInfo").append("<h4 style='display:inline' class='text-primary'>출판사:</h4> <h5 style='display:inline'>" + msg.documents[0].publisher + "</h5><br>");		//출판사

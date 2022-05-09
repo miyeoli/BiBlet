@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import a.b.c.model.AppraisalVO;
 import a.b.c.model.BookShelfVO;
+import a.b.c.model.CommentCmd;
 import a.b.c.model.DeleteCmd;
 import a.b.c.model.UpdateCmd;
 import a.b.c.model.AllCommentCmd;
@@ -59,5 +60,9 @@ public class AppraisalServiceImpl implements AppraisalService {
 	public void updateComment(UpdateCmd updateComment) {
 		appraisalDAO.updateComment(updateComment);
 	}
-
+	
+	@Override
+	public CommentCmd getComment(Long appraisal_num) {
+		return appraisalDAO.getComment(appraisal_num);
+	}
 }

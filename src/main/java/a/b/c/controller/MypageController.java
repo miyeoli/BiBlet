@@ -201,8 +201,9 @@ public class MypageController {
 	 */
 	@ResponseBody
 	@PostMapping("/infoUpdatePassCheck")
-	public int PassCheck(@RequestBody PassCheckCmd passCheckCmd) {
-		if (passCheckCmd.getMem_pass().equals(passCheckCmd.getPassCheck())) {
+	public int PassCheck(@RequestBody PassCheckCmd passCheckCmd, HttpSession session) {
+		MemberVO authInfo = (MemberVO) session.getAttribute("authInfo");
+		if (authInfo.getMem_pass().equals(passCheckCmd.getPassCheck())) {
 			return 1;
 		} else {
 			return 0;

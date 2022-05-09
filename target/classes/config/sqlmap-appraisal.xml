@@ -12,7 +12,7 @@
 	SELECT * FROM bookshelf WHERE isbn=#{isbn} AND mem_num=#{mem_num} AND bookshelf.book_status = 2
 	</select>
 	
-	<insert id="writeComment" parameterType="insertComment">
+	<insert id="writeComment" parameterType="appraisal">
 	INSERT INTO appraisal(appraisal_num, star, book_comment, start_date, end_date, co_prv, book_status_num)
 	 VALUES(appraisal_SEQ.nextval, #{star}, #{book_comment}, #{start_date}, #{end_date}, #{co_prv}, #{book_status_num})
 	</insert>
@@ -54,8 +54,23 @@
 	<update id="updateComment" parameterType="updateComment">
 	UPDATE appraisal SET
 	star=#{star}, book_comment=#{book_comment}, start_date=#{start_date}, end_date=#{end_date}, co_prv=#{co_prv}
-	WHERE appraisal_num=#{appraisal_num} AND book_status_num=#{book_status_num}
+	WHERE appraisal_num=#{appraisal_num}
 	</update>
+	
+	<select id="getComment" parameterType="appraisal" resultType="comment">
+	SELECT 
+	 appraisal.appraisal_num,
+ 	 appraisal.star,
+ 	 appraisal.book_comment,
+ 	 appraisal.start_date,
+ 	 appraisal.end_date,
+ 	 appraisal.co_prv,
+ 	 bookshelf.book_status,
+ 	 bookshelf.mem_num
+	FROM bookshelf
+	INNER JOIN appraisal ON bookshelf.book_status_num = appraisal.book_status_num
+	WHERE appraisal.appraisal_num=#{appraisal_num}
+	</select>
 	
 </mapper>
 

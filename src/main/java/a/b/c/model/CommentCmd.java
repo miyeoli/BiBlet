@@ -9,7 +9,13 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PassCheckCmd {
-	private String passCheck;
+public class CommentCmd {
 	private Long appraisal_num;
+	private String star;
+	private String book_comment;
+	private String start_date;
+	private String end_date;
+	private String co_prv;
+	private int book_status;
+	private Long mem_num;
 }

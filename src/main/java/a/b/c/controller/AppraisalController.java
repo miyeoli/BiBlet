@@ -1,5 +1,7 @@
 package a.b.c.controller;
 
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
@@ -7,6 +9,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -22,6 +25,7 @@ import a.b.c.model.AllCommentCmd;
 import a.b.c.model.AppraisalVO;
 import a.b.c.model.BookShelfVO;
 import a.b.c.model.CommandLogin;
+import a.b.c.model.CommentCmd;
 import a.b.c.model.DeleteCmd;
 import a.b.c.model.InsertCmd;
 import a.b.c.model.MemberVO;
@@ -82,31 +86,17 @@ public class AppraisalController {
 		/**
 		 * session에서 데이터를 꺼내 MemberVO객체에 저장
 		 */
-		MemberVO authInfo = null;
-		if (session != null) {
-			session.getAttribute("authInfo");
+		if (session == null || session.getAttribute("authInfo") == null) {
+			return "redirect:/";
 		}
+		
 
-		if (authInfo != null) {
-			return "redirect:/Main";
-		}
-
-		authInfo = (MemberVO) session.getAttribute("authInfo");
-		System.out.println("authInfo.getMem_num() : "+authInfo.getMem_num());
+		MemberVO authInfo = (MemberVO) session.getAttribute("authInfo");
 		
 		/**
 		 * Long mem_num으로 변환
 		 */
-		Long mem_num = authInfo.getMem_num();
-
-		/**
-		 * 세션 테이블에 다시 저장
-		 */
-		session.setAttribute("authInfo", authInfo);		
-
-		
-		String query = insertCmd.getQuery();
-		String redirectquery = query.substring(query.lastIndexOf(",")+1);
+		Long mem_num = authInfo.getMem_num();		
 
 		bookShelf.setBook_status(insertCmd.getOption());
 		bookShelf.setMem_num(mem_num);
@@ -133,21 +123,19 @@ public class AppraisalController {
 	 */
 	@ResponseBody
 	@PostMapping("/edit")
-	public void updateComment(@RequestBody UpdateCmd updateCmd, Long mem_num) {
+	public void updateComment(@RequestBody UpdateCmd updateCmd) {
 		UpdateCmd updateAppraisal = new UpdateCmd();
-		updateCmd.setIsbn(updateCmd.getIsbn().substring(0, 10));
 
-		updateAppraisal.setMem_num(mem_num);
-		updateAppraisal.setIsbn(updateCmd.getIsbn());
 		updateAppraisal.setAppraisal_num(updateCmd.getAppraisal_num());
 		updateAppraisal.setStar(updateCmd.getStar());
 		updateAppraisal.setBook_comment(updateCmd.getBook_comment());
 		updateAppraisal.setStart_date(updateCmd.getStart_date());
 		updateAppraisal.setEnd_date(updateCmd.getEnd_date());
 		updateAppraisal.setCo_prv(updateCmd.getCo_prv());
-		updateAppraisal.setBook_status_num(updateCmd.getBook_status_num());
 
 		appraisalService.updateComment(updateAppraisal);
+		
+		
 	}
 
 	/**
@@ -163,17 +151,23 @@ public class AppraisalController {
 		appraisalService.deleteComment(deleteComment);
 	}
 
-	/**
-	 * 비밀번호 확인
-	 */
 	@ResponseBody
-	@PostMapping("/passCheck")
-	public int passCheck(@RequestBody PassCheckCmd passCheckCmd) {
-		if (passCheckCmd.getMem_pass().equals(passCheckCmd.getPassCheck())) {
-			return 1;
-		} else {
-			return 0;
+	@PostMapping("/comment")
+	public ResponseEntity<?> modifyComment(@RequestBody PassCheckCmd passCheckCmd, HttpSession session) {
+		
+		if (session == null || session.getAttribute("authInfo") == null) {
+			return ResponseEntity.status(NOT_FOUND).build();
 		}
+		
+		MemberVO authInfo = (MemberVO) session.getAttribute("authInfo");
+			
+		if (!authInfo.getMem_pass().equals(passCheckCmd.getPassCheck())) {
+			return ResponseEntity.status(NOT_FOUND).build();
+		}
+		
+		CommentCmd comment = appraisalService.getComment(passCheckCmd.getAppraisal_num());
+		
+		return ResponseEntity.ok().body(comment);
 	}
 
 	/**
@@ -204,7 +198,7 @@ public class AppraisalController {
 		}
 
 		if (authInfo != null) {
-			return "redirect:/MainLogin";
+			return "redirect:/";
 		}
 
 		authInfo = (MemberVO) session.getAttribute("authInfo");
@@ -218,8 +212,6 @@ public class AppraisalController {
 		 * 세션 테이블에 다시 저장
 		 */
 		session.setAttribute("authInfo", authInfo);		
-
-		insertCmd.setIsbn(insertCmd.getIsbn().substring(0, 10));
 
 		bookShelf.setBook_status(insertCmd.getOption());
 		bookShelf.setMem_num(mem_num);

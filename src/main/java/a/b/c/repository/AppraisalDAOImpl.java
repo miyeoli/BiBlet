@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import a.b.c.model.AllCommentCmd;
 import a.b.c.model.AppraisalVO;
 import a.b.c.model.BookShelfVO;
+import a.b.c.model.CommentCmd;
 import a.b.c.model.DeleteCmd;
 import a.b.c.model.UpdateCmd;
 import lombok.RequiredArgsConstructor;
@@ -61,4 +62,8 @@ public class AppraisalDAOImpl implements AppraisalDAO {
 		sqlSessionTemplate.update("updateComment", updateAppraisal);
 	}
 
+	@Override
+	public CommentCmd getComment(Long appraisal_num) {
+		return sqlSessionTemplate.selectOne("getComment", appraisal_num);
+	}
 }
