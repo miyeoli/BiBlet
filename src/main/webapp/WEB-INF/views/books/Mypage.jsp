@@ -15,12 +15,12 @@
 
 <c:if test="${!empty myInfo}">
 
-
 	<table border="1">
 		<tr>
 			<td>프로필</td>
 			<td>
-				<img id="memProfile" src="<c:url value='/resources/image/${myInfo.mem_storedpic}'/>" width="220" height="170"/>
+				
+				<img id="memProfile" src="<c:url value='/Users/kim-yurim/Desktop/workspace/sts(main)/image/${myInfo.mem_storedpic}'/>" width="220" height="170"/>
 				<img id="defaultProfile" src="<c:url value='/resources/image/profile.png'/>" width="220" height="170"/>
 			</td>
 		</tr>	
@@ -56,11 +56,11 @@
 
 <script>
 	
-	$(document).ready(function(){
-		<c:if test="${!empty myInfo.mem_storedpic}">
-			$("#defaultProfile").hide();
-		</c:if>
-	});
+// 	$(document).ready(function(){
+// 		<c:if test="${!empty myInfo.mem_storedpic}">
+// 			$("#defaultProfile").hide();
+// 		</c:if>
+// 	});
 	
 	function infoUpdate(mem_num){
 		// 확인 팝업 창

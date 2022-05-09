@@ -106,7 +106,6 @@ public class MemberLoginController {
 
 	@PostMapping("/findId")
 	public String findid(MemberVO member, Model model, String mem_email) throws Exception {
-		System.out.println("mem_email : "+ mem_email);
 		
 		String findedId = loginService.findById(mem_email);
 		

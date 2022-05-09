@@ -160,8 +160,11 @@ public class AppraisalController {
 		}
 		
 		MemberVO authInfo = (MemberVO) session.getAttribute("authInfo");
-			
-		if (!authInfo.getMem_pass().equals(passCheckCmd.getPassCheck())) {
+		
+		
+		String mem_pass = appraisalService.getMemPass(passCheckCmd.getAppraisal_num());
+		
+		if (!authInfo.getMem_pass().equals(passCheckCmd.getPassCheck())|| !mem_pass.equals(passCheckCmd.getPassCheck())) {
 			return ResponseEntity.status(NOT_FOUND).build();
 		}
 		
@@ -169,10 +172,25 @@ public class AppraisalController {
 		
 		return ResponseEntity.ok().body(comment);
 	}
+	
+	@ResponseBody
+	@PostMapping("/passCheck")
+	public int passCheck(@RequestBody PassCheckCmd passCheckCmd, HttpSession session) {
+		
+		MemberVO authInfo = (MemberVO) session.getAttribute("authInfo");
+		
+		String mem_pass = appraisalService.getMemPass(passCheckCmd.getAppraisal_num());
+		
+		if (!authInfo.getMem_pass().equals(passCheckCmd.getPassCheck()) || !mem_pass.equals(passCheckCmd.getPassCheck())) {
+			return 0;
+		}
+	
+		return 1;
+	}
+	
 
 	/**
 	 * 독서 상태 등록
-	 * @return 
 	 */
 	@ResponseBody
 	@PostMapping("/insertStatus")

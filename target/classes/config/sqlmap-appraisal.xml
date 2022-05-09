@@ -72,6 +72,15 @@
 	WHERE appraisal.appraisal_num=#{appraisal_num}
 	</select>
 	
+	
+	<select id="getMemPass" parameterType="Long" resultType="String">
+	SELECT 
+	 member.mem_pass
+	FROM member
+	INNER JOIN bookshelf ON member.mem_num = bookshelf.mem_num
+	INNER JOIN appraisal ON bookshelf.book_status_num = appraisal.book_status_num
+	WHERE appraisal.appraisal_num=#{appraisal_num}
+	</select>
 </mapper>
 
 

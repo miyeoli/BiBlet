@@ -44,7 +44,7 @@ public class MypageServiceImpl implements MypageService {
 		String storedimagename = UUID.randomUUID().toString().replaceAll("-", "") + orgimagenameExtension;
 		
 		//파일이 저장될 경로(서버 측)
-		String savePath = "/Users/kim-yurim/Desktop/workspace/sts(main)/BiBlet/src/main/webapp/resources/image/";		
+		String savePath = "/Users/kim-yurim/Desktop/workspace/sts(main)/image";		
 				
 		//파일이 저장될 경로 + 최종 파일명
 		String uploadFile = savePath + storedimagename;

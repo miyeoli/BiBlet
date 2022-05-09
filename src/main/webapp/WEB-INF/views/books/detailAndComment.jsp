@@ -268,27 +268,20 @@
 			$("#pd"+appraisal_num).html(
 			'<div style="float: left; margin-right:10px; margin-top:5px;">비밀번호 입력 : </div>'+
 			'<input style="float: left; width:100px; height:36px;" class="form-control" type="password" name="passCheck" id="passCheck" />'+
-			'<input style="float: left;" class="btn btn-secondary my-2 my-sm-0" type="button" value="확인" onClick="passCheckAndDelete('+ appraisal_num+')"/>'
+			'<input style="float: left;" class="btn btn-secondary my-2 my-sm-0" type="button" value="확인" onClick="passCheckAndDelete('+ appraisal_num + ')"/>'
 			);
 		}
 		
 //		비밀번호 확인 및 평가 삭제	
 		function passCheckAndDelete(appraisal_num){
 			
-			let isbn = $("#isbn").val();
-			let query = $("#query").val();
 			let passCheck = $("#passCheck").val();
-			let mem_pass = $("#mem_pass").val();
-			
 			$.ajax({
 				url: '<c:url value="/passCheck"/>',
 				type: 'POST',
 				data: JSON.stringify({
 					"appraisal_num": appraisal_num,
-					"passCheck": passCheck,
-					"mem_pass": mem_pass,
-					"isbn": isbn,
-					"query": query
+					"passCheck": passCheck
 				}),
 				dataType: "json",
 				contentType: 'application/json',
@@ -369,9 +362,8 @@
 					 	$("#pu"+appraisal_num).html('');
 					},
 					error: function(a, b, c) {
-					 console.log(a);
-					 console.log(b);
-					 console.log(c);
+						alert("비밀번호가 일치하지 않습니다.");
+						
 					 
 					 $("#pu"+appraisal_num).html('');
 					}
@@ -423,6 +415,7 @@
 						location.reload(); 
 					}, error: function(e){
 						console.log(e);
+						location.reload(); 
 					}
 				});
 			}

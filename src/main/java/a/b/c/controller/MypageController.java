@@ -59,7 +59,7 @@ public class MypageController {
 		}
 
 		if (authInfo != null) {
-			return "redirect:/MainLogin";
+			return "redirect:/LoginMain";
 		}
 
 		authInfo = (MemberVO) session.getAttribute("authInfo");
@@ -78,7 +78,7 @@ public class MypageController {
 
 		model.addAttribute("myInfo", member);
 
-		return "/Mypage";
+		return "Mypage";
 	}
 
 	/**
@@ -104,7 +104,7 @@ public class MypageController {
 		}
 
 		if (authInfo != null) {
-			return "redirect:/MainLogin";
+			return "redirect:/LoginMain";
 		}
 
 		authInfo = (MemberVO) session.getAttribute("authInfo");
@@ -121,7 +121,7 @@ public class MypageController {
 		
 		MemberVO member = mypageService.memberInfo(mem_num);
 		model.addAttribute("myInfo", member);
-		return "/infoUpdate";
+		return "infoUpdate";
 	}
 
 	/**
@@ -129,18 +129,17 @@ public class MypageController {
 	 */
 	@PostMapping("/infoUpdate")
 	public String infoUpdate(@ModelAttribute("memInfoCmd") MemInfoUpdateCmd memInfoUpdateCmd,
-			HttpServletRequest request, Model model) throws IllegalStateException, IOException {
+		HttpServletRequest request, Model model) throws IllegalStateException, IOException {
 		
 		MultipartFile multipartFile = memInfoUpdateCmd.getFile();
 	
 		mypageService.updateMemInfo(memInfoUpdateCmd, multipartFile, request);
-		
-		System.out.println("memInfoUpdateCmd.getMem_num() : "+memInfoUpdateCmd.getMem_num());
+
 		MemberVO profile = mypageService.memberInfo(memInfoUpdateCmd.getMem_num());
-		System.out.println("profile.getMem_storedpic() : "+ profile.getMem_storedpic());
+		
 		model.addAttribute("profile", profile);
 		
-		return "redirect:/Mypage";
+		return "redirect:/MyPage";
 	}
 
 	/**
@@ -166,7 +165,7 @@ public class MypageController {
 		}
 
 		if (authInfo != null) {
-			return "redirect:/MainLogin";
+			return "redirect:/LoginMain";
 		}
 
 		authInfo = (MemberVO) session.getAttribute("authInfo");
@@ -183,7 +182,7 @@ public class MypageController {
 
 		MemberVO member = mypageService.memberInfo(mem_num);
 		model.addAttribute("myInfo", member);
-		return "/infoDelete";
+		return "infoDelete";
 	}
 
 	/**
@@ -221,7 +220,7 @@ public class MypageController {
 		 * 에러시 반환
 		 */
 		if (errors.hasErrors()) {
-			return "UnLoginMainPage";
+			return "LoginMain";
 		}
 
 		/**
@@ -233,7 +232,7 @@ public class MypageController {
 		}
 
 		if (authInfo != null) {
-			return "redirect:/MainLogin";
+			return "redirect:/LoginMain";
 		}
 
 		authInfo = (MemberVO) session.getAttribute("authInfo");

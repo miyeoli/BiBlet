@@ -7,6 +7,7 @@ import a.b.c.model.AppraisalVO;
 import a.b.c.model.BookShelfVO;
 import a.b.c.model.CommentCmd;
 import a.b.c.model.DeleteCmd;
+import a.b.c.model.MemberVO;
 import a.b.c.model.UpdateCmd;
 
 public interface AppraisalDAO {
@@ -19,4 +20,5 @@ public interface AppraisalDAO {
 	void deleteComment(DeleteCmd deleteCmd);	//평가 삭제
 	
 	CommentCmd getComment(Long appraisal_num);
+	String getMemPass(Long appraisal_num);
 }

@@ -4,12 +4,13 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import a.b.c.model.AllCommentCmd;
 import a.b.c.model.AppraisalVO;
 import a.b.c.model.BookShelfVO;
 import a.b.c.model.CommentCmd;
 import a.b.c.model.DeleteCmd;
+import a.b.c.model.MemberVO;
 import a.b.c.model.UpdateCmd;
-import a.b.c.model.AllCommentCmd;
 import a.b.c.repository.AppraisalDAO;
 import lombok.RequiredArgsConstructor;
 
@@ -65,4 +66,10 @@ public class AppraisalServiceImpl implements AppraisalService {
 	public CommentCmd getComment(Long appraisal_num) {
 		return appraisalDAO.getComment(appraisal_num);
 	}
+	
+	@Override
+	public String getMemPass(Long appraisal_num) {
+		return appraisalDAO.getMemPass(appraisal_num);
+	}
+	
 }

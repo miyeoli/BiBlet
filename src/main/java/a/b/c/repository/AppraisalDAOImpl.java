@@ -10,6 +10,7 @@ import a.b.c.model.AppraisalVO;
 import a.b.c.model.BookShelfVO;
 import a.b.c.model.CommentCmd;
 import a.b.c.model.DeleteCmd;
+import a.b.c.model.MemberVO;
 import a.b.c.model.UpdateCmd;
 import lombok.RequiredArgsConstructor;
 
@@ -66,4 +67,10 @@ public class AppraisalDAOImpl implements AppraisalDAO {
 	public CommentCmd getComment(Long appraisal_num) {
 		return sqlSessionTemplate.selectOne("getComment", appraisal_num);
 	}
+	
+	@Override
+	public String getMemPass(Long appraisal_num) {
+		return sqlSessionTemplate.selectOne("getMemPass", appraisal_num);
+	}
+	
 }

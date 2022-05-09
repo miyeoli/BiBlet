@@ -21,4 +21,5 @@ public interface AppraisalService {
 	void deleteComment(DeleteCmd deleteCmd);	//평가 삭제 
 	
 	CommentCmd getComment(Long appraisal_num);
+	String getMemPass(Long appraisal_num);
 }

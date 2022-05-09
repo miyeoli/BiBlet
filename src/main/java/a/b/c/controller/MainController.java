@@ -39,17 +39,29 @@ public class MainController {
 		model.addAttribute("latestList", mainService.latestComment());
 		model.addAttribute("allCommentCount", mainService.allCommentCount());
 		
+		
 		if (session == null || session.getAttribute("authInfo") == null) {
+			return "LoginMain";
+		}else {
+			
+			
+			MemberVO authInfo = (MemberVO) session.getAttribute("authInfo");
+			
+			Long mem_num = authInfo.getMem_num();
+			
+			
+			session.setAttribute("myID", authInfo.getMem_id());
+			
+			System.out.println("세션 아이디 : "+authInfo.getMem_id());
+			model.addAttribute("myCommentCount", mainService.memCommentCount(mem_num));
+			model.addAttribute("myBookInfo", mainService.myBookInfo(mem_num));
+			
+			System.out.println("아이디"+ mainService.myID(mem_num));
+			System.out.println("총코멘트"+ mainService.memCommentCount(mem_num));
+			
 			return "LoginMain";
 		}
 		
-		MemberVO authInfo = (MemberVO) session.getAttribute("authInfo");
 		
-		Long mem_num = authInfo.getMem_num();
-		model.addAttribute("myID", mainService.myID(mem_num));
-		model.addAttribute("myCommentCount", mainService.memCommentCount(mem_num));
-		model.addAttribute("myBookInfo", mainService.myBookInfo(mem_num));
-		
-		return "LoginMain";
 	}
 }
