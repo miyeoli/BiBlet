@@ -13,6 +13,8 @@ import a.b.c.model.MemberVO;
 import a.b.c.repository.AdministratorpageDAO;
 import lombok.RequiredArgsConstructor;
 
+
+
 @Service
 @RequiredArgsConstructor
 public class AdmPageServiceImpl implements AdmPageService{

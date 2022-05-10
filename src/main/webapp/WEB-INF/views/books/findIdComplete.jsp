@@ -7,8 +7,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<<<<<<< HEAD
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminbootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/registPage.css" type="text/css">
+=======
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/loginPage.css" type="text/css">
+>>>>>>> 6b08b15aff3dbcafdd8640d49d96bc287813c7c8
 <title>아이디 찾기</title>
 </head>
 <body>

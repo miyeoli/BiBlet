@@ -7,8 +7,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<<<<<<< HEAD
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminbootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/registPage.css" type="text/css">
+=======
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/loginPage.css" type="text/css">
+>>>>>>> 6b08b15aff3dbcafdd8640d49d96bc287813c7c8
 <title>숨겨진 관리자 페이지</title>
 </head>
 <body>

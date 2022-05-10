@@ -30,7 +30,11 @@ public class AdminLoginController {
      */
     @GetMapping("/login")
     public String adminLoginForm (
+<<<<<<< HEAD
             CommandAdminLogin adminLoginCommand, HttpSession session,
+=======
+             CommandAdminLogin adminLoginCommand, HttpSession session,
+>>>>>>> 6b08b15aff3dbcafdd8640d49d96bc287813c7c8
             @CookieValue(value = "REMEMBER", required = false) Cookie rememberCookie) throws Exception {
 
         if (session != null && session.getAttribute("adminAuthInfo") != null) {
@@ -49,9 +53,8 @@ public class AdminLoginController {
      * 관리자 로그인
      */
     @PostMapping("/login")
-    public String adminLogin (
-            @Valid CommandAdminLogin adminLoginCommand, HttpSession session,
-            HttpServletResponse response, Errors errors) throws Exception {
+    public String adminLogin (HttpSession session, HttpServletResponse response, 
+    		@Valid CommandAdminLogin adminLoginCommand, Errors errors) throws Exception {
 
         if (errors.hasErrors()) {
             return "auth/admin_login";
@@ -75,12 +78,15 @@ public class AdminLoginController {
             /**
              * 아이디 기억하기를 클릭했다면 쿠키 생성
              */
-            if (adminLoginCommand.isRememberAdmId()) {
+            
                 Cookie rememberCookie = new Cookie("REMEMBER", adminLoginCommand.getAdm_id());
                 rememberCookie.setPath("/");
+                if (adminLoginCommand.isRememberAdmId()) {
                 rememberCookie.setMaxAge(60 * 60 * 24 * 7);
+                } else {
+    				rememberCookie.setMaxAge(0);
+                }
                 response.addCookie(rememberCookie);
-            }
 
             return "redirect:/adminPage";
 

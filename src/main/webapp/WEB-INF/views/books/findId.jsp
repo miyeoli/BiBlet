@@ -7,8 +7,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<<<<<<< HEAD
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminbootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/registPage.css" type="text/css">
+=======
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/loginPage.css" type="text/css">
+>>>>>>> 6b08b15aff3dbcafdd8640d49d96bc287813c7c8
 <title>아이디 찾기</title>
 </head>
 <body>
@@ -29,7 +34,11 @@
  	
  					<div class="form-group mt-3" style = "text-align:center;">
  						<button type="submit" id=findBtn class="btn btn-block btn-primary">FIND</button>
+<<<<<<< HEAD
  						<button type="button" class="btn btn-block btn-primary" onClick="location.href = '/'">Main</button>
+=======
+ 						<button type="button" class="btn btn-block btn-primary" onclick="history.go(-1);">login</button>
+>>>>>>> 6b08b15aff3dbcafdd8640d49d96bc287813c7c8
  					</div>
  						
 			</form>
@@ -39,6 +48,24 @@
 </div>
 </div>
 </div>
+<<<<<<< HEAD
+=======
+
+<%-- 	<form method="post"> --%>
+	
+<!-- 	<h2>아이디 찾기</h2> -->
+<!-- 		<div> -->
+<!-- 			<p> -->
+<!-- 				<label>ID 검색을 위한 이메일 입력 : </label> -->
+<!-- 				<input type="text" id="mem_email" name="mem_email"> -->
+<!-- 			</p> -->
+<!-- 			<p> -->
+<!-- 				<button type="submit" id=findBtn>확인</button> -->
+<!-- 				<button type="button" onclick="history.go(-1);">로그인</button> -->
+<!-- 			</p> -->
+<!-- 		</div> -->
+<%-- 	</form> --%>
+>>>>>>> 6b08b15aff3dbcafdd8640d49d96bc287813c7c8
 
 </body>
 </html>
