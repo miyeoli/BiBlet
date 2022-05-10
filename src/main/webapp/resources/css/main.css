@@ -4,73 +4,41 @@ body{
      background-color:#eeeeee59;
  }
  
-  .footer-subscribe input[type=text] {
-    border: 1px solid #6667AB;
-    border-radius: 55px;
-    font-size: 12px;
-    padding: 12px 40% 12px 20px;
-    background: transparent;
-    width: 98%;
-    box-shadow: none !important;
-}
-
-.mt-100{
-    margin-top:10px;
-}
-
-a, button[type="submit"], input[type=text] {
-    color: #333;
-    text-decoration: none;
-    -webkit-transition: all 400ms ease-in-out;
-    -moz-transition: all 400ms ease-in-out;
-    -o-transition: all 400ms ease-in-out;
-    -ms-transition: all 400ms ease-in-out;
-    transition: all 400ms ease-in-out;
-}
-
-.footer-subscribe .btn-theme {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    right: 0;
-}
-
-.btn-theme:hover {
-    box-shadow: none;
-}
-
-.btn-theme {
-    color: #FFF !important;
-    padding: 0.5rem 1.9rem;
-    font-weight: 400;
-    font-size: 0.875rem;
-    display: inline-block;
-    display: inline-flex;
-    outline: none;
-    border: none;
-    cursor: pointer;
-    overflow: hidden;
-    z-index: 2;
-    align-items: center;
-    position: relative;
-    cursor: pointer;
-    -webkit-box-shadow: 0px 14px 47px 0px rgba(28, 28, 28, 0.24);
-    -moz-box-shadow: 0px 14px 47px 0px rgba(28, 28, 28, 0.24);
-    box-shadow: 0px 14px 47px 0px rgba(28, 28, 28, 0.24);
-    -webkit-border-radius: 70px;
-    -moz-border-radius: 70px;
-    border-radius: 70px; 
-}
-
-.bg-purple {
-    background: #6667AB;
-}
-
 .login_success_area{
-	height: 62%;
-    width: 80%;
-    border: 2px solid #7474ad;
+	width: 15%;
+	height: 200%;
+    border: 1px solid #6667AB;
     border-radius: 15px;
     margin: 5% auto;
     padding-top: 5%;
+	display: inline-block;	
+	text-align: center;
+	vertical-align:top;
+	
+}
+
+.login_success_area>span{
+	margin-top: 10px;
+    font-weight: 900;
+    display: inline-block;
+    text-align: center;
+    margin: 5%;
+    
+}
+.login_app{
+	vertical-align:top;
+	
+}
+.content_area{
+}
+.comment_area{
+width:800px;
+float: left;
+padding: 10px;
+}
+.star_area{
+	width: 25%;
+	height: 100%;
+	display: inline-block;	
+	text-align: center;
 }

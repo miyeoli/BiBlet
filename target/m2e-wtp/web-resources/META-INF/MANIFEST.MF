@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Built-By: kim-yurim
-Build-Jdk: 11.0.13
+Built-By: ￬ﾆﾡ￫ﾯﾼ￬ﾗﾰ
+Build-Jdk: 1.8.0_311
 Created-By: Maven Integration for Eclipse
 

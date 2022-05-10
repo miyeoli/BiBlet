@@ -8,6 +8,8 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/appraisalbootstrap.min.css">
+		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/main.css">
 		<title>MainPage 로그인</title>
 	</head>
 	<body>
@@ -21,27 +23,48 @@
 			<a href="/admin/signup">관리자 회원가입</a>
 		</div>
 
-		<form action="/search">
-			<span>검색 </span>
-			<input type="text" name="query" id="query" value="${query}" placeholder="제목, 저자 또는 출판사 검색" size=30>
-			<button type="submit">검색</button>
-		</form>
+<%-- 		<form action="/search"> --%>
+<!-- 			<span>검색 </span> -->
+<%-- 			<input type="text" name="query" id="query" value="${query}" placeholder="제목, 저자 또는 출판사 검색" size=30> --%>
+<!-- 			<button type="submit">검색</button> -->
+<%-- 		</form> --%>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  			<div class="container-fluid">
+    		<a class="navbar-brand" href="/">BiBlet</a>
+    		<div class="collapse navbar-collapse" id="navbarColor01" >
+    		<div class="form-group" style="margin:auto;text-align:center;">
+       		<form action="/search" class="d-flex flex-row" >
+				<input class="form-control me-sm-2 flex-grow-1" type="text" name="query" id="query" value="${query}" placeholder="제목, 저자 또는 출판사 검색" size=150>
+				<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+			</form>
+			</div>
+    		</div>
+  			</div>	
+		</nav>
 		
 		<c:if test="${!empty myID}">
-			<p>	
+			<div class="login_success_area">
 				<span>${myID}님 안녕하세요</span>
-				<br>
 				<c:if test="${!empty myCommentCount}">
-					<span>지금까지 ${myCommentCount}개의 평가를 작성하였어요!</span>
+				<span>지금까지
+				${myCommentCount}
+				개의 평가를 작성하였어요!</span>
 				</c:if>
-			</p>		
-			<span>${myID}이 찜한 도서</span>
+			</div>	
+			
+			<div class="login_app">
+				<span>${myID}이 찜한 도서</span>
+					<div id="myLike"> </div>
+			</div>
+			
 		</c:if>
-	
-		<div id="myLike"></div>
+
+		
 
 		<br>
 	
+		<div class="content_area">
+		<div class ="comment_area">
 		<h2>최근 코멘트</h2>
 	
 		<table border=1>
@@ -68,17 +91,21 @@
 				</c:forEach>
 			</c:if>
 		</table>
+		</div>
 		
 		<br>
 	
+		<div class ="star_area">
 		<h2>인기 도서</h2>
 		
 		<div id="popularList"></div>
+		</div>
+		</div>
 		
 		<br>
 		
 		<c:if test="${!empty allCommentCount}">
-			<h2>지금 까지 총  ${allCommentCount}개의 평가가 쌓였어요!</h2>
+			<h2 align="center">지금 까지 총  ${allCommentCount}개의 평가가 쌓였어요!</h2>
 		</c:if>
 	
 		<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
