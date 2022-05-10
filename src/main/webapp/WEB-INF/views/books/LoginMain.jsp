@@ -13,15 +13,59 @@
 		<title>MainPage 로그인</title>
 	</head>
 	<body>
+	
+<%-- 	<c:if ${empty authInfo}> --%>
 		<div>
-			<a href="/MyPage">마이페이지</a>
-			<a href="/member/logout">로그아웃</a>
 			<a href="/member/login">로그인</a>
 			<a href="/member/findId">아이디 찾기</a>
 			<a href="/admin/login">관리자 로그인</a>
 			<a href="/member/signup">회원가입</a>
 			<a href="/admin/signup">관리자 회원가입</a>
 		</div>
+		
+		
+		<h2>최근 코멘트</h2>
+	
+		<table border=1>
+			<c:if test="${!empty latestList}">
+				<tr>
+					<th>제목</th>
+					<th>ID</th>
+					<th>코멘트</th>
+					<th>평가</th>
+				</tr>
+				<c:forEach var="list" items="${latestList}">
+					<tr>
+						<td id="bookName${list.isbn}"></td>
+						<td>${list.mem_id}</td>
+						<td>${list.book_comment}</td>
+						<td>
+							<c:if test="${list.star==1 }">★☆☆☆☆</c:if> 
+							<c:if test="${list.star==2 }">★★☆☆☆</c:if> 
+							<c:if test="${list.star==3 }">★★★☆☆</c:if> 
+							<c:if test="${list.star==4 }">★★★★☆</c:if> 
+							<c:if test="${list.star==5 }">★★★★★</c:if>	
+						</td>
+					</tr>
+				</c:forEach>
+			</c:if>
+		</table>
+		</div>
+		
+		<br>
+	
+		<div class ="star_area">
+		<h2>인기 도서</h2>
+		
+		<div id="popularList"></div>
+	
+	
+	</c:if>
+	
+	
+		<c:if test="${empty myID}">
+		
+		</c:if>
 
 <%-- 		<form action="/search"> --%>
 <!-- 			<span>검색 </span> -->
@@ -36,6 +80,17 @@
        		<form action="/search" class="d-flex flex-row" >
 				<input class="form-control me-sm-2 flex-grow-1" type="text" name="query" id="query" value="${query}" placeholder="제목, 저자 또는 출판사 검색" size=150>
 				<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+				<c:if test="${!empty myID}">
+		<div class="navbar-collapse collapse show" id="navbarColor01"
+			 style="float:right;">
+			<ul class="navbar-nav me-auto">
+				<li class="nav-item"><a class="nav-link" onClick="location.href = '/MyPage'">MyPage</a></li>
+			</ul>
+			<ul class="navbar-nav me-auto">
+				<li class="nav-item"><a class="nav-link" onClick="location.href = '/member/logout'">logout</a></li>
+			</ul>
+		</div>
+		</c:if>
 			</form>
 			</div>
     		</div>
@@ -62,45 +117,6 @@
 		
 
 		<br>
-	
-		<div class="content_area">
-		<div class ="comment_area">
-		<h2>최근 코멘트</h2>
-	
-		<table border=1>
-			<c:if test="${!empty latestList}">
-				<tr>
-					<th>제목</th>
-					<th>회원</th>
-					<th>별점</th>
-					<th>평가</th>
-				</tr>
-				<c:forEach var="list" items="${latestList}">
-					<tr>
-						<td id="bookName${list.isbn}"></td>
-						<td>
-							<c:if test="${list.star==1 }">★☆☆☆☆</c:if> 
-							<c:if test="${list.star==2 }">★★☆☆☆</c:if> 
-							<c:if test="${list.star==3 }">★★★☆☆</c:if> 
-							<c:if test="${list.star==4 }">★★★★☆</c:if> 
-							<c:if test="${list.star==5 }">★★★★★</c:if>	
-						</td>
-						<td>${list.book_comment}</td>
-						<td>${list.mem_id}</td>
-					</tr>
-				</c:forEach>
-			</c:if>
-		</table>
-		</div>
-		
-		<br>
-	
-		<div class ="star_area">
-		<h2>인기 도서</h2>
-		
-		<div id="popularList"></div>
-		</div>
-		</div>
 		
 		<br>
 		
@@ -147,7 +163,7 @@
 			    })
 			    .done(function (msg) {	//검색 결과 담기 / [응답]
 			    	console.log(msg);
-			        $("#popularList").append("<img src='" + msg.documents[0].thumbnail + "'/>");	//표지
+			        $("#popularList").append("<img src='" + msg.documents[0].thumbnail + "'/>"); 	//표지
 			    });   
 			}
 			
