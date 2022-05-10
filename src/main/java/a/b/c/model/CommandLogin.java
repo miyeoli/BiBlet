@@ -1,10 +1,5 @@
 package a.b.c.model;
 
-
-<<<<<<< HEAD
-=======
-
->>>>>>> 6b08b15aff3dbcafdd8640d49d96bc287813c7c8
 import javax.validation.constraints.NotEmpty;
 
 import lombok.AllArgsConstructor;

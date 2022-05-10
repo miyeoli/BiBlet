@@ -30,11 +30,8 @@ public class AdminLoginController {
      */
     @GetMapping("/login")
     public String adminLoginForm (
-<<<<<<< HEAD
+
             CommandAdminLogin adminLoginCommand, HttpSession session,
-=======
-             CommandAdminLogin adminLoginCommand, HttpSession session,
->>>>>>> 6b08b15aff3dbcafdd8640d49d96bc287813c7c8
             @CookieValue(value = "REMEMBER", required = false) Cookie rememberCookie) throws Exception {
 
         if (session != null && session.getAttribute("adminAuthInfo") != null) {

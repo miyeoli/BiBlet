@@ -7,9 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<<<<<<< HEAD
 <script type="text/javascript">
-=======
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/loginPage.css" type="text/css">
 <title>로그인 페이지</title>
@@ -64,7 +62,6 @@
 	</div>
 	</div>
  <script type="text/javascript">
->>>>>>> 6b08b15aff3dbcafdd8640d49d96bc287813c7c8
  if(${!empty sessionScope.authInfo}){
 	 window.history.forward();
  }

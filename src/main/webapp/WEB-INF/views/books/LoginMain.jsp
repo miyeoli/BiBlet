@@ -59,8 +59,8 @@
 		
 		<div id="popularList"></div>
 	
-	
-	</c:if>
+
+<%-- 	</c:if> --%>
 	
 	
 		<c:if test="${empty myID}">

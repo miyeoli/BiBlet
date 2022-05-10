@@ -51,15 +51,9 @@ public class MemberLoginController {
 	}
 
 	@PostMapping("/login")
-<<<<<<< HEAD
 	public String login(@Valid CommandLogin loginMember, Errors errors, Model model, HttpSession session, HttpServletResponse response) throws Exception {
 		
-	    /**
-=======
-	public String login(Model model, HttpSession session, HttpServletResponse response,
-			@Valid CommandLogin loginMember, Errors errors) throws Exception {
-		/**
->>>>>>> 6b08b15aff3dbcafdd8640d49d96bc287813c7c8
+		/*
 		 * 에러시 반환
 		 */
 		if (errors.hasErrors()) {
@@ -86,18 +80,7 @@ public class MemberLoginController {
 			/**
 			 * 아이디 기억하기를 클릭했다면 쿠키에 아이디 저장
 			 */
-<<<<<<< HEAD
-			Cookie rememberCookie = new Cookie("REMEMBER", null);
-			rememberCookie.setMaxAge(0);
-			rememberCookie.setPath("/");
-			
-			if (loginMember.isRememberId()) {
-				rememberCookie = new Cookie("REMEMBER", authInfo.getMem_id());
-				rememberCookie.setMaxAge(60 * 60 * 24 * 7);
-			}
-			
-=======
-			
+
 			Cookie rememberCookie = new Cookie("REMEMBER", authInfo.getMem_id());
 			rememberCookie.setPath("/");
 			if (loginMember.isRememberId()) {
@@ -105,7 +88,7 @@ public class MemberLoginController {
 			} else {
 				rememberCookie.setMaxAge(0);
 			}
->>>>>>> 6b08b15aff3dbcafdd8640d49d96bc287813c7c8
+
 			response.addCookie(rememberCookie);
 
 			return "redirect:/";
