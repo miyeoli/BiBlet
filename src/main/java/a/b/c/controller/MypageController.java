@@ -33,8 +33,6 @@ import lombok.RequiredArgsConstructor;
 public class MypageController {
 
 	private final MypageService mypageService;
-	private final AppraisalService appraisalService;
-	private final LoginService loginService;
 
 	/**
 	 * 회원 정보 조회
@@ -103,10 +101,6 @@ public class MypageController {
 			session.getAttribute("authInfo");
 		}
 
-		if (authInfo != null) {
-			return "redirect:/LoginMain";
-		}
-
 		authInfo = (MemberVO) session.getAttribute("authInfo");
 
 		/**
@@ -133,6 +127,10 @@ public class MypageController {
 		
 		MultipartFile multipartFile = memInfoUpdateCmd.getFile();
 	
+		System.out.println(memInfoUpdateCmd.getMem_name());
+		System.out.println(memInfoUpdateCmd.getMem_id());
+		System.out.println(memInfoUpdateCmd.getMem_pass());
+		System.out.println(memInfoUpdateCmd.getFile().getOriginalFilename());
 		mypageService.updateMemInfo(memInfoUpdateCmd, multipartFile, request);
 
 		MemberVO profile = mypageService.memberInfo(memInfoUpdateCmd.getMem_num());

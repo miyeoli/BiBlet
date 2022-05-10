@@ -22,12 +22,7 @@
 		</div>
 
 		<form action="/search">
-			<span>검색 키워드 입력 : </span>
-			<select name="keyword">
-				<option value="title">제목</option>
-				<option value="author">저자</option>
-				<option value="publisher">출판사</option>
-			</select> 
+			<span>검색 </span>
 			<input type="text" name="query" id="query" value="${query}" placeholder="제목, 저자 또는 출판사 검색" size=30>
 			<button type="submit">검색</button>
 		</form>

@@ -8,19 +8,36 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/appraisalbootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/star.css">
 		<title>search</title>
 	</head>
 	<body>
-		<form method="GET">
-			<span>검색 키워드 입력 : </span>
-			<select name="keyword">
-				<option value="title">제목</option>
-				<option value="author">저자</option>
-				<option value="publisher">출판사</option>
-			</select> 
-			<input type="text" name="query" id="query" value="${query}" placeholder="제목, 저자 또는 출판사 검색" size=30>
-			<button type="submit" id="search">검색</button>	
-		</form>		
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">BiBlet</a>
+    <div class="collapse navbar-collapse" id="navbarColor01">
+    	<div class="form-group">
+       		<form action="/search" class="d-flex flex-row">
+				<input class="form-control me-sm-2 flex-grow-1" type="text" name="query" id="query" value="${query}" placeholder="제목, 저자 또는 출판사 검색">
+				<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+			</form>
+		</div>
+    </div>
+    <div class="col-25 col-md-20 col-lg-2 col-xl-2">
+		<div class="navbar-collapse collapse show" id="navbarColor01"
+			 style="float:right;">
+			<ul class="navbar-nav me-auto">
+				<li class="nav-item"><a class="nav-link" onClick="location.href = '/MyPage'">MyPage</a></li>
+			</ul>
+			<ul class="navbar-nav me-auto">
+				<li class="nav-item"><a class="nav-link" onClick="location.href = '/'">MainPage</a></li>
+			</ul>
+		</div>
+	</div>
+  </div>	
+</nav>	
+		<br>
 		
 		<div id="searchBook"></div>
 	

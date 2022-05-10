@@ -6,9 +6,9 @@
 
 	<insert id="memRegister" parameterType="member">
 		INSERT INTO MEMBER
-		(mem_num,mem_name,mem_id,mem_pass,mem_regdate,mem_email)
+		(mem_num,mem_name,mem_id,mem_pass,mem_regdate,mem_email, mem_pic)
 		VALUES
-		(MEMBER_SEQ.nextval,#{mem_name},#{mem_id},#{mem_pass},sysdate,#{mem_email})
+		(MEMBER_SEQ.nextval,#{mem_name},#{mem_id},#{mem_pass},sysdate,#{mem_email}, #{mem_pic})
 	</insert>
 
 	<insert id="admRegist" parameterType="admin">

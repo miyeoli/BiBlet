@@ -62,6 +62,11 @@ public class MemberLoginController {
 
 		MemberVO authInfo = null;
 		try {
+			
+			if (session != null && session.getAttribute("authInfo") != null) {
+				return "redirect:/";
+			}
+			
 			/**
 			 * 로그인 인증하고 인증 객체 반환
 			 */

@@ -43,6 +43,8 @@ public class RegisterServiceImpl implements RegisterService {
 		/**
 		 * 회원정보 DB에 저장
 		 */
+		String defaultPic = "profile.png";
+		member.setMem_pic(defaultPic);
 		registerDAO.memRegister(member);
 	}
 	

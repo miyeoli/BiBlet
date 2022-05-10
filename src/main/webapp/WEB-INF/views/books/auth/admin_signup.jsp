@@ -9,8 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리자 회원가입</title>
-
+<title>BiBlet 관리자 회원가입</title>
 <script type="text/javascript">
 	function fnChkByte(obj, maxByte, id) {
 		var str = obj.value;
@@ -20,7 +19,6 @@
 		var rlen = 0;
 		var one_char = "";
 		var str2 = "";
-
 		for (var i = 0; i < str_len; i++) {
 			one_char = str.charAt(i);
 			if (escape(one_char).length > 4) {
@@ -40,75 +38,83 @@
 			fnChkByte(obj, maxByte);
 		} else {
 			input.innerText = rbyte;
-
 		}
 	}
 </script>
-
-<!-- 네이버 api -->
-<!-- <script type="text/javascript"
-	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
-	charset="utf-8"></script>
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery-1.11.3.min.js"></script> -->
-
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/adminbootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/registPage.css" type="text/css">
 </head>
 <body>
-	<h1>관리자 회원 가입</h1>
-	<form:form commandName="admin">
-		<div>
+<div class="container">
+<div class="row d-flex justify-content-center mt-5">
+<div class="col-12 col-md-8 col-lg-6 col-xl-5">
+<div class="card py-3 px-2">
+	<p class="text-center mb-3 mt-2">관리자 회원 가입</p>
+	<div class="division">
+		<div class="row">
+			<div class="col-3"><div class="line l"></div></div>
+			<div class="col-6"><span>BiBlet 관리자 가입</span></div>
+			<div class="col-3"><div class="line r"></div></div>
+		</div>
+	</div>
+	
+	<form:form commandName="admin" class="myform">
+		<div class="form-group">
 			<label>이름</label>
 			<form:input path="adm_name" limitbyte="50"
 				placeholder="한글 6자, 영문50자 이내"
-				onKeyUp="javascript:fnChkByte(this,'50','byteInfo')" />
-			<span id="byteInfo">0</span> / 50bytes
+				onKeyUp="javascript:fnChkByte(this,'50','byteInfo')" 
+				type="text" class="form-control"/>
+			<span><span id="byteInfo">0</span> / 50bytes</span>
 			<form:errors path="adm_name" />
 		</div>
-		<div>
+		
+		<div class="form-group">
 			<label>아이디</label>
 			<form:input path="adm_id" limitbyte="100"
 				placeholder="한글 33자, 영문100자 이내"
-				onKeyUp="javascript:fnChkByte(this,'100','byteInfo2')" />
-			<span id="byteInfo2">0</span> / 100bytes
+				onKeyUp="javascript:fnChkByte(this,'100','byteInfo2')" type="text" class="form-control"/>
+			<span><span id="byteInfo2">0</span> / 100bytes</span>
 			<form:errors path="adm_id" />
 		</div>
-		<div>
+		
+		<div class="form-group">
 			<label>비밀번호</label>
 			<form:input type="password" path="adm_pass" limitbyte="200"
 				placeholder="한글66자, 영문200자 이내"
-				onKeyUp="javascript:fnChkByte(this,'200','byteInfo3')" />
-			<span id="byteInfo3">0</span> / 200bytes
+				onKeyUp="javascript:fnChkByte(this,'200','byteInfo3')" class="form-control"/>
+			<span><span id="byteInfo3">0</span> / 200bytes</span>
 			<form:errors path="adm_pass" />
 		</div>
-		<div>
+		
+		<div class="form-group">
 			<label>이메일</label>
-			<form:input path="adm_email" />
+			<form:input path="adm_email" type="text" class="form-control"/>
 			<form:errors path="adm_email" />
 		</div>
 
+		<div class="form-group">
 		<label>관리자 인증 코드</label>
-		<form:input type="password" path="securitycode" />
+		<form:input type="password" path="securitycode" class="form-control"/>
 		<form:errors path="securitycode" />
-
-		<div>
-			<input type="submit" value="관리자 회원가입" />
+		</div>
+		
+		<div class="form-group mt-3">
+			<button type="submit" class="btn btn-block btn-primary btn-lg">
+			<small><i class="far fa-user pr-2"></i>관리자 가입</small>
+			</button>
 		</div>
 
-		<%-- <!-- 네이버 로그인 버튼 노출 영역 -->
-		<%
-			String clientId = "d49IDn_y2lOLJI_iR5pL";//애플리케이션 클라이언트 아이디값";
-		String redirectURI = URLEncoder.encode("http://localhost:8080/www/home", "UTF-8");
-		SecureRandom random = new SecureRandom();
-		String state = new BigInteger(130, random).toString();
-		String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
-		apiURL += "&client_id=" + clientId;
-		apiURL += "&redirect_uri=" + redirectURI;
-		apiURL += "&state=" + state;
-		session.setAttribute("state", state);
-		%>
-		<a href="<%=apiURL%>"><img height="50"
-			src="http://static.nid.naver.com/oauth/small_g_in.PNG" /></a>
- --%>
+		<div class="text-center mb-3 mt-2">
+			<a href="registPage">회원 가입</a>
+		</div>
+		
 	</form:form>
+	
+	
+	</div>
+	</div>
+	</div>
+	</div>
 </body>
 </html>

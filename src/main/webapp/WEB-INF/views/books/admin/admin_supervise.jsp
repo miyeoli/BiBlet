@@ -6,118 +6,127 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
-<style type="text/css">
-dl {
-	position: relative;
-	width: 1000px;
-	height: 100px;
-}
-
-dt {
-	height: 30px;
-	float: left;
-	width: 250px;
-	z-index: 9;
-	position: relative;
-	text-align: center;
-	background: #ddd;
-}
-
-dd {
-	position: absolute;
-	padding-top: 30px;
-	background-color: #f3f3f3;
-	width: 1000px;
-	height: 100px;
-	margin: 0;
-}
-
-dd.hidden {
-	display: none;
-}
-</style>
-
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/adminbootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/adminPage.css" type="text/css">
 
 <title>관리자 페이지</title>
 </head>
 <body>
+<div class="title">
+	[${sessionScope.adm_id}]님 안녕하세요 
+	<br>
+	<span><a href="logout">로그아웃</a></span>
+</div>
 
-[${sessionScope.adm_id}]님 안녕하세요 
+<div class="codepen-container">
 
-		<span>
-			<button id="logout" onClick="location.href = '/member/logout'">로그아웃</button>
-		</span>
-
-	<dl>
-		<dt>가입 회원 현황</dt>
-		<dd>
-			<form name="member" action="<c:url value='/search'/>" method="post">
-				가입 회원 검색 &nbsp:&nbsp <select name="option">
+	<div id="icetab-container">
+    	<div class="icetab current-tab">가입 회원 현황</div>
+    	<div class="icetab">도서 평가 관리</div>
+    	<div class="icetab">도서 코멘트 관리</div>    
+    	<div class="icetab">관리자 정보</div>      
+    </div>
+    
+    <div id="icetab-content">
+    	<div class="tabcontent tab-active">
+			
+				<div class="row justify-content-center">
+                        <div class="col-12 col-md-10 col-lg-8">
+                            <form name="member" action="<c:url value='/search'/>" method="post" class="card card-sm">
+                                <div class="card-body row no-gutters align-items-center">
+                                <select name="option">
 					<option value="mem_num">회원 번호</option>
 					<option value="mem_name">회원 이름</option>
 					<option value="mem_email">회원 이메일</option>
-				</select> <input type="text" name="keyword" placeholder="회원 번호, 이름, 이메일로 검색"
-					style="width: 30%;"> <input type="submit" value="검색">
-			</form>
+				</select> 
+                                    <div style="display:inline;" class="col-auto">
+                                        <i class="fas fa-search h4 text-body"></i>
+                                    </div>
+                                    <!--end of col-->
+                                    <div style="display:inline;" class="col">
+                                        <input class="form-control form-control-sm form-control-borderless" type="search" name="keyword" placeholder="회원 번호, 이름, 이메일로 검색">
+                                    </div>
+                                    <!--end of col-->
+                                    <div class="col-auto">
+                                        <button class="btn btn-sm" style="background-color: #8080ff;" type="submit">검색</button>
+                                    </div>
+                                    <!--end of col-->
+                                </div>
+                            </form>
+                        </div>
+                        <!--end of col-->
+                    </div>
+		
 
 			가입 회원 수 : ${memcount}
-			<table border="1">
+			<table class="table table-fixed">
+			<thead>
 				<tr>
-					<th>회원 번호</th>
-					<th>이름</th>
-					<th>아이디</th>
-					<th>비밀번호</th>
-					<th>가입일</th>
-					<th>이메일</th>
-					<th>이메일 인증 완료 여부</th>
-					<th>회원 강제 탈퇴 버튼</th>
+					<th class="col-xs-3">회원 번호</th>
+					<th class="col-xs-3">이름</th>
+					<th class="col-xs-3">아이디</th>
+					<th class="col-xs-3">비밀번호</th>
+					<th class="col-xs-3">가입일</th>
+					<th class="col-xs-3">이메일</th>
+					<th class="col-xs-3">이메일 인증 완료 여부</th>
+					<th class="col-xs-3">회원 강제 탈퇴 버튼</th>
 				</tr>
+				</thead>
+				 <tbody>
 				<c:forEach var="member" items="${memberList}">
+				
 					<tr>
-						<td>${member.mem_num }</td>
-						<td>${member.mem_name }</td>
-						<td>${member.mem_id }</td>
-						<td id="hide_pass">${member.mem_pass }</td>
+						<td class="col-xs-3">${member.mem_num }</td>
+						<td class="col-xs-3">${member.mem_name }</td>
+						<td class="col-xs-3">${member.mem_id }</td>
+						<td class="col-xs-3" id="hide_pass">${member.mem_pass }</td>
 						<!-- 로그인과 합쳤을 때 session정보가지고 관리자 비번확인해서 값 보이도록 하기(https://esckey.tistory.com/66) -->
-						<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
+						<td class="col-xs-3"><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
 								value="${member.mem_regdate }" /></td>
-						<td>${member.mem_email }</td>
-						<td><c:if test="${member.authstatus==1 }">완료</c:if> <c:if
+						<td class="col-xs-3">${member.mem_email }</td>
+						<td class="col-xs-3"><c:if test="${member.authstatus==1 }">완료</c:if> <c:if
 								test="${member.authstatus==0 }">미완료</c:if></td>
-						<td><a
+						<td class="col-xs-3"><a
 							href="<c:url value="/adminPage/deleteMember/${member.mem_num }"/>"><button>강제
 									탈퇴</button></a></td>
+					
 					</tr>
+					
 				</c:forEach>
-
+				</tbody>
 				<c:if test="${! empty searchList }">
+				<tbody>
 					<c:forEach var="member" items="${searchList}">
+					
 						<tr>
-							<td>${member.mem_num }</td>
-							<td>${member.mem_name }</td>
-							<td>${member.mem_id }</td>
-							<td id="hide_pass">${member.mem_pass }</td>
-							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
+							<td class="col-xs-3">${member.mem_num }</td>
+							<td class="col-xs-3">${member.mem_name }</td>
+							<td class="col-xs-3">${member.mem_id }</td>
+							<td class="col-xs-3" id="hide_pass">${member.mem_pass }</td>
+							<td class="col-xs-3"><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
 									value="${member.mem_regdate }" /></td>
-							<td>${member.mem_email }</td>
-							<td><c:if test="${member.authstatus==1 }">완료</c:if> <c:if
+							<td class="col-xs-3">${member.mem_email }</td>
+							<td class="col-xs-3"><c:if test="${member.authstatus==1 }">완료</c:if> <c:if
 									test="${member.authstatus==0 }">미완료</c:if></td>
-							<td><a
-								href="<c:url value="/adminPage/deleteMember/${member.mem_num }"/>"><button>강제
-										탈퇴</button></a></td>
+							<td class="col-xs-3">
+							<a href="<c:url value="/adminPage/deleteMember/${member.mem_num }"/>"><button>강제
+										탈퇴</button></a>
+							</td>
 						</tr>
+						
 					</c:forEach>
+					</tbody>
 				</c:if>
 
 			</table>
-		</dd>
-
-		<dt>총 평가</dt>
-		<dd class="hidden">
+			
+		</div>
+		 
+        <div class="tabcontent">
 			총 평가 수 :
-			<div id="starcount" name="starcount" value="${starcount}">${starcount}</div>
-			<table border="1">
+			<div style="display:inline;" id="starcount" name="starcount" value="${starcount}">${starcount}</div>
+			<table class="table table-fixed">
+			<thead>
 				<tr>
 					<th>회원 아이디</th>
 					<th>책 제목</th>
@@ -126,6 +135,7 @@ dd.hidden {
 					<th>별점</th>
 
 				</tr>
+				</thead>
 				<tbody id="dynamicTbody">
 
 				</tbody>
@@ -139,20 +149,40 @@ dd.hidden {
 
 
 			</table>
-		</dd>
-
-		<dt>총 코멘트</dt>
-		<dd class="hidden">
-			
-				코멘트 검색 &nbsp:&nbsp <select name="coOption" id="coOption">
+		</div>
+		
+        <div class="tabcontent">
+		
+		<div class="row justify-content-center">
+                        <div class="col-12 col-md-10 col-lg-8">
+                            <form class="card card-sm">
+                                <div class="card-body row no-gutters align-items-center">
+                                <select name="coOption" id="coOption">
 					<option value="mem_id">회원 아이디</option>
 					<option value="comment">코멘트</option>
-				</select> <input type="text" name="coKeyword" id="coKeyword"
-					placeholder="회원 아이디, 코멘트 내용으로 검색" style="width: 30%;"> <input
-					type="button" value="검색" onClick="javascript:CommentStopPage()"/>
+				</select> 
+                                    <div style="display:inline;" class="col-auto">
+                                        <i class="fas fa-search h4 text-body"></i>
+                                    </div>
+                                    <!--end of col-->
+                                    <div style="display:inline;" class="col">
+                                        <input class="form-control form-control-sm form-control-borderless" type="search" name="coKeyword" id="coKeyword" placeholder="회원 아이디, 코멘트 내용으로 검색">
+                                    </div>
+                                    <!--end of col-->
+                                    <div class="col-auto">
+                                        <button class="btn btn-sm" style="background-color: #8080ff;" type="button" onClick="javascript:CommentStopPage()">검색</button>
+                                    </div>
+                                    <!--end of col-->
+                                </div>
+                            </form>
+                        </div>
+                        <!--end of col-->
+                    </div>
 
-			총 코멘트 수 : ${commentcount}
-			<table border="1">
+
+			<br>총 코멘트 수 : ${commentcount}
+			<table class="table table-fixed">
+			 <thead>
 				<tr>
 					<th>회원 아이디</th>
 					<th>책 제목</th>
@@ -161,35 +191,51 @@ dd.hidden {
 					<th>코멘트</th>
 					<th>코멘트 강제 삭제</th>
 				</tr>
-
+				</thead>
 				<tbody id="dynamicTbody2">
 
 				</tbody>
-				<tbody id="test">
-
-				</tbody>
+				
 				<c:if test="${! empty searchApprList }">
 					<tbody id="dynamicTbody2">
 
 					</tbody>
 				</c:if>
 			</table>
-		</dd>
-
-		<dt>관리자 정보</dt>
-		<dd class="hidden">
-			
-				가입 관리자 검색 &nbsp:&nbsp <select name="admOption" id="admOption">
+		</div>
+		
+		<div class="tabcontent">			
+			<div class="row justify-content-center">
+                        <div class="col-12 col-md-10 col-lg-8">
+                            <form class="card card-sm">
+                                <div class="card-body row no-gutters align-items-center">
+                                <select name="admOption" id="admOption">
 					<option value="adm_num">관리자 번호</option>
 					<option value="adm_name">관리자 이름</option>
 					<option value="adm_email">관리자 이메일</option>
-				</select> <input type="text" name="admKeyword" id="admKeyword"
-					placeholder="관리자 번호, 이름, 이메일로 검색" style="width: 30%;"> <input
-					type="button" value="검색" onClick="javascript:AdmStopPage()">
-			
+				</select>
+                                    <div style="display:inline;" class="col-auto">
+                                        <i class="fas fa-search h4 text-body"></i>
+                                    </div>
+                                    <!--end of col-->
+                                    <div style="display:inline;" class="col">
+                                        <input class="form-control form-control-sm form-control-borderless" type="search" name="admKeyword" id="admKeyword"	placeholder="관리자 번호, 이름, 이메일로 검색">
+                                    </div>
+                                    <!--end of col-->
+                                    <div class="col-auto">
+                                        <button class="btn btn-sm" style="background-color: #8080ff;" type="button" onClick="javascript:AdmStopPage()">검색</button>
+                                    </div>
+                                    <!--end of col-->
+                                </div>
+                            </form>
+                        </div>
+                        <!--end of col-->
+                    </div>
 
-			가입 관리자 수 : ${admcount} <br> 관리자 코드 : ABC
-			<table border="1">
+			<br>가입 관리자 수 : ${admcount} 
+			<br> 관리자 코드 : ABC
+			<table class="table table-fixed">
+			 <thead>
 				<tr>
 					<th>관리자 번호</th>
 					<th>이름</th>
@@ -198,6 +244,7 @@ dd.hidden {
 					<th>이메일</th>
 					<th>이메일 인증 완료 여부</th>
 				</tr>
+				</thead>
 				<tbody id="Tbody3">
 
 					
@@ -230,19 +277,34 @@ dd.hidden {
 				</c:if>
 				</tbody>
 			</table>
-		</dd>
-	</dl>
+		</div>
+    </div> 
+</div>
+
+	
 
 	<script src="http://code.jquery.com/jquery-3.5.1.js"
 		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 		crossorigin="anonymous"></script>
 
 	<script>
-		var $menuEle = $('dt'); // 탭메뉴를 변수에 지정
-		$menuEle.click(function() { // 탭메뉴 클릭 이벤트
-			$('dd').addClass('hidden');
-			$(this).next().removeClass('hidden');
-		});
+	var tabs = document.getElementById('icetab-container').children;
+	var tabcontents = document.getElementById('icetab-content').children;
+	var myFunction = function() {
+		var tabchange = this.mynum;
+		for(var int=0;int<tabcontents.length;int++){
+			tabcontents[int].className = ' tabcontent';
+			tabs[int].className = ' icetab';
+		}
+		tabcontents[tabchange].classList.add('tab-active');
+		this.classList.add('current-tab');
+	}	
+	for(var index=0;index<tabs.length;index++){
+		tabs[index].mynum=index;
+		tabs[index].addEventListener('click', myFunction, false);
+	}
+	</script>
+	<script>
 	
 		
 		function bookinfo(isbn, mem_id, star) {
@@ -258,7 +320,6 @@ dd.hidden {
 					Authorization : "KakaoAK 6f9ab74953bbcacc4423564a74af264e"
 				}
 			})
-
 			.done(function(msg) { //검색 결과 담기 / [응답]
 				console.log(msg);
 				var html='';
@@ -287,7 +348,6 @@ dd.hidden {
 					Authorization : "KakaoAK 6f9ab74953bbcacc4423564a74af264e"
 				}
 			})
-
 			.done(function(msg) { //검색 결과 담기 / [응답]
 				console.log(msg);
 				var html='';
@@ -329,7 +389,6 @@ dd.hidden {
 			</c:if>
 		</c:forEach>
 		
-
 	});
 	</script>
 	<script>
@@ -361,7 +420,6 @@ function CommentStopPage(){
 		    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);}
 });
 };
-
 function AdmStopPage(){
 	
 	let admOption=$("#admOption").val();

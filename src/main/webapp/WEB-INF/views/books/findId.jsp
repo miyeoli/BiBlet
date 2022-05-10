@@ -7,29 +7,38 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminbootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/registPage.css" type="text/css">
 <title>아이디 찾기</title>
 </head>
-
-<script src="https://code.jquery.com/jquery-3.6.0.js"
-	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-	crossorigin="anonymous"></script>
-</head>
 <body>
-
-	<form method="post">
-	
-	<h2>아이디 찾기</h2>
-		<div>
-			<p>
-				<label>ID 검색을 위한 이메일 입력 : </label>
-				<input type="text" id="mem_email" name="mem_email">
-			</p>
-			<p>
-				<button type="submit" id=findBtn>확인</button>
-				<button type="button" onclick="history.go(-1);">메인 페이지</button>
-			</p>
-		</div>
-	</form>
+<div class="container">
+<div class="row d-flex justify-content-center mt-5">
+<div class="col-12 col-md-8 col-lg-6 col-xl-5">
+<div class="card py-3 px-2">
+	<p class="text-center mb-3 mt-2">FIND ID</p>
+			
+			
+			<form class="myform" method="post">
+					<div class="form-group">
+						<p>
+							<label>ID 검색을 위한 이메일 입력 : </label>
+							<input type="text" id="mem_email" name="mem_email">
+						</p>
+ 					</div>
+ 	
+ 					<div class="form-group mt-3" style = "text-align:center;">
+ 						<button type="submit" id=findBtn class="btn btn-block btn-primary">FIND</button>
+ 						<button type="button" class="btn btn-block btn-primary" onClick="location.href = '/'">Main</button>
+ 					</div>
+ 						
+			</form>
+			
+		
+</div>
+</div>
+</div>
+</div>
 
 </body>
 </html>

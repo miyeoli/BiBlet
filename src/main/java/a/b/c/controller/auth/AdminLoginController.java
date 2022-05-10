@@ -30,17 +30,12 @@ public class AdminLoginController {
      */
     @GetMapping("/login")
     public String adminLoginForm (
-            @Valid CommandAdminLogin adminLoginCommand, HttpSession session,
+            CommandAdminLogin adminLoginCommand, HttpSession session,
             @CookieValue(value = "REMEMBER", required = false) Cookie rememberCookie) throws Exception {
 
-        AdministratorVO adminAuthInfo = null;
-        if (session != null) {
-            session.getAttribute("adminAuthInfo");
-        }
-
-        if (adminAuthInfo != null) {
-            return "redirect:/Main";
-        }
+        if (session != null && session.getAttribute("adminAuthInfo") != null) {
+			return "redirect:/adminPage";
+		}
 
         if (rememberCookie != null) {
             adminLoginCommand.setAdm_id(rememberCookie.getValue());
@@ -63,6 +58,9 @@ public class AdminLoginController {
         }
 
         try {
+        	if (session != null && session.getAttribute("adminAuthInfo") != null) {
+    			return "redirect:/adminPage";
+    		}
             /**
              * 관리자 인증
              */

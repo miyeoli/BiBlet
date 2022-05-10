@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import a.b.c.model.AllCommentCmd;
 import a.b.c.model.CommandLogin;
@@ -61,7 +62,13 @@ public class MainController {
 			
 			return "LoginMain";
 		}
-		
-		
 	}
+	
+	@GetMapping("/search")
+	public String search(@RequestParam(defaultValue = "") String query, Model model) {
+		model.addAttribute("query", query);
+		return "search";
+	}
+	
+	
 }

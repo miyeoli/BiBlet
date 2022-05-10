@@ -49,6 +49,7 @@ public class MemberRegisterController {
 			/**
 			 * 회원가입
 			 */
+			
 			registerService.memRegister(member);
 
 			/**

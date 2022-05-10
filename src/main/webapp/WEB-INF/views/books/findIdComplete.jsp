@@ -7,21 +7,37 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/adminbootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/registPage.css" type="text/css">
 <title>아이디 찾기</title>
 </head>
 <body>
-
-	<h3>아이디 찾기 검색결과</h3>
+<div class="container">
+<div class="row d-flex justify-content-center mt-5">
+<div class="col-12 col-md-8 col-lg-6 col-xl-5">
+<div class="card py-3 px-2">
+	<p class="text-center mb-3 mt-2">FIND ID</p>
 			
-	<div>
-		<h5>
-			${findedId}
-		</h5>
-		<p>
-			<button type="button" id=loginBtn onclick="location.href='loginForm'">Login</button>
-			<button type="button" onclick="history.go(-1);">Cancel</button>
-		</p>
-	</div>
-	
+			
+			<form class="myform">
+					<div class="form-group">
+						<p>
+							<label>ID : </label>
+							${findedId}
+						</p>
+ 					</div>
+ 	
+ 					<div class="form-group mt-3" style = "text-align:center;">
+ 						<button type="button" id=loginBtn class="btn btn-block btn-primary" onclick="location.href='login'">Login</button>
+						<button type="button" class="btn btn-block btn-primary" onclick="history.go(-1);">Cancel</button>
+ 					</div>
+ 						
+			</form>
+			
+		
+</div>
+</div>
+</div>
+</div>
 </body>
 </html>

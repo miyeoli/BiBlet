@@ -7,28 +7,50 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>회원정보 관리페이지</title>
-</head>
-
-<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-	crossorigin="anonymous"></script>
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/resources/css/appraisalbootstrap.min.css">
 </head>
 <body>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+		crossorigin="anonymous">
+</script>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="/">BiBlet</a>
+		</div>
+	</nav>
 
-	<c:if test="${!empty myInfo}">
-			<table border="1">
-				<tr>
-					<td>  기존 비밀번호 : 
-						<input type="password" name="passCheck" id="passCheck" placeholder="한글 6자, 영문20자 이내">
-						<input type="hidden" name="mem_pass" id="mem_pass" value="${myInfo.mem_pass}" />
-						<input type="button" value="비밀번호 확인" onClick="passCheck(${myInfo.mem_num})">				
-						
-					</td>
-				</tr>
-			</table>
-	</c:if>		
-		
-<script>
+	<div class="container">
+		<div class="row d-flex justify-content-center mt-5">
+			<div class="col-12 col-md-8 col-lg-6 col-xl-5">
+				<div class="card py-3 px-2">
+					<h6 class="text-center text-secondary">회원탈퇴</h6>
+					
+					<div class="input-group flex-nowrap">
+						<span class="input-group-text" id="addon-wrapping">기존 비밀번호</span>
+						<div id="u${myInfo.mem_num}">
+							<input type="password" class="form-control"
+								placeholder="Password"
+								onKeyUp="javascript:fnChkByte(this,'50','byteInfo')"
+								aria-label="Userpassword" limitbyte="100"
+								aria-describedby="addon-wrapping" name="passCheck"
+								id="passCheck">
+						</div>
+						<input type="hidden" name="mem_pass" id="mem_pass"
+							value="${myInfo.mem_pass}" /> <input type="button"
+							class="btn btn-outline-primary" value="비밀번호 확인"
+							onClick="passCheck(${myInfo.mem_num})">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
 	//	# 비밀번호 확인
 	function passCheck(mem_num){
 			
@@ -85,6 +107,6 @@
 				
 			
 		
-	</script>		
+	</script>
 </body>
 </html>

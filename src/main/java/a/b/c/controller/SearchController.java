@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/search")
 public class SearchController {
 	
-	@GetMapping
+	@GetMapping("/search")
 	public String search(@RequestParam(defaultValue = "") String query, Model model) {
 		model.addAttribute("query", query);
-		return "common/search";
+		return "search";
 	}
 
 }
